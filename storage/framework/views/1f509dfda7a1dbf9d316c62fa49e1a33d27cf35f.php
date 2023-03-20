@@ -142,6 +142,30 @@
 <?php endif; ?>
             </div>
         </div>
+        <?php if(Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature()): ?>
+            <div class="mt-6">
+                <label class="flex items-start">
+                    <input type="checkbox" class="form-checkbox mt-1" name="terms" id="terms" />
+                    <span class="text-sm ml-2">
+                        <?php echo __('I agree to the :terms_of_service and :privacy_policy', [
+                            'terms_of_service' =>
+                                '<a target="_blank" href="' .
+                                route('terms.show') .
+                                '" class="text-sm underline hover:no-underline">' .
+                                __('Terms of Service') .
+                                '</a>',
+                            'privacy_policy' =>
+                                '<a target="_blank" href="' .
+                                route('policy.show') .
+                                '" class="text-sm underline hover:no-underline">' .
+                                __('Privacy Policy') .
+                                '</a>',
+                        ]); ?>
+
+                    </span>
+                </label>
+            </div>
+        <?php endif; ?>
         <div class="flex items-center justify-between mt-6">
             <div class="mr-1">
                 <label class="flex items-center" name="newsletter" id="newsletter">
@@ -165,21 +189,8 @@
 <?php if (isset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4)): ?>
 <?php $component = $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4; ?>
 <?php unset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4); ?>
-<?php endif; ?>                
+<?php endif; ?>
         </div>
-            <?php if(Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature()): ?>
-                <div class="mt-6">
-                    <label class="flex items-start">
-                        <input type="checkbox" class="form-checkbox mt-1" name="terms" id="terms" />
-                        <span class="text-sm ml-2">
-                            <?php echo __('I agree to the :terms_of_service and :privacy_policy', [
-                                'terms_of_service' => '<a target="_blank" href="'.route('terms.show').'" class="text-sm underline hover:no-underline">'.__('Terms of Service').'</a>',
-                                'privacy_policy' => '<a target="_blank" href="'.route('policy.show').'" class="text-sm underline hover:no-underline">'.__('Privacy Policy').'</a>',
-                            ]); ?>                        
-                        </span>
-                    </label>
-                </div>
-            <?php endif; ?>        
     </form>
     <?php if (isset($component)) { $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4 = $component; } ?>
 <?php $component = $__env->getContainer()->make(Illuminate\View\AnonymousComponent::class, ['view' => 'jetstream::components.validation-errors','data' => ['class' => 'mt-4']] + (isset($attributes) ? (array) $attributes->getIterator() : [])); ?>
@@ -195,11 +206,12 @@
 <?php if (isset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4)): ?>
 <?php $component = $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4; ?>
 <?php unset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4); ?>
-<?php endif; ?>  
+<?php endif; ?>
     <!-- Footer -->
     <div class="pt-5 mt-6 border-t border-slate-200">
         <div class="text-sm">
-            <?php echo e(__('Have an account?')); ?> <a class="font-medium text-indigo-500 hover:text-indigo-600" href="<?php echo e(route('login')); ?>"><?php echo e(__('Sign In')); ?></a>
+            <?php echo e(__('Have an account?')); ?> <a class="font-medium text-indigo-500 hover:text-indigo-600"
+                href="<?php echo e(route('login')); ?>"><?php echo e(__('Sign In')); ?></a>
         </div>
     </div>
  <?php echo $__env->renderComponent(); ?>

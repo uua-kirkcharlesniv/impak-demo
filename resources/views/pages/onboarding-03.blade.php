@@ -31,9 +31,6 @@
                                     <path d="M2.223 24.14L29.777 7.86A15.926 15.926 0 0132 16c0 8.837-7.163 16-16 16-5.864 0-10.991-3.154-13.777-7.86z" fill="url(#logo-b)" />
                                 </svg>
                             </a>
-                            <div class="text-sm">
-                                Have an account? <a class="font-medium text-indigo-500 hover:text-indigo-600" href="{{ route('login') }}">Sign In</a>
-                            </div>
                         </div>
 
                         <!-- Progress bar -->
@@ -72,6 +69,11 @@
                                         <label class="block text-sm font-medium mb-1" for="company-name">Company Name <span class="text-rose-500">*</span></label>
                                         <input id="company-name" class="form-input w-full" type="text" />
                                     </div>
+                                    <!-- Street Address -->
+                                    <div>
+                                        <label class="block text-sm font-medium mb-1" for="street">Street Address <span class="text-rose-500">*</span></label>
+                                        <input id="street" class="form-input w-full" type="text" />
+                                    </div>
                                     <!-- City and Postal Code -->
                                     <div class="flex space-x-4">
                                         <div class="flex-1">
@@ -83,18 +85,13 @@
                                             <input id="postal-code" class="form-input w-full" type="text" />
                                         </div>
                                     </div>
-                                    <!-- Street Address -->
-                                    <div>
-                                        <label class="block text-sm font-medium mb-1" for="street">Street Address <span class="text-rose-500">*</span></label>
-                                        <input id="street" class="form-input w-full" type="text" />
-                                    </div>
                                     <!-- Country -->
                                     <div>
                                         <label class="block text-sm font-medium mb-1" for="country">Country <span class="text-rose-500">*</span></label>
                                         <select id="country" class="form-select w-full">
-                                            <option>USA</option>
-                                            <option>Italy</option>
-                                            <option>United Kingdom</option>
+                                            <option>Philippines</option>
+                                            <option>United States of America</option>
+                                            <option>Vietnam</option>
                                         </select>
                                     </div>
                                 </div>

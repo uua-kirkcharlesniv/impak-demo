@@ -9,7 +9,7 @@
             
                 <!-- Left: Title -->
                 <div class="mb-4 sm:mb-0">
-                    <h1 class="text-2xl md:text-3xl text-slate-800 font-bold">Cards ✨</h1>
+                    <h1 class="text-2xl md:text-3xl text-slate-800 font-bold">Cards <i class="fa-solid fa-credit-card"></i></h1>
                 </div>
             
                 <!-- Add card button -->
@@ -20,21 +20,6 @@
                     <span class="hidden xs:block ml-2">Add Card</span>
                 </button>
             
-            </div>
-
-            <!-- Filters -->
-            <div class="mb-5">
-                <ul class="flex flex-wrap -m-1">
-                    <li class="m-1">
-                        <button class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-transparent shadow-sm bg-indigo-500 text-white duration-150 ease-in-out">View All</button>
-                    </li>
-                    <li class="m-1">
-                        <button class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-slate-200 hover:border-slate-300 shadow-sm bg-white text-slate-500 duration-150 ease-in-out">Physical Cards</button>
-                    </li>
-                    <li class="m-1">
-                        <button class="inline-flex items-center justify-center text-sm font-medium leading-5 rounded-full px-3 py-1 border border-slate-200 hover:border-slate-300 shadow-sm bg-white text-slate-500 duration-150 ease-in-out">Virtual Cards</button>
-                    </li>
-                </ul>
             </div>
 
             <!-- Credit cards -->
@@ -63,17 +48,17 @@
                                     </g>
                                 </svg>
                                 <div>
-                                    <div class="text-sm font-medium text-slate-800">_Metal</div>
-                                    <div class="text-xs">**7328</div>
+                                    <div class="text-sm font-medium text-slate-800">Mastercard</div>
+                                    <div class="text-xs">7328</div>
                                 </div>
                             </div>
                             <!-- Name -->
                             <div class="col-span-6 order-2 sm:order-none sm:col-span-3 text-left sm:text-center lg:sidebar-expanded:hidden xl:sidebar-expanded:block">
-                                <div class="text-sm font-medium text-slate-800 truncate">Dominik Lamakani</div>
+                                <div class="text-sm font-medium text-slate-800 truncate">John Doe</div>
                             </div>
                             <!-- Card limits -->
                             <div class="col-span-6 order-1 sm:order-none sm:col-span-4 text-right sm:text-center lg:sidebar-expanded:col-span-6 xl:sidebar-expanded:col-span-4">
-                                <div class="text-sm">$780,00 / $20,000</div>
+                                <div class="text-sm">$19 / monthly</div>
                             </div>
                             <!-- Card status -->
                             <div class="col-span-6 order-2 sm:order-none sm:col-span-2 text-right lg:sidebar-expanded:hidden xl:sidebar-expanded:block">
@@ -107,17 +92,17 @@
                                     </g>
                                 </svg>
                                 <div>
-                                    <div class="text-sm font-medium text-slate-800">_Virtual</div>
-                                    <div class="text-xs">**7377</div>
+                                    <div class="text-sm font-medium text-slate-800">Mastercard</div>
+                                    <div class="text-xs">8891</div>
                                 </div>
                             </div>
                             <!-- Name -->
                             <div class="col-span-6 order-2 sm:order-none sm:col-span-3 text-left sm:text-center lg:sidebar-expanded:hidden xl:sidebar-expanded:block">
-                                <div class="text-sm font-medium text-slate-800 truncate">Dominik Lamakani</div>
+                                <div class="text-sm font-medium text-slate-800 truncate">John Doe</div>
                             </div>
                             <!-- Card limits -->
                             <div class="col-span-6 order-1 sm:order-none sm:col-span-4 text-right sm:text-center lg:sidebar-expanded:col-span-6 xl:sidebar-expanded:col-span-4">
-                                <div class="text-sm">$0 / $20,000</div>
+                                <div class="text-sm"> - - </div>
                             </div>
                             <!-- Card status -->
                             <div class="col-span-6 order-2 sm:order-none sm:col-span-2 text-right lg:sidebar-expanded:hidden xl:sidebar-expanded:block">
@@ -288,34 +273,6 @@
                             </ul>
                         </div>
 
-                        <!-- Payment Limits -->
-                        <div class="mt-6">
-                            <div class="text-sm font-semibold text-slate-800 mb-4">Payment Limits</div>
-                            <div class="pb-4 border-b border-slate-200">
-                                <div class="flex justify-between text-sm mb-2">
-                                    <div>Spent This Month</div>
-                                    <div class="italic">$750,00 <span class="text-slate-400">/</span> $1,500.00</div>
-                                </div>
-                                <div class="relative w-full h-2 bg-slate-300">
-                                    <div class="absolute inset-0 bg-emerald-500" aria-hidden="true" style="width: 50%;"></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Withdrawal Limits -->
-                        <div class="mt-6">
-                            <div class="text-sm font-semibold text-slate-800 mb-4">Withdrawal Limits</div>
-                            <div class="pb-4 border-b border-slate-200">
-                                <div class="flex justify-between text-sm mb-2">
-                                    <div>Withdrawn This Month</div>
-                                    <div class="italic">$100,00 <span class="text-slate-400">/</span> $1,500.00</div>
-                                </div>
-                                <div class="relative w-full h-2 bg-slate-300">
-                                    <div class="absolute inset-0 bg-emerald-500" aria-hidden="true" style="width: 7.5%;"></div>
-                                </div>
-                            </div>
-                        </div>
-
                         <!-- Edit / Delete -->
                         <div class="flex items-center space-x-3 mt-6">
                             <div class="w-1/2">
@@ -323,7 +280,7 @@
                                     <svg class="w-4 h-4 fill-current text-slate-500 shrink-0" viewBox="0 0 16 16">
                                         <path d="M11.7.3c-.4-.4-1-.4-1.4 0l-10 10c-.2.2-.3.4-.3.7v4c0 .6.4 1 1 1h4c.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4l-4-4zM4.6 14H2v-2.6l6-6L10.6 8l-6 6zM12 6.6L9.4 4 11 2.4 13.6 5 12 6.6z" />
                                     </svg>
-                                    <span class="ml-2">Edit Card</span>
+                                    <span class="ml-2">Make Primary</span>
                                 </button>
                             </div>
                             <div class="w-1/2">
@@ -331,7 +288,7 @@
                                     <svg class="w-4 h-4 fill-current shrink-0" viewBox="0 0 16 16">
                                         <path d="M14.574 5.67a13.292 13.292 0 0 1 1.298 1.842 1 1 0 0 1 0 .98C15.743 8.716 12.706 14 8 14a6.391 6.391 0 0 1-1.557-.2l1.815-1.815C10.97 11.82 13.06 9.13 13.82 8c-.163-.243-.39-.56-.669-.907l1.424-1.424ZM.294 15.706a.999.999 0 0 1-.002-1.413l2.53-2.529C1.171 10.291.197 8.615.127 8.49a.998.998 0 0 1-.002-.975C.251 7.29 3.246 2 8 2c1.331 0 2.515.431 3.548 1.038L14.293.293a.999.999 0 1 1 1.414 1.414l-14 14a.997.997 0 0 1-1.414 0ZM2.18 8a12.603 12.603 0 0 0 2.06 2.347l1.833-1.834A1.925 1.925 0 0 1 6 8a2 2 0 0 1 2-2c.178 0 .348.03.512.074l1.566-1.566C9.438 4.201 8.742 4 8 4 5.146 4 2.958 6.835 2.181 8Z" />
                                     </svg>
-                                    <span class="ml-2">Block Card</span>
+                                    <span class="ml-2">Disable Card</span>
                                 </button>
                             </div>
                         </div>

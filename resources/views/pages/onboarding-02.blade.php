@@ -31,9 +31,6 @@
                                     <path d="M2.223 24.14L29.777 7.86A15.926 15.926 0 0132 16c0 8.837-7.163 16-16 16-5.864 0-10.991-3.154-13.777-7.86z" fill="url(#logo-b)" />
                                 </svg>
                             </a>
-                            <div class="text-sm">
-                                Have an account? <a class="font-medium text-indigo-500 hover:text-indigo-600" href="{{ route('login') }}">Sign In</a>
-                            </div>
                         </div>
 
                         <!-- Progress bar -->
@@ -74,8 +71,7 @@
                                                 <circle class="text-indigo-100" cx="20" cy="20" r="20" />
                                                 <path class="text-indigo-500" d="m26.371 23.749-3.742-1.5a1 1 0 0 1-.629-.926v-.878A3.982 3.982 0 0 0 24 17v-1.828A4.087 4.087 0 0 0 20 11a4.087 4.087 0 0 0-4 4.172V17a3.982 3.982 0 0 0 2 3.445v.878a1 1 0 0 1-.629.928l-3.742 1.5a1 1 0 0 0-.629.926V27a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.323a1 1 0 0 0-.629-.928Z" />
                                             </svg>
-                                            <div class="font-medium text-slate-800 mb-1">Individual</div>
-                                            <div class="text-sm">Lorem ipsum is place text commonly used.</div>
+                                            <div class="font-medium text-slate-800 mb-1">Business</div>
                                         </div>
                                         <div class="absolute inset-0 border-2 border-transparent peer-checked:border-indigo-400 rounded pointer-events-none" aria-hidden="true"></div>
                                     </label>
@@ -90,15 +86,14 @@
                                                 <path class="text-indigo-500" d="m22.371 24.749-3.742-1.5a1 1 0 0 1-.629-.926v-.878A3.982 3.982 0 0 0 20 18v-1.828A4.087 4.087 0 0 0 16 12a4.087 4.087 0 0 0-4 4.172V18a3.982 3.982 0 0 0 2 3.445v.878a1 1 0 0 1-.629.928l-3.742 1.5a1 1 0 0 0-.629.926V28a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.323a1 1 0 0 0-.629-.928Z" />
                                             </svg>
                                             <div class="font-medium text-slate-800 mb-1">Organization</div>
-                                            <div class="text-sm">Lorem ipsum is place text commonly used.</div>
                                         </div>
                                         <div class="absolute inset-0 border-2 border-transparent peer-checked:border-indigo-400 rounded pointer-events-none" aria-hidden="true"></div>
                                     </label>
                                 </div>
                                 <div class="flex items-center justify-between space-x-6 mb-8">
                                     <div>
-                                        <div class="font-medium text-slate-800 text-sm mb-1">💸 Lorem ipsum is place text commonly?</div>
-                                        <div class="text-xs">Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts.</div>
+                                        <div class="font-medium text-slate-800 text-sm mb-1">Turn on public viewing mode 👀</div>
+                                        <div class="text-xs">Your surveys will be viewable outside your company.</div>
                                     </div>
                                     <div class="flex items-center">
                                         <div class="form-switch">

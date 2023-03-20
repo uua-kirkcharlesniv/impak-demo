@@ -143,7 +143,7 @@
                                         </div>
                                         <div class="text-xs text-slate-500 font-medium">4 Aug</div>
                                     </div>
-                                    <div class="text-xs font-medium text-slate-800 truncate mb-0.5">🙌 Help us improve Mosaic by giving…</div>
+                                    <div class="text-xs font-medium text-slate-800 truncate mb-0.5">🙌 Help us improve Impak by giving…</div>
                                     <div class="text-xs whitespace-normal">Lorem ipsum dolor sit amet, consecte adipiscing elit aute irure dolor…</div>
                                 </div>
                             </button>
@@ -173,7 +173,7 @@
                                         </div>
                                         <div class="text-xs text-slate-500 font-medium">1 Aug</div>
                                     </div>
-                                    <div class="text-xs font-medium text-slate-800 truncate mb-0.5">🙌 Help us improve Mosaic by giving…</div>
+                                    <div class="text-xs font-medium text-slate-800 truncate mb-0.5">🙌 Help us improve Impak by giving…</div>
                                     <div class="text-xs whitespace-normal">Lorem ipsum dolor sit amet, consecte adipiscing elit aute irure dolor…</div>
                                 </div>
                             </button>

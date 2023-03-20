@@ -16,7 +16,7 @@
                             </div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Counterparty</div>
+                            <div class="font-semibold text-left">Payment Name</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Payment Date</div>

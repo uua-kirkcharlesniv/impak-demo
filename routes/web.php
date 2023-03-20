@@ -10,6 +10,7 @@ use App\Http\Controllers\MemberController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\CampaignController;
+use App\Http\Controllers\OnboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +25,26 @@ use App\Http\Controllers\CampaignController;
 
 Route::redirect('/', 'login');
 
-Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+Route::get('/', function () {
+    return view('home/index');
+})->name('index');    
+Route::get('/features', function () {
+    return view('home/features');
+})->name('features');
+Route::get('/pricing', function () {
+    return view('home/pricing');
+})->name('pricing');
+Route::get('/about', function () {
+    return view('home/about');
+})->name('about');
+Route::get('/contact', function () {
+    return view('home/contact');
+})->name('contact');
+Route::get('/help', function () {
+    return view('home/help');
+})->name('help');
+
+Route::middleware(['auth:sanctum', 'verified', 'auth.onboard'])->group(function () {
 
     Route::name('dashboard.')->prefix('dashboard')->group(function () {
         Route::get('/', [DashboardController::class, 'index'])->name('main');
@@ -170,18 +190,25 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/utility/knowledge-base', function () {
         return view('pages/utility/knowledge-base');
     })->name('knowledge-base');
-    Route::get('/onboarding-01', function () {
-        return view('pages/onboarding-01');
-    })->name('onboarding-01');   
-    Route::get('/onboarding-02', function () {
-        return view('pages/onboarding-02');
-    })->name('onboarding-02');   
-    Route::get('/onboarding-03', function () {
-        return view('pages/onboarding-03');
-    })->name('onboarding-03');   
-    Route::get('/onboarding-04', function () {
-        return view('pages/onboarding-04');
-    })->name('onboarding-04');
+
+    Route::withoutMiddleware(['auth.onboard'])->group(function () {
+        Route::get('/finish-onboard', [OnboardController::class, 'finishOnboard'])->name('finish-onboard');
+        Route::get('/onboarding-01', function () {
+            return view('pages/onboarding-01');
+        })->name('onboarding-01');   
+        Route::get('/onboarding-02', function () {
+            return view('pages/onboarding-02');
+        })->name('onboarding-02');   
+        Route::get('/onboarding-03', function () {
+            return view('pages/onboarding-03');
+        })->name('onboarding-03');   
+        Route::get('/onboarding-04', function () {
+            return view('pages/onboarding-04');
+        })->name('onboarding-04');
+    });
+   
+
+
     Route::get('/component/button', function () {
         return view('pages/component/button-page');
     })->name('button-page');

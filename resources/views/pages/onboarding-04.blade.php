@@ -31,9 +31,6 @@
                                     <path d="M2.223 24.14L29.777 7.86A15.926 15.926 0 0132 16c0 8.837-7.163 16-16 16-5.864 0-10.991-3.154-13.777-7.86z" fill="url(#logo-b)" />
                                 </svg>
                             </a>
-                            <div class="text-sm">
-                                Have an account? <a class="font-medium text-indigo-500 hover:text-indigo-600" href="{{ route('login') }}">Sign In</a>
-                            </div>
                         </div>
 
                         <!-- Progress bar -->
@@ -69,7 +66,7 @@
                                     <path class="text-emerald-500" d="m28.5 41-8-8 3-3 5 5 12-12 3 3z" />
                                 </svg>
                                 <h1 class="text-3xl text-slate-800 font-bold mb-8">Nice to have you, Acme Inc. 🙌</h1>
-                                <a class="btn bg-indigo-500 hover:bg-indigo-600 text-white" href="{{ route('dashboard') }}">Go To Dashboard -&gt;</a>
+                                <a class="btn bg-indigo-500 hover:bg-indigo-600 text-white" href="{{ route('finish-onboard') }}">Go To Dashboard -&gt;</a>
                             </div>
     
                         </div>

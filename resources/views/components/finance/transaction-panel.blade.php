@@ -17,7 +17,7 @@
         <div class="py-8 px-4 lg:px-8">
             <div class="max-w-sm mx-auto lg:max-w-none">
 
-                <div class="text-slate-800 font-semibold text-center mb-1">Bank Transfer</div>
+                <div class="text-slate-800 font-semibold text-center mb-1">Payment</div>
                 <div class="text-sm text-center italic">22/01/2022, 8:56 PM</div>
 
                 <!-- Details -->
@@ -46,36 +46,17 @@
                     <!-- Bottom -->
                     <div class="bg-white rounded-b-xl p-5 pt-2.5 text-sm space-y-3">
                         <div class="flex justify-between space-x-1">
-                            <span class="italic">IBAN:</span>
-                            <span class="font-medium text-slate-700 text-right">IT17 2207 1010 0504 0006 88</span>
-                        </div>
-                        <div class="flex justify-between space-x-1">
-                            <span class="italic">BIC:</span>
-                            <span class="font-medium text-slate-700 text-right">BARIT22</span>
-                        </div>
-                        <div class="flex justify-between space-x-1">
                             <span class="italic">Reference:</span>
-                            <span class="font-medium text-slate-700 text-right">Freelance Work</span>
+                            <span class="font-medium text-slate-700 text-right">Payment for March</span>
                         </div>
                         <div class="flex justify-between space-x-1">
-                            <span class="italic">Emitter:</span>
-                            <span class="font-medium text-slate-700 text-right">Acme LTD UK</span>
+                            <span class="italic">To:</span>
+                            <span class="font-medium text-slate-700 text-right">Impak</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Receipts -->
-                <div class="mt-6">
-                    <div class="text-sm font-semibold text-slate-800 mb-2">Receipts</div>
-                    <form class="rounded bg-slate-100 border border-dashed border-slate-300 text-center px-5 py-8">
-                        <svg class="inline-flex w-4 h-4 fill-slate-400 mb-3" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M8 4c-.3 0-.5.1-.7.3L1.6 10 3 11.4l4-4V16h2V7.4l4 4 1.4-1.4-5.7-5.7C8.5 4.1 8.3 4 8 4ZM1 2h14V0H1v2Z" />
-                        </svg>
-                        <label for="upload" class="block text-sm text-slate-500 italic">We accept PNG, JPEG, and PDF files.</label>
-                        <input class="sr-only" id="upload" type="file" />
-                    </form>
-                </div>
-
+              
                 <!-- Notes -->
                 <div class="mt-6">
                     <div class="text-sm font-semibold text-slate-800 mb-2">Notes</div>

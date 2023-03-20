@@ -36,7 +36,7 @@
             <div class="relative inline-flex" x-data="{ open: false }">
                 <button class="inline-flex justify-center items-center group" aria-haspopup="true" @click.prevent="open = !open" :aria-expanded="open">
                     <div class="flex items-center truncate">
-                        <span class="truncate font-medium text-indigo-500 group-hover:text-indigo-600">My Personal Account</span>
+                        <span class="truncate font-medium text-indigo-500 group-hover:text-indigo-600">{{ \Carbon\Carbon::now()->format('F') }}</span>
                         <svg class="w-3 h-3 shrink-0 ml-1 fill-current text-indigo-400" viewBox="0 0 12 12">
                             <path d="M5.9 11.4L.5 6l1.4-1.4 4 4 4-4L11.3 6z" />
                         </svg>
@@ -56,10 +56,10 @@
                 >
                     <ul>
                         <li>
-                            <a class="font-medium text-sm text-slate-600 hover:text-slate-800 flex items-center py-1 px-3" href="#0" @click="open = false" @focus="open = true" @focusout="open = false">Business Account</a>
+                            <a class="font-medium text-sm text-slate-600 hover:text-slate-800 flex items-center py-1 px-3" href="#0" @click="open = false" @focus="open = true" @focusout="open = false">{{ \Carbon\Carbon::now()->subMonth(1)->format('F') }}</a>
                         </li>
                         <li>
-                            <a class="font-medium text-sm text-slate-600 hover:text-slate-800 flex items-center py-1 px-3" href="#0" @click="open = false" @focus="open = true" @focusout="open = false">Family Account</a>
+                            <a class="font-medium text-sm text-slate-600 hover:text-slate-800 flex items-center py-1 px-3" href="#0" @click="open = false" @focus="open = true" @focusout="open = false">{{ \Carbon\Carbon::now()->subMonth(2)->format('F') }}</a>
                         </li>
                     </ul>
                 </div>

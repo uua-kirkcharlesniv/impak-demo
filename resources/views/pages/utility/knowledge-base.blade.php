@@ -405,7 +405,7 @@
                             <div class="flex flex-col h-full">
                                 <!-- Content -->
                                 <div class="grow mb-2">
-                                    <div class="font-semibold text-slate-800 mb-1">Close A Mosaic Account</div>
+                                    <div class="font-semibold text-slate-800 mb-1">Close A Impak Account</div>
                                     <div class="text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing sed do eiusmod tempor incididunt ut labore et dolore.</div>
                                 </div>
                                 <!-- Link -->

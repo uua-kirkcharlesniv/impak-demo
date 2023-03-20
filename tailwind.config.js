@@ -10,6 +10,35 @@ module.exports = {
 
     theme: {
         extend: {
+            colors: {
+                gray: {
+                  100: '#EBF1F5',
+                  200: '#D9E3EA',
+                  300: '#C5D2DC',
+                  400: '#9BA9B4',
+                  500: '#707D86',
+                  600: '#55595F',
+                  700: '#33363A',
+                  800: '#25282C',
+                  900: '#151719',
+                },
+                purple: {
+                  100: '#F4F4FF',
+                  200: '#E2E1FF',
+                  300: '#CBCCFF',
+                  400: '#ABABFF',
+                  500: '#8D8DFF',
+                  600: '#5D5DFF',
+                  700: '#4B4ACF',
+                  800: '#38379C',
+                  900: '#262668',
+                },
+            },
+            spacing: {
+                '9/16': '56.25%',
+                '3/4': '75%',
+                '1/1': '100%',
+            },
             boxShadow: {
                 DEFAULT: '0 1px 3px 0 rgba(0, 0, 0, 0.08), 0 1px 2px 0 rgba(0, 0, 0, 0.02)',
                 md: '0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -1px rgba(0, 0, 0, 0.02)',
@@ -21,6 +50,7 @@ module.exports = {
             },
             fontFamily: {
                 inter: ['Inter', 'sans-serif'],
+                'architects-daughter': ['"Architects Daughter"', 'sans-serif'],
             },
             fontSize: {
                 xs: ['0.75rem', { lineHeight: '1.5' }],
@@ -40,7 +70,19 @@ module.exports = {
             borderWidth: {
                 3: '3px',
             },
+            inset: {
+                full: '100%',
+              },
+              letterSpacing: {
+                tighter: '-0.02em',
+                tight: '-0.01em',
+                normal: '0',
+                wide: '0.01em',
+                wider: '0.02em',
+                widest: '0.4em',
+              },
             minWidth: {
+                10: '2.5rem',
                 36: '9rem',
                 44: '11rem',
                 56: '14rem',
@@ -55,6 +97,9 @@ module.exports = {
             zIndex: {
                 60: '60',
             },
+            scale: {
+                98: '.98',
+              },
         },
     },
     plugins: [

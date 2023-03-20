@@ -784,11 +784,11 @@
                                                             <path d="M31.112 31.07a10.024 10.024 0 01-4.582 2.615c-.8.205-1.64.315-2.506.315a10.007 10.007 0 01-7.553-3.426A9.943 9.943 0 0114 24c0-2.517.932-4.816 2.471-6.574A10.007 10.007 0 0124.024 14a10.024 10.024 0 017.088 2.93l-3.544 3.535A5.003 5.003 0 0024.024 19a5.006 5.006 0 00-5.012 5l.001.13A5.007 5.007 0 0024.024 29c1.384 0 2.637-.56 3.544-1.465l3.544 3.536z" fill="#6366F1" />
                                                         </svg>
                                                     </div>
-                                                    <div class="text-lg font-semibold text-slate-800">Connect Mosaic with your Cruip account</div>
+                                                    <div class="text-lg font-semibold text-slate-800">Connect Impak</div>
                                                 </div>
                                                 <!-- Modal content -->
                                                 <div class="text-sm mb-5">
-                                                    <div class="font-medium text-slate-800 mb-3">Mosaic would like to:</div>
+                                                    <div class="font-medium text-slate-800 mb-3">Impak would like to:</div>
                                                     <ul class="space-y-2 mb-5">
                                                         <li class="flex items-center">
                                                             <svg class="w-3 h-3 shrink-0 fill-current text-emerald-500 mr-2" viewBox="0 0 12 12">
@@ -815,7 +815,7 @@
                                                             <div>Suspendisse faucibus interdum</div>
                                                         </li>
                                                     </ul>
-                                                    <div class="text-xs text-slate-500">By clicking on Allow access, you authorize Mosaic to use your information in accordance with its <a class="text-indigo-500 hover:text-indigo-600" href="#0">Privacy Policy</a>. You can stop it at any time on the integrations page of your Mosaic account.</div>
+                                                    <div class="text-xs text-slate-500">By clicking on Allow access, you authorize Impak to use your information in accordance with its <a class="text-indigo-500 hover:text-indigo-600" href="#0">Privacy Policy</a>. You can stop it at any time on the integrations page of your Impak account.</div>
                                                 </div>
                                                 <!-- Modal footer -->
                                                 <div class="flex flex-wrap justify-end space-x-2">
@@ -869,7 +869,7 @@
                                 >
                                     <div class="bg-white rounded shadow-lg overflow-auto max-w-lg w-full max-h-full" @click.outside="modalOpen = false" @keydown.escape.window="modalOpen = false">
                                         <div class="relative">
-                                            <img class="w-full" src="{{ asset('images/modal-image.jpg') }}" width="460" height="200" alt="New on Mosaic" />
+                                            <img class="w-full" src="{{ asset('images/modal-image.jpg') }}" width="460" height="200" alt="New on Impak" />
                                             <!-- Close button -->
                                             <button class="absolute top-0 right-0 mt-5 mr-5 text-slate-50 hover:text-white" @click="modalOpen = false">
                                                 <div class="sr-only">Close</div>
@@ -882,7 +882,7 @@
                                             <!-- Modal header -->
                                             <div class="mb-2">
                                                 <div class="mb-3">
-                                                    <div class="text-xs inline-flex font-medium bg-indigo-100 text-indigo-600 rounded-full text-center px-2.5 py-1">New on Mosaic</div>
+                                                    <div class="text-xs inline-flex font-medium bg-indigo-100 text-indigo-600 rounded-full text-center px-2.5 py-1">New on Impak</div>
                                                 </div>
                                                 <div class="text-lg font-semibold text-slate-800">Help your team work faster with X 🏃‍♂️</div>
                                             </div>
@@ -966,7 +966,7 @@
                                                                 <div class="w-4 h-4 border-4 border-indigo-500 rounded-full mr-3"></div>
                                                                 <div class="grow">
                                                                     <div class="flex flex-wrap items-center justify-between mb-0.5">
-                                                                        <span class="font-medium text-slate-800">Mosaic Light <span class="text-xs italic text-slate-500 align-top">Current Plan</span></span>
+                                                                        <span class="font-medium text-slate-800">Impak Light <span class="text-xs italic text-slate-500 align-top">Current Plan</span></span>
                                                                         <span><span class="font-medium text-emerald-600">$39.00</span>/mo</span>
                                                                     </div>
                                                                     <div class="text-sm">2 MB · 1 member · 500 block limits</div>
@@ -980,7 +980,7 @@
                                                                 <div class="w-4 h-4 border-2 border-slate-300 rounded-full mr-3"></div>
                                                                 <div class="grow">
                                                                     <div class="flex flex-wrap items-center justify-between mb-0.5">
-                                                                        <span class="font-semibold text-slate-800">Mosaic Basic <span class="text-xs italic text-indigo-500 align-top">Best Value ✨</span></span>
+                                                                        <span class="font-semibold text-slate-800">Impak Basic <span class="text-xs italic text-indigo-500 align-top">Best Value ✨</span></span>
                                                                         <span><span class="font-medium text-emerald-600">$59.00</span>/mo</span>
                                                                     </div>
                                                                     <div class="text-sm">5 MB · 2 members · 1000 block limits</div>
@@ -994,7 +994,7 @@
                                                                 <div class="w-4 h-4 border-2 border-slate-300 rounded-full mr-3"></div>
                                                                 <div class="grow">
                                                                     <div class="flex flex-wrap items-center justify-between mb-0.5">
-                                                                        <span class="font-semibold text-slate-800">Mosaic Plus</span>
+                                                                        <span class="font-semibold text-slate-800">Impak Plus</span>
                                                                         <span><span class="font-medium text-emerald-600">$79.00</span>/mo</span>
                                                                     </div>
                                                                     <div class="text-sm">10 MB · 5 members · Unlimited block limits</div>
@@ -1003,7 +1003,7 @@
                                                         </button>
                                                     </li>
                                                 </ul>
-                                                <div class="text-xs text-slate-500">Your workspace’s Mosaic Light Plan is set to $39 per month and will renew on August 9, 2021.</div>
+                                                <div class="text-xs text-slate-500">Your workspace’s Impak Light Plan is set to $39 per month and will renew on August 9, 2021.</div>
                                             </div>
                                         </div>
                                         <!-- Modal footer -->
@@ -1092,7 +1092,7 @@
                                                             <svg class="w-4 h-4 fill-current text-slate-400 group-hover:text-white group-hover:text-opacity-50 shrink-0 mr-3" viewBox="0 0 16 16">
                                                                 <path d="M15.707 14.293v.001a1 1 0 01-1.414 1.414L11.185 12.6A6.935 6.935 0 017 14a7.016 7.016 0 01-5.173-2.308l-1.537 1.3L0 8l4.873 1.12-1.521 1.285a4.971 4.971 0 008.59-2.835l1.979.454a6.971 6.971 0 01-1.321 3.157l3.107 3.112zM14 6L9.127 4.88l1.521-1.28a4.971 4.971 0 00-8.59 2.83L.084 5.976a6.977 6.977 0 0112.089-3.668l1.537-1.3L14 6z" />
                                                             </svg>
-                                                            <span>Access Mosaic on mobile and TV</span>
+                                                            <span>Access Impak on mobile and TV</span>
                                                         </a>
                                                     </li>
                                                     <li>

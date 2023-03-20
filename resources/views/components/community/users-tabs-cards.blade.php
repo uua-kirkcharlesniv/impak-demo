@@ -68,7 +68,7 @@
         </div>
         <!-- Card footer -->
         <div class="border-t border-slate-200">
-            <a class="block text-center text-sm text-indigo-500 hover:text-indigo-600 font-medium px-3 py-4" href="{{ route('messages') }}">
+            <a class="block text-center text-sm text-indigo-500 hover:text-indigo-600 font-medium px-3 py-4" href="{{ route('profile') }}">
                 <div class="flex items-center justify-center">
                     <i class="fa-sharp fa-regular fa-eye"></i>
                     &nbsp;
