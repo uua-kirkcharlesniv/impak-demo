@@ -15,12 +15,38 @@ class CampaignController extends Controller
 
     public function view()
     {
-        abort(404);
+        return view('pages/campaign/answer/intro');  
+    }
+
+    public function answer1()
+    {
+        return view('pages/campaign/answer/dropdown');  
+    }
+
+    public function answer2()
+    {
+        return view('pages/campaign/answer/datetime');  
+    }
+
+    
+    public function answer3()
+    {
+        return view('pages/campaign/answer/text');  
+    }
+
+    public function answer4()
+    {
+        return view('pages/campaign/answer/upload');  
+    }
+
+    public function completed()
+    {
+        return view('pages/campaign/answer/completed');  
     }
 
     
     public function create()
     {
-        abort(401);
+        return view('pages/campaign/create');
     }
 }

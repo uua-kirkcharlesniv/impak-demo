@@ -84,6 +84,11 @@ Route::middleware(['auth:sanctum', 'verified', 'auth.onboard'])->group(function 
         Route::get('/', [CampaignController::class, 'index'])->name('list');
         Route::get('/create', [CampaignController::class, 'create'])->name('create');
         Route::get('/{id}', [CampaignController::class, 'view'])->name('view');
+        Route::get('/{id}/1', [CampaignController::class, 'answer1']);
+        Route::get('/{id}/2', [CampaignController::class, 'answer2']);
+        Route::get('/{id}/3', [CampaignController::class, 'answer3']);
+        Route::get('/{id}/4', [CampaignController::class, 'answer4']);
+        Route::get('/{id}/completed', [CampaignController::class, 'completed']);
     });
 
     // Route for the getting the data feed
