@@ -82,6 +82,7 @@ Route::middleware(['auth:sanctum', 'verified', 'auth.onboard'])->group(function 
 
     Route::name('survey.')->prefix('survey')->group(function () {
         Route::get('/', [CampaignController::class, 'index'])->name('list');
+        Route::get('/create', [CampaignController::class, 'create'])->name('create');
         Route::get('/{id}', [CampaignController::class, 'view'])->name('view');
     });
 

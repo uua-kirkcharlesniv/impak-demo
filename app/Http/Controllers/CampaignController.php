@@ -17,4 +17,10 @@ class CampaignController extends Controller
     {
         abort(404);
     }
+
+    
+    public function create()
+    {
+        abort(401);
+    }
 }
