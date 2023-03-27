@@ -14,13 +14,19 @@
                             <a class="inline-flex text-slate-800 hover:text-slate-900" href="#0">
                                 <h2 class="text-xl leading-snug justify-center font-semibold"><?php echo e(fake()->company()); ?></h2>
                             </a>
-                            <div class="flex items-center">
-                                <div class="flex -space-x-4">
-                                    <img class="w-10 h-10  rounded-full dark:border-gray-800" src="https://picsum.photos/70" alt="">
-                                    <img class="w-10 h-10  rounded-full dark:border-gray-800" src="https://picsum.photos/50" alt="">
-                                    <img class="w-10 h-10  rounded-full dark:border-gray-800" src="https://picsum.photos/60" alt="">
-                                    <a class="flex items-center justify-center w-10 h-10 text-xs font-medium text-white bg-gray-700 border-white rounded-full hover:bg-gray-600 dark:border-gray-800" href="#">+99</a>
-                                </div>
+                            <div class="flex shrink-0 -space-x-3 -ml-px">
+                                <a class="block" href="#">
+                                    <img class="rounded-full border-2 border-white box-content" src="https://picsum.photos/50" width="28" height="28" alt="<?php echo e($member->name); ?>" />
+                                </a>
+                                <a class="block" href="#">
+                                    <img class="rounded-full border-2 border-white box-content" src="https://picsum.photos/60" width="28" height="28" alt="<?php echo e($member->name); ?>" />
+                                </a>
+                                <a class="block" href="#">
+                                    <img class="rounded-full border-2 border-white box-content" src="https://picsum.photos/70" width="28" height="28" alt="<?php echo e($member->name); ?>" />
+                                </a>
+                                <a class="block" href="#">
+                                    <img class="rounded-full border-2 border-white box-content" src="https://picsum.photos/120" width="28" height="28" alt="<?php echo e($member->name); ?>" />
+                                </a>
                             </div>
                         </div>
                     </div>
