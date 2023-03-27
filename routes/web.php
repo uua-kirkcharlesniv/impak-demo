@@ -79,10 +79,11 @@ Route::middleware(['auth:sanctum', 'verified', 'auth.onboard'])->group(function 
         Route::get('/transactions', [TransactionController::class, 'index01'])->name('transactions');
         Route::get('/transaction-details', [TransactionController::class, 'index02'])->name('transaction-details');
     });
-    
 
-
-
+    Route::name('survey.')->prefix('survey')->group(function () {
+        Route::get('/', [CampaignController::class, 'index'])->name('list');
+        Route::get('/{id}', [CampaignController::class, 'view'])->name('view');
+    });
 
     // Route for the getting the data feed
     Route::get('/json-data-feed', [DataFeedController::class, 'getDataFeed'])->name('json_data_feed');
@@ -114,7 +115,7 @@ Route::middleware(['auth:sanctum', 'verified', 'auth.onboard'])->group(function 
     Route::get('/ecommerce/pay', function () {
         return view('pages/ecommerce/pay');
     })->name('pay');     
-    Route::get('/campaigns', [CampaignController::class, 'index'])->name('campaigns');
+
     Route::get('/community/users-tabs', [MemberController::class, 'indexTabs'])->name('users-tabs');
     Route::get('/community/users-tiles', [MemberController::class, 'indexTiles'])->name('users-tiles');
     Route::get('/community/profile', function () {

@@ -12,4 +12,9 @@ class CampaignController extends Controller
         $campaigns = Campaign::paginate(9);
         return view('pages/campaigns', compact('campaigns'));  
     }
+
+    public function view()
+    {
+        abort(404);
+    }
 }
