@@ -48,11 +48,11 @@
                 <div class="relative pt-32 pb-10 md:pt-40 md:pb-16">
 
                     <!-- Section header -->
-                    <div class="max-w-3xl mx-auto text-center pb-12 md:pb-16">
-                        <h1 class="h1 mb-4" data-aos="fade-up">Landing template for startups</h1>
-                        <p class="text-xl text-gray-400 mb-8" data-aos="fade-up" data-aos-delay="200">Our landing
-                            page template works on all devices, so you only have to set it up once, and get
-                            beautiful results forever.</p>
+                    <div class="max-w-4xl mx-auto text-center pb-12 md:pb-16">
+                        <h1 class="h1 mb-4" data-aos="fade-up">Effective surveys starts with us.                        </h1>
+                        <p class="text-xl text-gray-400 mb-8" data-aos="fade-up" data-aos-delay="200">Start creating beautiful and effective surveys, with realtime monitoring and performance overview.</p>
+
+                        @guest
                         <div class="max-w-xs mx-auto sm:max-w-none sm:flex sm:justify-center">
                             <div data-aos="fade-up" data-aos-delay="400">
                                 <a class="btn text-white bg-purple-600 hover:bg-purple-700 w-full mb-4 sm:w-auto sm:mb-0"
@@ -63,6 +63,16 @@
                                     href="/features">Learn more</a>
                             </div>
                         </div>
+                        @endguest
+                        @auth
+                        <div class="max-w-xs mx-auto sm:max-w-none sm:flex sm:justify-center">
+
+                        <div data-aos="fade-up" data-aos-delay="600">
+                            <a class="btn text-white bg-purple-600 hover:bg-purple-700 w-full mb-4 sm:w-auto sm:mb-0"
+                            href="/dashboard">Open Dashboard</a>
+                        </div>
+                        </div>
+                        @endauth
                     </div>
 
                     <!-- Hero image -->

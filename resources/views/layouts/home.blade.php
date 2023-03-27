@@ -84,6 +84,7 @@
                         </ul>
 
                         <!-- Desktop sign in links -->
+                        @guest
                         <ul class="flex grow justify-end flex-wrap items-center">
                             <li>
                                 <a class="font-medium text-purple-600 hover:text-gray-200 px-4 py-3 flex items-center transition duration-150 ease-in-out"
@@ -94,7 +95,16 @@
                                     href="/register">Sign up</a>
                             </li>
                         </ul>
-
+                        @endguest
+                        @auth
+                        <ul class="flex grow justify-end flex-wrap items-center">
+                            <li>
+                                <a class="font-medium text-white-600 hover:text-gray-200 px-4 py-3 flex items-center transition duration-150 ease-in-out"
+                        href="/login">Dashboard</a>
+                            </li>
+                        </ul>
+                        
+                        @endauth
                     </nav>
 
                     <!-- Mobile menu -->

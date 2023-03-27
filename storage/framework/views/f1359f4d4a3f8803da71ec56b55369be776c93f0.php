@@ -81,6 +81,7 @@
                         </ul>
 
                         <!-- Desktop sign in links -->
+                        <?php if(auth()->guard()->guest()): ?>
                         <ul class="flex grow justify-end flex-wrap items-center">
                             <li>
                                 <a class="font-medium text-purple-600 hover:text-gray-200 px-4 py-3 flex items-center transition duration-150 ease-in-out"
@@ -91,7 +92,16 @@
                                     href="/register">Sign up</a>
                             </li>
                         </ul>
-
+                        <?php endif; ?>
+                        <?php if(auth()->guard()->check()): ?>
+                        <ul class="flex grow justify-end flex-wrap items-center">
+                            <li>
+                                <a class="font-medium text-white-600 hover:text-gray-200 px-4 py-3 flex items-center transition duration-150 ease-in-out"
+                        href="/login">Dashboard</a>
+                            </li>
+                        </ul>
+                        
+                        <?php endif; ?>
                     </nav>
 
                     <!-- Mobile menu -->
