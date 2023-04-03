@@ -14,7 +14,7 @@
             <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
 
                 <!-- Filter button -->
-                <x-dropdown-filter align="right" />
+                <livewire:company-filter />
 
                 <!-- Datepicker built with flatpickr -->
                 <x-datepicker />

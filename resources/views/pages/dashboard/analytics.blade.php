@@ -12,6 +12,8 @@
             <!-- Right: Actions -->
             <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
 
+                <livewire:company-filter />
+
                 <!-- Datepicker built with flatpickr -->
                 <x-datepicker />
 
