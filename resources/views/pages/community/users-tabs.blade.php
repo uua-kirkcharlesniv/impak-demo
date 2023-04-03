@@ -6,7 +6,17 @@
 
             <!-- Left: Title -->
             <div class="mb-4 sm:mb-0">
-                <h1 class="text-2xl md:text-3xl text-slate-800 font-bold">Acme Inc. ✨</h1>
+                <h1 class="text-2xl md:text-3xl text-slate-800 font-bold">
+                    @if (in_array(Request::segment(1), ['employee']))
+                        Impak Company ✨
+                    @else
+                        @if (in_array(Request::segment(2), ['groups']))
+                            Acme Group ✨
+                        @else
+                            XYZ Department ✨
+                        @endif
+                    @endif
+                </h1>
             </div>
 
             <!-- Right: Actions -->
@@ -18,20 +28,27 @@
                 <!-- Add member button -->
                 <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white">
                     <svg class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
-                        <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
+                        <path
+                            d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
                     </svg>
-                    <span class="hidden xs:block ml-2">Add Member</span>
-                </button>                            
-                
+                    <span class="hidden xs:block ml-2">
+                        @if (in_array(Request::segment(1), ['employee']))
+                            Create Employee
+                        @else
+                            Add Member
+                        @endif
+                    </span>
+                </button>
+
             </div>
 
         </div>
 
         <!-- Cards -->
         <div class="grid grid-cols-12 gap-6">
-            
+
             <!-- Users cards -->
-            @foreach($members as $member)
+            @foreach ($members as $member)
                 <x-community.users-tabs-cards :member="$member" :index="$loop->index" />
             @endforeach
 
@@ -39,7 +56,7 @@
 
         <!-- Pagination -->
         <div class="mt-8">
-            {{$members->links()}}
+            {{ $members->links() }}
         </div>
 
     </div>

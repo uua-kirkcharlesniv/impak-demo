@@ -52,6 +52,14 @@ Route::middleware(['auth:sanctum', 'verified', 'auth.onboard'])->group(function 
         Route::get('/surveys', [DashboardController::class, 'index'])->name('survey');
     });
 
+    Route::name('employee.')->prefix('employee')->group(function () {
+        Route::get('/', [MemberController::class, 'indexTabs'])->name('list');
+
+        Route::get('/profile', function () {
+            return view('pages/community/profile');
+        })->name('profile');
+    });
+
     Route::name('community.')->prefix('community')->group(function () {
         Route::name('groups.')->prefix('groups')->group(function () {
             Route::get('/', [MemberController::class, 'indexTiles'])->name('list');
@@ -70,6 +78,10 @@ Route::middleware(['auth:sanctum', 'verified', 'auth.onboard'])->group(function 
         Route::get('/events', function () {
             return view('pages/community/meetups');
         })->name('events');
+
+        Route::get('/profile', function () {
+            return view('pages/community/profile');
+        })->name('profile');
     });
 
     Route::name('billing.')->prefix('billing')->group(function () {
@@ -124,9 +136,6 @@ Route::middleware(['auth:sanctum', 'verified', 'auth.onboard'])->group(function 
 
     Route::get('/community/users-tabs', [MemberController::class, 'indexTabs'])->name('users-tabs');
     Route::get('/community/users-tiles', [MemberController::class, 'indexTiles'])->name('users-tiles');
-    Route::get('/community/profile', function () {
-        return view('pages/community/profile');
-    })->name('profile');
    
     Route::get('/community/forum', function () {
         return view('pages/community/forum');
