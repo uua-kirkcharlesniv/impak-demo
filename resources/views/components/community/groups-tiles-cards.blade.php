@@ -69,7 +69,8 @@
         <div class="border-t border-slate-200">
             <div class="flex divide-x divide-slate-200r">
                 <a class="block flex-1 text-center text-sm text-indigo-500 hover:text-indigo-600 font-medium px-3 py-4"
-                    href="{{ route('community.groups.view', 1) }}">
+                @if (in_array(Request::segment(2), ['groups'])) href="{{ route('community.groups.view', 1) }}" 👥 @else href="{{ route('community.departments.view', 1) }}" 💼 @endif
+                    >
                     <div class="flex items-center justify-center">
                         <svg class="w-4 h-4 fill-current shrink-0 mr-2"
                             viewBox="0 0 490.4 490.4" xml:space="preserve">
