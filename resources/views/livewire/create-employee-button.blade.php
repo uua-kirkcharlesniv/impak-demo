@@ -83,6 +83,16 @@
                                         class="text-rose-500">*</span></label>
                                 <input id="phone" class="form-input w-full px-2 py-1" type="phone" required />
                             </div>
+                            <div class="grid gap-6 md:grid-cols-2">
+                                <div>
+                                    <label class="block text-sm font-medium mb-1">Department</label>
+                                    <livewire:department-dropdown />
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-1">Group</label>
+                                    <livewire:group-dropdown />
+                                </div>
+                            </div>
                         </div>
                     @else
                     <header class="border-dashed border-2 border-gray-400 py-12 flex flex-col justify-center items-center">
