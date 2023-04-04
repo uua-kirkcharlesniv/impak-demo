@@ -58,7 +58,17 @@
                 </form>
                 <!-- Team members -->
                 <div class="mt-4">
-                    <div class="text-xs font-semibold text-slate-400 uppercase mb-3">Team members</div>
+                    <div class="text-xs font-semibold text-slate-400 uppercase mb-3">
+                        @if (in_array(Request::segment(1), ['employee']))
+                        Company Employees ✨
+                    @else
+                        @if (in_array(Request::segment(2), ['groups']))
+                            Group Members ✨
+                        @else
+                            Department Members ✨
+                        @endif
+                    @endif
+                    </div>
                     <ul class="mb-6">
                         <li class="-mx-2">
                             <button class="w-full p-2 rounded bg-indigo-100" @click="profileSidebarOpen = false">
