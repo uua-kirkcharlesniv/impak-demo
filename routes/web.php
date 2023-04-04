@@ -64,11 +64,19 @@ Route::middleware(['auth:sanctum', 'verified', 'auth.onboard'])->group(function 
         Route::name('groups.')->prefix('groups')->group(function () {
             Route::get('/', [MemberController::class, 'indexTiles'])->name('list');
             Route::get('/{id}', [MemberController::class, 'indexTabs'])->name('view');
+            
+            Route::get('/{id}/profile', function () {
+                return view('pages/community/profile');
+            })->name('profile');
         });
 
         Route::name('departments.')->prefix('departments')->group(function () {
             Route::get('/', [MemberController::class, 'indexTiles'])->name('list');
             Route::get('/{id}', [MemberController::class, 'indexTabs'])->name('view');
+
+            Route::get('/{id}/profile', function () {
+                return view('pages/community/profile');
+            })->name('profile');
         });
 
         Route::get('/feed', function () {
@@ -79,9 +87,6 @@ Route::middleware(['auth:sanctum', 'verified', 'auth.onboard'])->group(function 
             return view('pages/community/meetups');
         })->name('events');
 
-        Route::get('/profile', function () {
-            return view('pages/community/profile');
-        })->name('profile');
     });
 
     Route::name('billing.')->prefix('billing')->group(function () {
