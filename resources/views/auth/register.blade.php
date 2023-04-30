@@ -5,6 +5,12 @@
         @csrf
         <div class="space-y-4">
             <div>
+                <x-jet-label for="company">{{ __('Company Name') }} <span class="text-rose-500">*</span></x-jet-label>
+                <x-jet-input id="company" type="text" name="company" :value="old('company')" required autofocus
+                    autocomplete="company" />
+            </div>
+
+            <div>
                 <x-jet-label for="name">{{ __('Full Name') }} <span class="text-rose-500">*</span></x-jet-label>
                 <x-jet-input id="name" type="text" name="name" :value="old('name')" required autofocus
                     autocomplete="name" />
