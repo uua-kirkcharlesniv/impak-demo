@@ -1,31 +1,20 @@
 <x-authentication-layout>
-    <h1 class="text-3xl text-slate-800 font-bold mb-6">Welcome back to {{ tenant()->company }}! ✨</h1>
+    <h1 class="text-3xl text-slate-800 font-bold mb-6">{{ __('Welcome back!') }} ✨</h1>
     @if (session('status'))
         <div class="mb-4 font-medium text-sm text-green-600">
             {{ session('status') }}
         </div>
     @endif   
     <!-- Form -->
-    <form method="POST" action="{{ route('login') }}">
+    <form method="POST" action="{{ route('sso-login') }}">
         @csrf
         <div class="space-y-4">
             <div>
-                <x-jet-label for="email" value="{{ __('Email') }}" />
-                <x-jet-input id="email" type="email" name="email" :value="old('email')" required autofocus />                
-            </div>
-            <div>
-                <x-jet-label for="password" value="{{ __('Password') }}" />
-                <x-jet-input id="password" type="password" name="password" required autocomplete="current-password" />                
+                <x-jet-label for="organization_id" value="{{ __('Organization ID') }}" />
+                <x-jet-input id="organization_id" type="text" name="organization_id" :value="old('organization_id')" required autofocus />                
             </div>
         </div>
-        <div class="flex items-center justify-between mt-6">
-            @if (Route::has('password.request'))
-                <div class="mr-1">
-                    <a class="text-sm underline hover:no-underline" href="{{ route('password.request') }}">
-                        {{ __('Forgot Password?') }}
-                    </a>
-                </div>
-            @endif            
+        <div class="flex items-center justify-between mt-6">        
             <x-jet-button class="ml-3">
                 {{ __('Sign in') }}
             </x-jet-button>            

@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\AuthenticatedSessionController;
 use Illuminate\Support\Facades\Route;
 use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
 use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
@@ -37,6 +38,18 @@ Route::middleware([
         return 'This is your multi-tenant application. The id of the current tenant is ' . tenant('id');
     });
 
+    Route::middleware('guest')->group(function () {
+        Route::get('/login', function () {
+            return view('auth/login');
+        })->name('login');
+
+        Route::post('login', [AuthenticatedSessionController::class, 'store']);
+
+    });
+    Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
+    ->name('logout');
+
+    
 
 Route::middleware(['auth:sanctum', 'verified', 'auth.onboard'])->group(function () {
 

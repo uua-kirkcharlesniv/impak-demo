@@ -18,4 +18,12 @@ class Tenant extends BaseTenant implements TenantWithDatabase
           $tenant->password = Hash::make($tenant->password);
        });
     }
+
+    public static function getCustomColumns(): array
+    {
+      return [
+         'id',
+         'organization_id',
+      ];
+   }
 }

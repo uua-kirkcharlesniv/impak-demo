@@ -17,6 +17,7 @@ class CreateTenantsTable extends Migration
     {
         Schema::create('tenants', function (Blueprint $table) {
             $table->string('id')->primary();
+            $table->bigInteger('organization_id')->unsigned()->nullable();
 
             // your custom columns may go here
 

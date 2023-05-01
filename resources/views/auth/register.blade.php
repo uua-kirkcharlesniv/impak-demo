@@ -72,7 +72,7 @@
     <div class="pt-5 mt-6 border-t border-slate-200">
         <div class="text-sm">
             {{ __('Have an account?') }} <a class="font-medium text-indigo-500 hover:text-indigo-600"
-                href="{{ route('login') }}">{{ __('Sign In') }}</a>
+                href="/sso-login">{{ __('Sign In') }}</a>
         </div>
     </div>
 </x-authentication-layout>

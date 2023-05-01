@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthenticatedSessionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DataFeedController;
 use App\Http\Controllers\DashboardController;
@@ -11,6 +12,7 @@ use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\CampaignController;
 use App\Http\Controllers\OnboardController;
+use App\Http\Controllers\RegisteredTenantController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,3 +45,11 @@ Route::get('/contact', function () {
 Route::get('/help', function () {
     return view('home/help');
 })->name('help');
+Route::get('/register', function () {
+    return view('auth/register');
+})->name('register');
+Route::post('/register', [RegisteredTenantController::class, 'store']);
+Route::get('/sso-login', function () {
+    return view('auth/sso-login');
+})->name('sso-login');
+Route::post('sso-login', [AuthenticatedSessionController::class, 'ssoLogin']);

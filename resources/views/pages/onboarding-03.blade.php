@@ -64,11 +64,6 @@
                             <!-- Form -->
                             <form>
                                 <div class="space-y-4 mb-8">
-                                    <!-- Company Name -->
-                                    <div>
-                                        <label class="block text-sm font-medium mb-1" for="company-name">Company Name <span class="text-rose-500">*</span></label>
-                                        <input id="company-name" class="form-input w-full" type="text" />
-                                    </div>
                                     <!-- Street Address -->
                                     <div>
                                         <label class="block text-sm font-medium mb-1" for="street">Street Address <span class="text-rose-500">*</span></label>
