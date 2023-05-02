@@ -71,7 +71,7 @@
                                 @endif
                                 <span class="text-rose-500">*</span>
                             </label>
-                            <livewire:employee-radio-dropdown />
+                            <livewire:employee-radio-dropdown :users="$users" />
                         </div>
                         <div>
                             <label class="block text-sm font-medium mb-1" for="name">

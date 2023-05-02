@@ -6,6 +6,7 @@
     use Illuminate\Support\Facades\Http;
     use App\Models\DataFeed;
     use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
     class DashboardController extends Controller
     {
@@ -18,8 +19,10 @@
         public function index()
         {
             $dataFeed = new DataFeed();
+            $user = Auth::user();
+            $isEmployeeOnboarded = $user->is_employee_onboarded;
 
-            return view('pages/dashboard/dashboard', compact('dataFeed'));
+            return view('pages/dashboard/dashboard', compact('dataFeed', 'isEmployeeOnboarded'));
         }
 
         /**

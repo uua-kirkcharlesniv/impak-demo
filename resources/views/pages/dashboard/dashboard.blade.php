@@ -8,7 +8,7 @@
         <div class="sm:flex sm:justify-between sm:items-center mb-8">
 
             <!-- Left: Avatars -->
-            <x-dashboard.dashboard-avatars />
+            {{-- <x-dashboard.dashboard-avatars /> --}}
 
             <!-- Right: Actions -->
             <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
@@ -26,6 +26,8 @@
                     </svg>
                     <span class="hidden xs:block ml-2">Add View</span>
                 </button>
+
+                <livewire:create-employee-button />
                 
             </div>
 
@@ -34,7 +36,7 @@
         <!-- Cards -->
         <div class="grid grid-cols-12 gap-6">
 
-            <!-- Line chart (Acme Plus) -->
+            {{-- <!-- Line chart (Acme Plus) -->
             <x-dashboard.dashboard-card-01 :dataFeed="$dataFeed" />
 
             <!-- Line chart (Acme Advanced) -->
@@ -65,9 +67,11 @@
             <x-dashboard.dashboard-card-10 />
             
             <!-- Card (Income/Expenses) -->
-            <x-dashboard.dashboard-card-11 />
+            <x-dashboard.dashboard-card-11 /> --}}
 
         </div>
 
     </div>
+
+    
 </x-app-layout>

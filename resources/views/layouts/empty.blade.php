@@ -17,9 +17,12 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-inter antialiased bg-slate-100 text-slate-600">
+        @livewireScripts
+
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  
+        <x-livewire-alert::scripts />
 
         {{ $slot }}
-
-        @livewireScripts
     </body>
 </html>

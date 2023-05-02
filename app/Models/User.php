@@ -29,6 +29,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'is_employee_onboarded',
+        'phone',
+        'dob'
     ];
 
     /**
