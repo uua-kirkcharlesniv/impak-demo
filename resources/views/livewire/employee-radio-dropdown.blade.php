@@ -21,7 +21,7 @@
                     <button tabindex="{{ $user->id }}"
                         class="flex items-center justify-between w-full hover:bg-slate-50 py-2 px-3 cursor-pointer"
                         :class="{{ $selectedUserId }} == {{ $user->id }} && 'text-indigo-500'"
-                        wire:click="selectUser({{ $user->id }})"
+                        wire:click.prevent="selectUser({{ $user->id }})"
                         @click="open = false"
                         @focus="open = true"
                         @focusout="open = false">

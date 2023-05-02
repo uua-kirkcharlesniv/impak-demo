@@ -19,8 +19,8 @@ class EmployeeRadioDropdown extends Component
     public function mount($users)
     {
         $this->users = $users;
-        $this->selectedUserId = $users->first()->id;
-        $this->selectedText = $users->first()->name;
+        $this->selectedText = 'Select a user';
+        $this->selectedUserId = -1;
     }
 
     public function selectUser($userId)

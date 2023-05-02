@@ -4,7 +4,7 @@
             class="btn w-full justify-between min-w-44 bg-white border-slate-200 hover:border-slate-300 text-slate-500 hover:text-slate-600"
             aria-label="Select date range" aria-haspopup="true" @click.prevent="open = !open" :aria-expanded="open">
             <span class="flex items-center">
-                <span>Jane Doe, John Doe, et al.</span>
+                <span>{{ $selectedText }}</span>
             </span>
             <svg class="shrink-0 ml-1 fill-current text-slate-400" width="11" height="7" viewBox="0 0 11 7">
                 <path d="M5.4 6.8L0 1.4 1.4 0l4 4 4-4 1.4 1.4z" />
@@ -18,15 +18,15 @@
             x-transition:leave-end="opacity-0" x-cloak>
             <div class="font-medium text-sm text-slate-600 divide-y divide-slate-200" x-ref="options">
                 <ul class="mb-4">
-                    @for ($i = 0; $i < rand(5, 20); $i++)
-                        <li class="py-3 px-3">
-                            <label class="flex items-center">
-                                <input type="checkbox" class="form-checkbox" {{ $i % 2 == 0 ? 'checked' : '' }} />
-                                <img class="ml-4 rounded-full w-8 h-8" src="https://picsum.photos/{{$i + 120}}" alt="Dominik McNeail">
-                                <span class="text-sm font-medium ml-2">{{ fake()->name() }}</span>
-                            </label>
-                        </li>
-                    @endfor
+                    @foreach($users as $user)
+                    <li class="py-3 px-3">
+                        <label class="flex items-center">
+                            <input type="checkbox" class="form-checkbox" wire:model="alreadyChosenIds.{{ $user->id }}" />
+                            {{-- <img class="ml-4 rounded-full w-8 h-8" src="https://picsum.photos/{{$i + 120}}" alt="Dominik McNeail"> --}}
+                            <span class="text-sm font-medium ml-2">{{ $user->name }}</span>
+                        </label>
+                    </li>
+                    @endforeach
                 </ul>
             </div>
         </div>

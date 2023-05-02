@@ -45,10 +45,10 @@
                 <div class="flex justify-center mb-2">
                     <a class="relative inline-flex items-start" href="#0">
                         <div class="absolute top-0 right-0 -mr-2 bg-white rounded-full shadow" aria-hidden="true">
-                            <span class="p-2">{{ $member->location }}</span>
+                            <span class="p-2">{{ $member->location ?? "🇵🇭" }}</span>
 
                         </div>
-                        <img class="rounded-full" src="{{ asset('images/' . $member->image) }}" width="64"
+                        <img class="rounded-full" src="https://ui-avatars.com/api/?name={{ $member->name }}" width="64"
                             height="64" alt="{{ $member->name }}" />
                     </a>
                 </div>
@@ -59,9 +59,7 @@
                 </div>
                 <div class="flex justify-center items-center"><span
                         class="text-sm font-medium text-slate-400 -mt-0.5 mr-1">
-                        @if ($index == 0) Team Leader
-                        @else
-                            Member @endif
+                       {{ $member->email }}
                     </span></div>
             </header>
             <!-- Bio -->

@@ -16,8 +16,11 @@
                 {{-- <x-search-form /> --}}
 
                 <!-- Add member button -->
-                <livewire:create-community-button />                                              
-                
+                @if (in_array(Request::segment(2), ['groups']))
+                <livewire:create-community-button :isDepartment="false" />                                              
+                @else
+                <livewire:create-community-button :isDepartment="true" />
+                @endif
             </div>
 
         </div>

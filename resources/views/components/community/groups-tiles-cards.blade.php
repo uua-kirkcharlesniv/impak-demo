@@ -7,26 +7,19 @@
                 <header>
                     <div class="flex mb-2">
                         <a class="relative inline-flex items-start mr-5" href="#0">
-                            <img class="rounded-full" src="https://ui-avatars.com/api/?name={{ fake()->company() }}" width="64"
+                            <img class="rounded-full" src="https://ui-avatars.com/api/?name={{ $member->name }}" width="64"
                                 height="64" alt="{{ $member->name }}" />
                         </a>
                         <div class="mt-1 pr-1">
                             <a class="inline-flex text-slate-800 hover:text-slate-900" href="#0">
-                                <h2 class="text-xl leading-snug justify-center font-semibold">{{ fake()->company() }}</h2>
+                                <h2 class="text-xl leading-snug justify-center font-semibold">{{ $member->name }}</h2>
                             </a>
                             <div class="flex shrink-0 -space-x-3 -ml-px">
+                                @foreach($member->members as $userMember)
                                 <a class="block" href="#">
-                                    <img class="rounded-full border-2 border-white box-content" src="https://picsum.photos/50" width="28" height="28" alt="{{ $member->name }}" />
+                                    <img class="rounded-full border-2 border-white box-content" src="https://ui-avatars.com/api/?name={{ $userMember->name }}" width="28" height="28" alt="{{ $member->name }}" />
                                 </a>
-                                <a class="block" href="#">
-                                    <img class="rounded-full border-2 border-white box-content" src="https://picsum.photos/60" width="28" height="28" alt="{{ $member->name }}" />
-                                </a>
-                                <a class="block" href="#">
-                                    <img class="rounded-full border-2 border-white box-content" src="https://picsum.photos/70" width="28" height="28" alt="{{ $member->name }}" />
-                                </a>
-                                <a class="block" href="#">
-                                    <img class="rounded-full border-2 border-white box-content" src="https://picsum.photos/120" width="28" height="28" alt="{{ $member->name }}" />
-                                </a>
+                                @endforeach
                             </div>
                         </div>
                     </div>
