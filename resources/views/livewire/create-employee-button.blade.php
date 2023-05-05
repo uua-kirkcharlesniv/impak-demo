@@ -81,7 +81,7 @@
                                     <input id="phone" class="form-input w-full px-2 py-1" type="phone" required wire:model="phone" />
                                     @error('phone') <span class="error">{{ $message }}</span> @enderror
                                 </div>
-                                {{-- <div class="grid gap-6 md:grid-cols-2">
+                                <div class="grid gap-6 md:grid-cols-2">
                                     <div>
                                         <label class="block text-sm font-medium mb-1">Department</label>
                                         <livewire:department-dropdown />
@@ -90,7 +90,7 @@
                                         <label class="block text-sm font-medium mb-1">Group</label>
                                         <livewire:group-dropdown />
                                     </div>
-                                </div> --}}
+                                </div>
                             </div>
                         @else
                             <header

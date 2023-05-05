@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
@@ -18,6 +19,25 @@ class CreateEmployeeButton extends Component
     public $email;
     public $phone;
     public $dob;
+
+    public $groupIds = [];
+    public $departmentId;
+
+
+    protected $listeners = [
+        'groupsSelected' => 'handleGroupsSelected',
+        'departmentSelected' => 'handleDepartmentSelected',
+    ];
+
+    public function handleGroupsSelected($usersId)
+    {
+        $this->groupIds = $usersId;
+    }
+
+    public function handleDepartmentSelected($departmentId)
+    {
+        $this->departmentId = $departmentId;
+    }
 
     protected function rules()
     {
@@ -44,6 +64,14 @@ class CreateEmployeeButton extends Component
                 'password' => Hash::make('test1234')
             ]);
             $employee->assignRole('employee');
+
+            if(count($this->groupIds) > 0) {
+                $employee->groups()->attach($this->groupIds);
+            }
+
+            if($this->departmentId != null) {
+                $employee->departments()->attach($this->departmentId);
+            }
 
             $this->reset();
 
