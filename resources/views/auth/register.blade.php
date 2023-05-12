@@ -11,9 +11,27 @@
             </div>
 
             <div>
-                <x-jet-label for="name">{{ __('Full Name') }} <span class="text-rose-500">*</span></x-jet-label>
-                <x-jet-input id="name" type="text" name="name" :value="old('name')" required autofocus
-                    autocomplete="name" />
+                <x-jet-label for="first_name">{{ __('First Name') }} <span class="text-rose-500">*</span></x-jet-label>
+                <x-jet-input id="first_name" type="text" name="first_name" :value="old('first_name')" required 
+                    autocomplete="first_name" />
+            </div>
+            <div>
+                <x-jet-label for="middle_name">{{ __('Middle Name') }}</x-jet-label>
+                <x-jet-input id="middle_name" type="text" name="middle_name" :value="old('middle_name')"
+                    autocomplete="middle_name" />
+            </div>
+
+            <div>
+                <x-jet-label for="last_name">{{ __('Last Name') }} <span class="text-rose-500">*</span></x-jet-label>
+                <x-jet-input id="last_name" type="text" name="last_name" :value="old('last_name')" required
+                    autocomplete="last_name" />
+            </div>
+
+
+            <div>
+                <x-jet-label for="phone">{{ __('Phone') }}</x-jet-label>
+                <x-jet-input id="phone" type="text" name="phone" :value="old('phone')" required
+                    autocomplete="phone" />
             </div>
 
             <div>

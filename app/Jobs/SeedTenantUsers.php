@@ -36,19 +36,19 @@ class SeedTenantUsers implements ShouldQueue
     {
         if (App::environment(['local', 'staging'])) {
             $this->tenant->run(function ($tenant) {
-                $manager = User::create([
-                    'name' => 'Manager Test',
-                    'email' => 'manager@example.com',
-                    'password' => Hash::make('password'),
-                ]);
-                $employee = User::create([
-                    'name' => 'Employee Test',
-                    'email' => 'employee@example.com',
-                    'password' => Hash::make('password'),
-                ]);
+                // $manager = User::create([
+                //     'name' => 'Manager Test',
+                //     'email' => 'manager@example.com',
+                //     'password' => Hash::make('password'),
+                // ]);
+                // $employee = User::create([
+                //     'name' => 'Employee Test',
+                //     'email' => 'employee@example.com',
+                //     'password' => Hash::make('password'),
+                // ]);
 
-                $manager->assignRole('manager');
-                $employee->assignRole('employee');
+                // $manager->assignRole('manager');
+                // $employee->assignRole('employee');
             });
         }
     }

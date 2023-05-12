@@ -28,7 +28,10 @@ class RegisterTenantRequest extends FormRequest
             'company' => 'required|string|max:255',
             'domain' => 'required|string|max:48|regex:/^[A-Za-z. -]+$/|unique:domains',
             'organization_id' => 'required|numeric|unique:tenants',
-            'name' => 'required|string|max:255',
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'middle_name' => 'nullable|string|max:255',
+            'phone' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'password' => [
                 'required', 'max:255', Password::defaults(),
