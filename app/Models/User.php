@@ -29,6 +29,12 @@ class User extends Authenticatable
         'first_name',
         'last_name',
         'middle_name',
+        'gender',
+        'date_of_hire',
+        'position',
+        'nationality',
+        'civil_status',
+        'highest_educational_attainment',
         'email',
         'password',
         'is_employee_onboarded',
@@ -64,6 +70,7 @@ class User extends Authenticatable
      */
     protected $appends = [
         'profile_photo_url',
+        'name',
     ];
 
     public function groups()
@@ -74,5 +81,10 @@ class User extends Authenticatable
     public function departments()
     {
         return $this->belongsToMany(Department::class);
+    }
+
+    public function getNameAttribute()
+    {
+        return $this->first_name . ' ' . $this->last_name;
     }
 }

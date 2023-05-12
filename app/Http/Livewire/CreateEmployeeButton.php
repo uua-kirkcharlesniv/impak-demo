@@ -15,7 +15,15 @@ class CreateEmployeeButton extends Component
 
     public $tab = 'create';
 
-    public $name;
+    public $first_name;
+    public $last_name;
+    public $middle_name;
+    public $gender = 'M';
+    public $date_of_hire;
+    public $position;
+    public $nationality;
+    public $civil_status = 'Single';
+    public $highest_educational_attainment = 'HS';
     public $email;
     public $phone;
     public $dob;
@@ -43,7 +51,15 @@ class CreateEmployeeButton extends Component
     {
         if($this->tab == 'create') {
             return [
-                'name' => 'required|min:3',
+                'first_name' => 'required|min:3',
+                'middle_name' => 'nullable|min:1',
+                'last_name' => 'required|min:1',
+                'gender' => 'required|string',
+                'date_of_hire' => 'required|date',
+                'position' => 'nullable|string|max:255',
+                'nationality' => 'nullable|string|max:255',
+                'civil_status' => 'nullable|string|max:255',
+                'highest_educational_attainment' => 'nullable|string|max:255',
                 'email' => ['required', 'email', 'unique:users,email'],
                 'phone' => 'required|numeric',
                 'dob' => 'nullable|date',
@@ -57,7 +73,15 @@ class CreateEmployeeButton extends Component
             $this->validate();
 
             $employee = User::create([
-                'name' => $this->name,
+                'first_name' => $this->first_name,
+                'last_name' => $this->last_name,
+                'middle_name' => $this->middle_name,
+                'gender' => $this->gender,
+                'date_of_hire' => $this->date_of_hire,
+                'position' => $this->position,
+                'nationality' => $this->nationality,
+                'civil_status' => $this->civil_status,
+                'highest_educational_attainment' => $this->highest_educational_attainment,
                 'email' => $this->email,
                 'phone' => $this->phone,
                 'dob' => $this->dob,

@@ -58,16 +58,80 @@
                                 <div class="font-medium text-slate-800 mb-3">Add a new member to your family 🙌</div>
                             </div>
                             <div class="space-y-3">
-                                <div>
-                                    <label class="block text-sm font-medium mb-1" for="name">Full Name<span
-                                            class="text-rose-500">*</span></label>
-                                    <input id="name" class="form-input w-full px-2 py-1" type="text" required wire:model="name" />
-                                    @error('name') <span class="error">{{ $message }}</span> @enderror
+                                <div class="flex">
+                                    <div class="flex-auto">
+                                        <label class="block text-sm font-medium mb-1" for="first_name">First Name<span
+                                                class="text-rose-500">*</span></label>
+                                        <input id="first_name" class="form-input w-full px-2 py-1" type="text" required wire:model="first_name" />
+                                        @error('first_name') <span class="error">{{ $message }}</span> @enderror
+                                    </div>
+                                    &nbsp;
+                                    <div class="flex-auto">
+                                        <label class="block text-sm font-medium mb-1" for="middle_name">Middle Name</label>
+                                        <input id="middle_name" class="form-input w-full px-2 py-1" type="text" wire:model="middle_name" />
+                                        @error('middle_name') <span class="error">{{ $message }}</span> @enderror
+                                    </div>
+                                    &nbsp;
+                                    <div class="flex-auto">
+                                        <label class="block text-sm font-medium mb-1" for="last_name">Last Name<span
+                                                class="text-rose-500">*</span></label>
+                                        <input id="last_name" class="form-input w-full px-2 py-1" type="text" required wire:model="last_name" />
+                                        @error('last_name') <span class="error">{{ $message }}</span> @enderror
+                                    </div>
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium mb-1" for="email">Date of Birth</label>
+                                    <label class="block text-sm font-medium mb-1" for="gender">Gender</label>
+                                    <select id="gender" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" wire:model="gender" required>
+                                        <option selected value="M">Male</option>
+                                        <option value="F">Female</option>
+                                        <option value="NA">I prefer not to say</option>
+                                      </select>
+                                    @error('gender') <span class="error">{{ $message }}</span> @enderror
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-1" for="dob">Date of Birth</label>
                                     <input id="dob" class="form-input w-full px-2 py-1" type="date" wire:model="dob"  />
                                     @error('dob') <span class="error">{{ $message }}</span> @enderror
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-1" for="date_of_hire">Date of Hire</label>
+                                    <input id="date_of_hire" class="form-input w-full px-2 py-1" type="date" wire:model="date_of_hire" required />
+                                    @error('date_of_hire') <span class="error">{{ $message }}</span> @enderror
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-1" for="position">Position</label>
+                                    <input id="position" class="form-input w-full px-2 py-1" type="text" required wire:model="position" />
+                                    @error('position') <span class="error">{{ $message }}</span> @enderror
+                                </div>
+                                <div class="flex">
+                                    <div>
+                                        <label class="block text-sm font-medium mb-1" for="nationality">Nationality</label>
+                                        <input id="nationality" class="form-input w-full px-2 py-2.5" type="text" required wire:model="nationality" />
+                                        @error('nationality') <span class="error">{{ $message }}</span> @enderror
+                                    </div>
+                                    &nbsp;
+                                    <div class="flex-auto">
+                                        <label class="block text-sm font-medium mb-1" for="civil_status">Civil Status</label>
+                                        <select id="civil_status" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" wire:model="civil_status">
+                                            <option value="Single">Single</option>
+                                            <option value="Married">Married</option>
+                                            <option value="Divorced">Divorced</option>
+                                            <option value="Separated">Separated</option>
+                                            <option value="Widowed">Widowed</option>
+                                          </select>
+                                        @error('civil_status') <span class="error">{{ $message }}</span> @enderror
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-1" for="highest_educational_attainment">Highest Educational Attainment</label>
+                                    <select id="highest_educational_attainment" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" wire:model="highest_educational_attainment">
+                                        <option value="HS">High-School</option>
+                                        <option value="SHS">Senior High-School</option>
+                                        <option value="UG">Undergraduate</option>
+                                        <option value="G">Graduate</option>
+                                        <option value="D">Doctoral</option>
+                                      </select>
+                                    @error('highest_educational_attainment') <span class="error">{{ $message }}</span> @enderror
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium mb-1" for="email">Email<span
