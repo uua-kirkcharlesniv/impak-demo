@@ -38,7 +38,7 @@
 
         <x-livewire-alert::scripts />
         
-        @auth
+        {{-- @auth
             @if(Auth::user()->onTrial())
             <div class="p-5 bg-lime-500">
                 Your organization is currently on trial. Please enjoy our product for free for 7 days. After that, you will need to upgrade to a paid plan to continue using our product.
@@ -50,7 +50,7 @@
                 </div>
                 @endif
             @endif
-        @endauth
+        @endauth --}}
 
         <!-- Page wrapper -->
         <div class="flex h-screen overflow-hidden">
