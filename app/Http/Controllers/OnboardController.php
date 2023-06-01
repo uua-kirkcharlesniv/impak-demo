@@ -14,6 +14,9 @@ class OnboardController extends Controller
         $user = User::findOrFail(Auth::user()->id);
         $user->is_onboarded = true;
         $user->save();
+        $user->createAsCustomer([
+            'trial_ends_at' => now()->addDays(7)
+        ]);        
 
         return redirect()->route('dashboard');
     }

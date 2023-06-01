@@ -41,7 +41,7 @@
                             <div class="text-sm mb-2">Ideal for individuals that need a custom solution with custom tools.</div>
                             <!-- Price -->
                             <div class="text-slate-800 font-bold mb-4">
-                                <span class="text-2xl">$</span><span class="text-3xl" x-text="annual ? '14' : '19'">14</span><span class="text-slate-500 font-medium text-sm">/mo</span>
+                                <span class="text-2xl">$</span><span class="text-3xl" x-text="annual ? '14' : '10'">10</span><span class="text-slate-500 font-medium text-sm">/mo</span>
                             </div>
                             <!-- CTA -->
                             <button class="btn border-slate-200 hover:border-slate-300 text-slate-600 w-full">Downgrade</button>
@@ -87,12 +87,12 @@
                                         <path d="M12 17a.833.833 0 01-.833-.833 3.333 3.333 0 00-3.334-3.334.833.833 0 110-1.666 3.333 3.333 0 003.334-3.334.833.833 0 111.666 0 3.333 3.333 0 003.334 3.334.833.833 0 110 1.666 3.333 3.333 0 00-3.334 3.334c0 .46-.373.833-.833.833z" />
                                     </svg>
                                 </div>
-                                <h3 class="text-lg text-slate-800 font-semibold">Standard</h3>
+                                <h3 class="text-lg text-slate-800 font-semibold">Pro</h3>
                             </header>
                             <div class="text-sm mb-2">Ideal for individuals that need a custom solution with custom tools.</div>
                             <!-- Price -->
                             <div class="text-slate-800 font-bold mb-4">
-                                <span class="text-2xl">$</span><span class="text-3xl" x-text="annual ? '34' : '39'">34</span><span class="text-slate-500 font-medium text-sm">/mo</span>
+                                <span class="text-2xl">$</span><span class="text-3xl" x-text="annual ? '34' : '10'">10</span><span class="text-slate-500 font-medium text-sm">/mo</span>
                             </div>
                             <!-- CTA -->
                             <button class="btn border-slate-200 bg-slate-100 text-slate-400 w-full cursor-not-allowed flex items-center" disabled>

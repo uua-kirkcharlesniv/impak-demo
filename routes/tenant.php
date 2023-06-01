@@ -16,6 +16,7 @@ use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\CampaignController;
 use App\Http\Controllers\OnboardController;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -191,8 +192,23 @@ Route::middleware(['auth:sanctum', 'verified', 'auth.onboard'])->group(function 
     Route::get('/settings/apps', function () {
         return view('pages/settings/apps');
     })->name('apps');
-    Route::get('/settings/plans', function () {
-        return view('pages/settings/plans');
+    Route::get('/settings/plans', function (Request $request) {
+        $basicPaylink = $request->user()->newSubscription('basic', $monthly = 52314)
+        ->returnTo(route('plans'))
+        ->create();
+        $proPaylink = $request->user()->newSubscription('pro', $monthly = 52319)
+        ->returnTo(route('plans'))
+        ->create();
+        $enterprisePaylink = $request->user()->newSubscription('enterprise', $monthly = 52320)
+        ->returnTo(route('plans'))
+        ->create();
+
+        return view('pages/settings/plans', [
+                'basicPaylink' => $basicPaylink,
+                'proPaylink' => $proPaylink,
+                'enterprisePaylink' => $enterprisePaylink,
+            ],
+            );
     })->name('plans');      
     Route::get('/settings/billing', function () {
         return view('pages/settings/billing');

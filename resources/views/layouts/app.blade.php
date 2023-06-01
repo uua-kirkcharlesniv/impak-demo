@@ -15,6 +15,7 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        @paddleJS
     </head>
     <body
         class="font-inter antialiased bg-slate-100 text-slate-600"
@@ -36,7 +37,20 @@
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
         <x-livewire-alert::scripts />
-
+        
+        @auth
+            @if(Auth::user()->onTrial())
+            <div class="p-5 bg-lime-500">
+                Your organization is currently on trial. Please enjoy our product for free for 7 days. After that, you will need to upgrade to a paid plan to continue using our product.
+            </div>
+            @else
+                @if(Auth::user()->subscriptions()->active()->get()->count() <= 0)
+                <div class="p-5 bg-amber-400">
+                    Your organization is currently not subscribed to any plan. Please subscribe to a plan to continue using our product.
+                </div>
+                @endif
+            @endif
+        @endauth
 
         <!-- Page wrapper -->
         <div class="flex h-screen overflow-hidden">
