@@ -74,13 +74,16 @@
                         <livewire:survey-creation-preview-screen />
                     @break
 
+                    @case('completed')
+                        <livewire:survey.published />
+                    @break
+
                     @default
-                        Default case...
                 @endswitch
             </div>
         </div>
 
-        <!-- Fixed sidebar -->
+        @if($screen == 'questions')
         <div class="w-72 flex items-center justify-center">
             <div class="flex flex-col space-y-2 w-full mr-6 ml-6">
                 @switch($screen)
@@ -96,7 +99,7 @@
                     @case('questions')
                         <div class="relative">
                             <div class="w-full bg-indigo-200 p-5 rounded-lg">
-                                <h1 class="font-bold">Impak AI, Survey Helper</h1>
+                                <h1 class="font-bold mb-4">Impak AI, Survey Helper</h1>
                                 <p>We recommend to have no more than <b>10 questions</b> mixed between opened and closed
                                     questions to allow participants to better reflect on what they achieved.</p>
                             </div>
@@ -113,9 +116,8 @@
                     @break
 
                     @default
-                        Default case...
                 @endswitch
-
+            @endif
             </div>
         </div>
     </div>

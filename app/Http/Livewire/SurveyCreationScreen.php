@@ -7,7 +7,10 @@ use Livewire\Component;
 
 class SurveyCreationScreen extends Component
 {
-    public $screen = 'setup';
+    public $screen = 'completed';
+
+    protected $listeners = ['updateParentScreen' => 'updateScreen'];
+
 
     public function updateScreen($screen)
     {
