@@ -1,7 +1,7 @@
 <x-app-layout>
-    <div class="px-4 w-full max-w-9xl mx-auto">
+    <div class="w-full">
 
-        <livewire:survey-creation-screen />
+        <livewire:manage-survey />
 
     </div>
 </x-app-layout>
