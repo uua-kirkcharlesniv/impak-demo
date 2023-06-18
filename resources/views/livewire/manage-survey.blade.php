@@ -84,7 +84,7 @@
                 </div>
             </x-survey-tab>
             <x-survey-tab title="respondents" icon="fa-users">
-                <h1>hello</h1>
+                <livewire:survey-manager.respondent.user />
             </x-survey-tab>
             <x-survey-tab title="schedule" icon="fa-calendar-days">
                 <div>
