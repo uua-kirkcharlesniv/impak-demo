@@ -229,13 +229,17 @@
                         Add Section
                     </span>
                 </button>
-                <div class="bg-white overflow-hidden rounded-md w-full mx-auto border transition-colors">
+                <div class="bg-white overflow-hidden rounded-md w-full mx-auto border transition-colors"
+                    wire:sortable="updateSectionOrder">
                     @foreach ($sections as $sectionId => $sectionData)
-                        <div class="w-full mx-auto transition-colors border-b">
+                        <div class="w-full mx-auto transition-colors border-b"
+                            wire:sortable.item="{{ $sectionId }}" wire:key="section-{{ $sectionId }}">
                             <div class="flex items-center space-x-1 group py-2 pr-4 relative">
-                                <div class="cursor-move draggable p-2 -mr-2">
-                                    <i class="fa-solid fa-grip-lines h-4 w-4 text-gray-400"></i>
-                                </div>
+                                @if ($sectionId != 'root_section')
+                                    <div class="cursor-move draggable p-2 -mr-2" wire:sortable.handle>
+                                        <i class="fa-solid fa-grip-lines h-4 w-4 text-gray-400"></i>
+                                    </div>
+                                @endif
                                 <div class="flex flex-col flex-grow truncate" x-data="{
                                     isEditing: false,
                                     focus: function() {
