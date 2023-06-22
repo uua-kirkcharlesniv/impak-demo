@@ -278,6 +278,46 @@
                                     </button>
                                 @endif
                             </div>
+                            <div class="w-full mx-auto transition-colors">
+                                @foreach ($sectionData['forms'] as $index => $form)
+                                    <div class="ml-8 flex items-center space-x-1 group py-2 pr-4 relative">
+                                        <div class="cursor-move draggable p-2 -mr-2">
+                                            <i class="fa-solid fa-grip-lines h-4 w-4 text-gray-400"></i>
+                                        </div>
+                                        <div class="flex flex-col flex-grow truncate" x-data="{
+                                            isEditing: false,
+                                            focus: function() {
+                                                const textInput = this.$refs.textInput;
+                                                textInput.focus();
+                                                textInput.select();
+                                            }
+                                        }" x-cloak>
+                                            <div tabindex="0"
+                                                class="relative max-w-full flex items-center hover:bg-gray-100 rounded px-2 cursor-pointer"
+                                                style="height: auto;" x-on:click="isEditing = true">
+                                                <div x-show=!isEditing>
+                                                    <div class="cursor-pointer max-w-full truncate w-full">
+                                                        {{ $form['title'] }}
+                                                    </div>
+                                                </div>
+                                                <div x-show=isEditing class="flex flex-col">
+                                                    <input type="text"
+                                                        class="form-input w-full px-2 border border-gray-400 text-lg shadow-inner"
+                                                        x-ref="textInput"
+                                                        wire:model="sections.{{ $sectionId }}.forms.{{ $index }}.title"
+                                                        x-on:keydown.enter="isEditing = false"
+                                                        x-on:blur="isEditing = false" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <button wire:click="deleteForm('{{ $sectionId }}', '{{ $index }}')"
+                                            class="hover:bg-nt-blue-lighter rounded transition-colors cursor-pointer p-2">
+                                            <i class="fa-regular fa-trash-can w-4 h-4 fill-current text-red-600"></i>
+                                        </button>
+                                    </div>
+                                @endforeach
+                            </div>
                         </div>
                     @endforeach
                 </div>
@@ -462,18 +502,7 @@
                     </div>
                 </div> --}}
 
-                <button
-                    class="w-full mt-4 py-2 px-4
-        bg-gray-50 border border-gray-300 hover:bg-gray-100 focus:ring-gray-500 focus:ring-offset-gray-300
-        text-gray-700 transition ease-in duration-200 text-center text-base font-medium focus:outline-none focus:ring-2
-        focus:ring-offset-2 rounded-lg flex items-center hover:no-underline"><span
-                        class="no-underline mx-auto"><svg viewBox="0 0 14 14" fill="none"
-                            xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-nt-blue inline mr-1 -mt-1">
-                            <path d="M7.00001 1.1665V12.8332M1.16667 6.99984H12.8333" stroke="currentColor"
-                                stroke-width="1.67" stroke-linecap="round" stroke-linejoin="round"></path>
-                        </svg> Add form field </span>
-                    <!---->
-                </button>
+                <livewire:survey-manager.add-block-button />
             </x-survey-tab>
             <x-survey-tab title="customization" icon="fa-bars">
 

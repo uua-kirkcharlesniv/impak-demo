@@ -16,9 +16,21 @@ class ManageSurvey extends Component
         ],
     ];
 
+    protected $listeners = ['addBlock' => 'addBlock'];
+
     public function render()
     {
         return view('livewire.manage-survey');
+    }
+
+    public function addBlock($data)
+    {
+        $sectionId = array_key_last($this->sections);
+        $blockId = Str::random(5);
+        while (array_key_exists($blockId, $this->sections[$sectionId]["forms"])) {
+            $blockId = Str::random(5);
+        }
+        $this->sections[$sectionId]["forms"][$blockId] = $data;
     }
 
     public function addSection()
@@ -38,6 +50,11 @@ class ManageSurvey extends Component
     public function deleteSection($sectionId)
     {
         unset($this->sections[$sectionId]);
+    }
+
+    public function deleteForm($sectionId, $formId)
+    {
+        unset($this->sections[$sectionId]["forms"][$formId]);
     }
 
     public function toggleVisibility($sectionId)
