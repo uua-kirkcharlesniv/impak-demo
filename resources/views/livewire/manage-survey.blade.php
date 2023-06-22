@@ -224,13 +224,64 @@
             <x-survey-tab title="form" icon="fa-clipboard-question">
                 <button
                     class="w-full mb-4 bg-transparent hover:bg-blue text-blue-dark font-semibold hover:text-black py-2 px-4 border border-blue rounded"
-                    @click.prevent="modalOpen = true" aria-controls="feedback-modal">
-
+                    wire:click="addSection">
                     <span class="hidden xs:block ml-2">
                         Add Section
                     </span>
                 </button>
+                <div class="bg-white overflow-hidden rounded-md w-full mx-auto border transition-colors">
+                    @foreach ($sections as $sectionId => $sectionData)
+                        <div class="w-full mx-auto transition-colors border-b">
+                            <div class="flex items-center space-x-1 group py-2 pr-4 relative">
+                                <div class="cursor-move draggable p-2 -mr-2">
+                                    <i class="fa-solid fa-grip-lines h-4 w-4 text-gray-400"></i>
+                                </div>
+                                <div class="flex flex-col flex-grow truncate" x-data="{
+                                    isEditing: false,
+                                    focus: function() {
+                                        const textInput = this.$refs.textInput;
+                                        textInput.focus();
+                                        textInput.select();
+                                    }
+                                }" x-cloak>
+                                    <div tabindex="0"
+                                        class="relative max-w-full flex items-center hover:bg-gray-100 rounded px-2 cursor-pointer"
+                                        style="height: auto;" x-on:click="isEditing = true">
+                                        <div x-show=!isEditing>
+                                            <div class="cursor-pointer max-w-full truncate w-full">
+                                                {{ $sectionData['name'] }}
+                                            </div>
+                                        </div>
+                                        <div x-show=isEditing class="flex flex-col">
+                                            <input type="text"
+                                                class="form-input w-full px-2 border border-gray-400 text-lg shadow-inner"
+                                                x-ref="textInput" wire:model="sections.{{ $sectionId }}.name"
+                                                x-on:keydown.enter="isEditing = false"
+                                                x-on:blur="isEditing = false" />
+                                        </div>
+                                    </div>
+                                </div>
 
+                                <button class="rounded cursor-pointer p-2"
+                                    wire:click="toggleVisibility('{{ $sectionId }}')">
+                                    @if ($sectionData['isVisible'] == true)
+                                        <i class="text-blue-500 fa-regular fa-eye h-4 w-4"></i>
+                                    @else
+                                        <i class="text-gray-500 fa-regular fa-eye-slash h-4 w-4"></i>
+                                    @endif
+                                </button>
+
+                                @if ($sectionData['isDeletable'] == true)
+                                    <button wire:click="deleteSection('{{ $sectionId }}')"
+                                        class="hover:bg-nt-blue-lighter rounded transition-colors cursor-pointer p-2">
+                                        <i class="fa-regular fa-trash-can w-4 h-4 fill-current text-red-600"></i>
+                                    </button>
+                                @endif
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+                {{-- 
                 <div class="bg-white overflow-hidden rounded-md w-full mx-auto border transition-colors">
                     <div class="w-full mx-auto transition-colors border-b">
                         <div class="flex items-center space-x-1 group py-2 pr-4 relative">
@@ -409,7 +460,7 @@
                                 </svg></button>
                         </div>
                     </div>
-                </div>
+                </div> --}}
 
                 <button
                     class="w-full mt-4 py-2 px-4
