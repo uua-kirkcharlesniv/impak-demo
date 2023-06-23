@@ -63,48 +63,44 @@
                     <div class="grid grid-cols-4 gap-4 mt-2">
                         <div role="button" class="bg-gray-50 border hover:bg-gray-100 rounded-md p-2 flex flex-col"
                             @click="modalOpen = false" wire:click="pick('short-answer')">
-                            <div class="mx-auto py-4"><svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"
-                                    class="h-8 w-8 text-gray-500">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h7">
-                                    </path>
-                                </svg></div>
+                            <div class="mx-auto my-auto py-4">
+                                <center>
+                                    <i class="fa-regular fa-font h-8 w-8 text-gray-500 fa-2xl"></i>
+                                </center>
+                            </div>
                             <p class="w-full text-xs text-gray-500 uppercase text-center font-semibold mb-4">
                                 Short Answer
                             </p>
                         </div>
                         <div role="button" class="bg-gray-50 border hover:bg-gray-100 rounded-md p-2 flex flex-col"
                             @click="modalOpen = false" wire:click="pick('long-answer')">
-                            <div class="mx-auto py-4"><svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"
-                                    class="h-8 w-8 text-gray-500">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h7">
-                                    </path>
-                                </svg></div>
+                            <div class="mx-auto my-auto py-4">
+                                <center>
+                                    <i class="fa-solid fa-comment h-8 w-8 text-gray-500 fa-2xl"></i>
+                                </center>
+                            </div>
                             <p class="w-full text-xs text-gray-500 uppercase text-center font-semibold mb-4">
                                 Long Answer
                             </p>
                         </div>
                         <div @click="modalOpen = false" wire:click="pick('date')" role="button"
                             class="bg-gray-50 border hover:bg-gray-100 rounded-md p-2 flex flex-col">
-                            <div class="mx-auto py-4"><svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"
-                                    class="h-8 w-8 text-gray-500">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h7">
-                                    </path>
-                                </svg></div>
+                            <div class="mx-auto my-auto py-4">
+                                <center>
+                                    <i class="fa-regular fa-calendar h-8 w-8 text-gray-500 fa-2xl"></i>
+                                </center>
+                            </div>
                             <p class="w-full text-xs text-gray-500 uppercase text-center font-semibold mb-4">
                                 Date
                             </p>
                         </div>
                         <div @click="modalOpen = false" wire:click="pick('time')" role="button"
                             class="bg-gray-50 border hover:bg-gray-100 rounded-md p-2 flex flex-col">
-                            <div class="mx-auto py-4"><svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"
-                                    class="h-8 w-8 text-gray-500">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h7">
-                                    </path>
-                                </svg></div>
+                            <div class="mx-auto my-auto py-4">
+                                <center>
+                                    <i class="fa-regular fa-clock h-8 w-8 text-gray-500 fa-2xl"></i>
+                                </center>
+                            </div>
                             <p class="w-full text-xs text-gray-500 uppercase text-center font-semibold mb-4">
                                 Time
                             </p>
@@ -114,36 +110,33 @@
                     <div class="grid grid-cols-4 gap-4 mt-2">
                         <div @click="modalOpen = false" wire:click="pick('checkbox')" role="button"
                             class="bg-gray-50 border hover:bg-gray-100 rounded-md p-2 flex flex-col">
-                            <div class="mx-auto py-4"><svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"
-                                    class="h-8 w-8 text-gray-500">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h7">
-                                    </path>
-                                </svg></div>
+                            <div class="mx-auto my-auto py-4">
+                                <center>
+                                    <i class="fa-regular fa-check h-8 w-8 text-gray-500 fa-2xl"></i>
+                                </center>
+                            </div>
                             <p class="w-full text-xs text-gray-500 uppercase text-center font-semibold mb-4">
                                 Multiple Choice (Checkbox)
                             </p>
                         </div>
                         <div @click="modalOpen = false" wire:click="pick('radio')" role="button"
                             class="bg-gray-50 border hover:bg-gray-100 rounded-md p-2 flex flex-col">
-                            <div class="mx-auto py-4"><svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"
-                                    class="h-8 w-8 text-gray-500">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h7">
-                                    </path>
-                                </svg></div>
+                            <div class="mx-auto my-auto py-4">
+                                <center>
+                                    <i class="fa-solid fa-circle-dot h-8 w-8 text-gray-500 fa-2xl"></i>
+                                </center>
+                            </div>
                             <p class="w-full text-xs text-gray-500 uppercase text-center font-semibold mb-4">
                                 Single Choice (Radio)
                             </p>
                         </div>
                         <div @click="modalOpen = false" wire:click="pick('likert')" role="button"
                             class="bg-gray-50 border hover:bg-gray-100 rounded-md p-2 flex flex-col">
-                            <div class="mx-auto py-4"><svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"
-                                    class="h-8 w-8 text-gray-500">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h7">
-                                    </path>
-                                </svg></div>
+                            <div class="mx-auto my-auto py-4">
+                                <center>
+                                    <i class="fa-regular fa-face-smile h-8 w-8 text-gray-500 fa-2xl"></i>
+                                </center>
+                            </div>
                             <p class="w-full text-xs text-gray-500 uppercase text-center font-semibold mb-4">
                                 Likert Scale
                             </p>
@@ -165,12 +158,11 @@
                     <div class="grid grid-cols-4 gap-4 mt-2">
                         <div @click="modalOpen = false" wire:click="pick('photo')" role="button"
                             class="bg-gray-50 border hover:bg-gray-100 rounded-md p-2 flex flex-col">
-                            <div class="mx-auto py-4"><svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"
-                                    class="h-8 w-8 text-gray-500">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h7">
-                                    </path>
-                                </svg></div>
+                            <div class="mx-auto my-auto py-4">
+                                <center>
+                                    <i class="fa-regular fa-image h-8 w-8 text-gray-500 fa-2xl"></i>
+                                </center>
+                            </div>
                             <p class="w-full text-xs text-gray-500 uppercase text-center font-semibold mb-4">
                                 Photo Upload
                             </p>
@@ -178,12 +170,11 @@
 
                         <div @click="modalOpen = false" wire:click="pick('document')" role="button"
                             class="bg-gray-50 border hover:bg-gray-100 rounded-md p-2 flex flex-col">
-                            <div class="mx-auto py-4"><svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"
-                                    class="h-8 w-8 text-gray-500">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h7">
-                                    </path>
-                                </svg></div>
+                            <div class="mx-auto my-auto py-4">
+                                <center>
+                                    <i class="fa-regular fa-file h-8 w-8 text-gray-500 fa-2xl"></i>
+                                </center>
+                            </div>
                             <p class="w-full text-xs text-gray-500 uppercase text-center font-semibold mb-4">
                                 Document Upload
                             </p>
