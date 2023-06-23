@@ -313,6 +313,10 @@
                                                         x-on:blur="isEditing = false" />
                                                 </div>
                                             </div>
+                                            <p class="text-xs text-gray-400 w-full truncate pl-2">
+                                                <span class="capitalize">{{ str_replace('-', ' ', $form['type']) }}
+                                                    Input</span>
+                                            </p>
                                         </div>
 
                                         <button wire:click="deleteForm('{{ $sectionId }}', '{{ $index }}')"
