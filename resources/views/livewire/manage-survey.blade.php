@@ -13,35 +13,39 @@
             <x-survey-tab isFirst="true" title="setup" icon="fa-screwdriver-wrench">
                 <div>
                     <label class="block text-sm font-medium mb-1" for="name">Your survey name</label>
-                    <input id="name" class="form-input w-full" type="text" placeholder="" />
+                    <input id="name" class="form-input w-full" type="text" placeholder=""
+                        wire:model.lazy="title" />
                 </div>
 
                 <div class="mt-4">
                     <label class="block text-sm font-medium mb-1" for="description">Description</label>
-                    <textarea id="description" class="form-input w-full" type="text" placeholder=""></textarea>
+                    <textarea id="description" class="form-input w-full" type="text" placeholder="" wire:model.lazy="survey_description"></textarea>
                 </div>
 
                 <div>
                     <label class="block text-sm font-medium mb-1" for="countAllowedSubmissions">Maximum number of
                         submissions</label>
-                    <input id="countAllowedSubmissions" class="form-input w-full" type="text"
-                        placeholder="Leave blank to set to 1" />
+                    <input id="countAllowedSubmissions" class="form-input w-full" type="number" min="0"
+                        max="999" wire:model.lazy="max_submissions" placeholder="Leave blank to set to 1" />
                 </div>
             </x-survey-tab>
             <x-survey-tab title="rationale" icon="fa-brain">
                 <div>
                     <label class="block text-sm font-medium mb-1" for="rationale_title">Title</label>
-                    <input id="rationale_title" class="form-input w-full" type="text" placeholder="" />
+                    <input id="rationale_title" class="form-input w-full" type="text" placeholder=""
+                        wire:model.lazy="rationale" />
                 </div>
 
                 <div class="mt-4">
                     <label class="block text-sm font-medium mb-1" for="rationale_description">Description</label>
-                    <textarea id="rationale_description" class="form-input w-full" type="text" placeholder=""></textarea>
+                    <textarea id="rationale_description" class="form-input w-full" type="text" placeholder=""
+                        wire:model.lazy="rationale_description"></textarea>
                 </div>
 
                 <div x-data="{ option: '' }">
                     <label class="block text-sm font-medium mb-1" for="survey_type">Survey Type</label>
-                    <select class="form-select w-full" id="survey_type" x-model="option">
+                    <select class="form-select w-full" id="survey_type" x-model="option" wire:model="survey_type">
+                        <option value="post_event">Post Event Survey</option>
                         <option value="needs">Needs Analysis Survey</option>
                         <option value="employee">Employee Engagement Survey</option>
                         <option value="market">Market Research Survey</option>
@@ -57,9 +61,10 @@
 
                     <div x-show="option == 'others'">
                         <input id="manual_survey_type" class="form-input w-full my-2" type="text"
-                            placeholder="Training Needs Survey" />
-                        <label class="block text-sm font-medium mb-1" for="sections">Section names</label>
-                        <input id="sections" class="form-input w-full" type="text"
+                            placeholder="Training Needs Survey" wire:model.lazy="manual_survey_type" />
+                        <label class="block text-sm font-medium mb-1" for="manual_sections">Section names</label>
+                        <input id="manual_sections" class="form-input w-full" type="text"
+                            wire:model.lazy="manual_sections"
                             placeholder="Employee Demographics, Knowledge and Skills Capacity, ..." />
                         <p id="helper-text-explanation" class="text-sm text-gray-500">Delimited by comma.</p>
                     </div>
@@ -67,8 +72,8 @@
                         <label class="block text-sm font-medium mb-1" for="sub_specialization">Sub-specialization /
                             Target Focus</label>
                         <input id="sub_specialization" class="form-input w-full" type="text"
-                            placeholder="This is optional, but would help our AI to analyze more." />
-
+                            placeholder="This is optional, but would help our AI to analyze more."
+                            wire:model.lazy="sub_specialization" />
                     </div>
 
                     <div class="container mt-4 mx-0 w-full flex flex-col items-center">

@@ -16,6 +16,21 @@ class ManageSurvey extends Component
         ],
     ];
 
+    // Setup
+    public $title = 'Untitled';
+    public $survey_description = '';
+    public $max_submissions = 1;
+
+    // Rationale
+    public $rationale = '';
+    public $rationale_description = '';
+    public $survey_type = 'post_event';
+
+    // Manual Rationale Type
+    public $manual_survey_type = '';
+    public $manual_sections = '';
+    public $sub_specialization = '';
+
     protected $listeners = ['addBlock' => 'addBlock'];
 
     public function render()
