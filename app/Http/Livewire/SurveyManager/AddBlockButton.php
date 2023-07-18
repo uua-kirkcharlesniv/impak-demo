@@ -12,6 +12,11 @@ class AddBlockButton extends Component
         return view('livewire.survey-manager.add-block-button');
     }
 
+    public function mount($section)
+    {
+        // dd($id);
+    }
+
     public function pick($type)
     {
         $title = '';
@@ -54,6 +59,8 @@ class AddBlockButton extends Component
             case 'checkbox':
                 $title = 'Checkbox Field';
 
+                $validation['min'] = 1;
+                $validation['max'] = 1;
                 $additionals['helper'] = '';
                 break;
             case 'radio':

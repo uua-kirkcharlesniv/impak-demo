@@ -1,32 +1,21 @@
-<div class="overflow-hidden">
+<div class="overflow-hidden" x-data="{ modalOpen: false }">
     <div class="h-[calc(100vh-74px)] flex">
         <!-- Fixed sidebar -->
         <div class="w-1/3 bg-white overflow-y-auto mr-2">
-            <div class="container py-5 px-10 mx-0 min-w-full flex flex-col items-center">
-                <button class="w-full btn bg-indigo-500 hover:bg-indigo-600 text-white" @click.prevent="modalOpen = true"
-                    aria-controls="feedback-modal">
-                    <span class="hidden xs:block ml-2">
-                        Save Changes
-                    </span>
-                </button>
-            </div>
             <x-survey-tab isFirst="true" title="setup" icon="fa-screwdriver-wrench">
                 <div>
                     <label class="block text-sm font-medium mb-1" for="name">Your survey name</label>
                     <input id="name" class="form-input w-full" type="text" placeholder=""
-                        wire:model.lazy="title" />
-                </div>
-
-                <div class="mt-4">
-                    <label class="block text-sm font-medium mb-1" for="description">Description</label>
-                    <textarea id="description" class="form-input w-full" type="text" placeholder="" wire:model.lazy="survey_description"></textarea>
+                        wire:model.lazy="survey.name" wire:change="onSurveyNameChanged($event.target.value)" />
                 </div>
 
                 <div>
                     <label class="block text-sm font-medium mb-1" for="countAllowedSubmissions">Maximum number of
                         submissions</label>
                     <input id="countAllowedSubmissions" class="form-input w-full" type="number" min="0"
-                        max="999" wire:model.lazy="max_submissions" placeholder="Leave blank to set to 1" />
+                        max="999" wire:model.lazy="survey.settings.limit-per-participant"
+                        wire:change="onMaxSubmissionsChanged($event.target.value)"
+                        placeholder="Leave blank to set to 1" />
                 </div>
             </x-survey-tab>
             <x-survey-tab title="rationale" icon="fa-brain">
@@ -234,17 +223,15 @@
                         Add Section
                     </span>
                 </button>
-                <div class="bg-white overflow-hidden rounded-md w-full mx-auto border transition-colors"
-                    wire:sortable="updateSectionOrder">
-                    @foreach ($sections as $sectionId => $sectionData)
-                        <div class="w-full mx-auto transition-colors border-b"
-                            wire:sortable.item="{{ $sectionId }}" wire:key="section-{{ $sectionId }}">
+                <div class="sortable bg-white overflow-hidden w-full mx-auto transition-colors" id="section-list">
+                    @foreach ($survey->sections as $index => $section)
+                        <div class="w-full mx-auto transition-colors border section-group [&:not(:last-child)]:border-b-0"
+                            wire:key="section-{{ $section->id }}">
                             <div class="flex items-center space-x-1 group py-2 pr-4 relative">
-                                @if ($sectionId != 'root_section')
-                                    <div class="cursor-move draggable p-2 -mr-2" wire:sortable.handle>
-                                        <i class="fa-solid fa-grip-lines h-4 w-4 text-gray-400"></i>
-                                    </div>
-                                @endif
+                                <div class="cursor-move draggable p-2 -mr-2">
+                                    <i class="fa-solid fa-grip-lines h-4 w-4 text-gray-400"></i>
+                                </div>
+
                                 <div class="flex flex-col flex-grow truncate" x-data="{
                                     isEditing: false,
                                     focus: function() {
@@ -258,36 +245,80 @@
                                         style="height: auto;" x-on:click="isEditing = true">
                                         <div x-show=!isEditing>
                                             <div class="cursor-pointer max-w-full truncate w-full">
-                                                {{ $sectionData['name'] }}
+                                                {{ $section->name }}
                                             </div>
                                         </div>
                                         <div x-show=isEditing class="flex flex-col">
                                             <input type="text"
                                                 class="form-input w-full px-2 border border-gray-400 text-lg shadow-inner"
-                                                x-ref="textInput" wire:model="sections.{{ $sectionId }}.name"
+                                                x-ref="textInput"
+                                                wire:model.lazy="survey.sections.{{ $index }}.name"
+                                                wire:change="onSectionNameChanged({{ $section->id }}, $event.target.value)"
                                                 x-on:keydown.enter="isEditing = false"
                                                 x-on:blur="isEditing = false" />
                                         </div>
                                     </div>
                                 </div>
 
-                                <button class="rounded cursor-pointer p-2"
-                                    wire:click="toggleVisibility('{{ $sectionId }}')">
-                                    @if ($sectionData['isVisible'] == true)
-                                        <i class="text-blue-500 fa-regular fa-eye h-4 w-4"></i>
-                                    @else
-                                        <i class="text-gray-500 fa-regular fa-eye-slash h-4 w-4"></i>
-                                    @endif
+                                <button @click.prevent="modalOpen = true"
+                                    wire:click="toggleSectionSelection({{ $section->id }})"
+                                    class="hover:bg-nt-blue-lighter rounded transition-colors cursor-pointer p-2">
+                                    <i class="fa-regular fa-add w-4 h-4 fill-current text-indigo-600"></i>
                                 </button>
 
-                                @if ($sectionData['isDeletable'] == true)
-                                    <button wire:click="deleteSection('{{ $sectionId }}')"
-                                        class="hover:bg-nt-blue-lighter rounded transition-colors cursor-pointer p-2">
-                                        <i class="fa-regular fa-trash-can w-4 h-4 fill-current text-red-600"></i>
-                                    </button>
-                                @endif
+                                <button wire:click="deleteSection('{{ $section->id }}')"
+                                    class="hover:bg-nt-blue-lighter rounded transition-colors cursor-pointer p-2">
+                                    <i class="fa-regular fa-trash-can w-4 h-4 fill-current text-red-600"></i>
+                                </button>
                             </div>
-                            <div class="w-full mx-auto transition-colors">
+                            <div class="section-group__items sortable ml-10">
+                                @foreach ($section->questions as $questionIndex => $question)
+                                    <div
+                                        class="flex items-center space-x-1 group py-2 pr-4 relative w-full mx-auto transition-colors border-t">
+                                        <div class="cursor-move draggable p-2 -mr-2">
+                                            <i class="fa-solid fa-grip-lines h-4 w-4 text-gray-400"></i>
+                                        </div>
+
+                                        <div class="flex flex-col flex-grow truncate" x-data="{
+                                            isEditing: false,
+                                            focus: function() {
+                                                const textInput = this.$refs.textInput;
+                                                textInput.focus();
+                                                textInput.select();
+                                            }
+                                        }" x-cloak>
+                                            <div tabindex="0"
+                                                class="relative max-w-full flex items-center hover:bg-gray-100 rounded px-2 cursor-pointer"
+                                                style="height: auto;" x-on:click="isEditing = true">
+                                                <div x-show=!isEditing>
+                                                    <div class="cursor-pointer max-w-full truncate w-full">
+                                                        {{ $question->content }}
+
+                                                    </div>
+                                                    <span class="text-xs text-gray-600"
+                                                        id="passwordHelp">{{ $question->formatted_type }}</span>
+                                                </div>
+                                                <div x-show=isEditing class="flex flex-col">
+                                                    <input type="text"
+                                                        class="form-input w-full px-2 border border-gray-400 text-lg shadow-inner"
+                                                        x-ref="textInput"
+                                                        wire:model.lazy="survey.sections.{{ $index }}.questions.{{ $questionIndex }}.content"
+                                                        wire:change="onQuestionNameChange({{ $question->id }}, $event.target.value)"
+                                                        x-on:keydown.enter="isEditing = false"
+                                                        x-on:blur="isEditing = false" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <button wire:click="deleteQuestion('{{ $question->id }}')"
+                                            class="hover:bg-nt-blue-lighter rounded transition-colors cursor-pointer p-2">
+                                            <i class="fa-regular fa-trash-can w-4 h-4 fill-current text-red-600"></i>
+                                        </button>
+                                    </div>
+                                @endforeach
+                            </div>
+
+                            {{-- <div class="w-full mx-auto transition-colors">
                                 @foreach ($sectionData['forms'] as $index => $form)
                                     <div class="ml-8 flex items-center space-x-1 group py-2 pr-4 relative">
                                         <div class="cursor-move draggable p-2 -mr-2">
@@ -330,7 +361,7 @@
                                         </button>
                                     </div>
                                 @endforeach
-                            </div>
+                            </div> --}}
                         </div>
                     @endforeach
                 </div>
@@ -514,8 +545,6 @@
                         </div>
                     </div>
                 </div> --}}
-
-                <livewire:survey-manager.add-block-button />
             </x-survey-tab>
             <x-survey-tab title="customization" icon="fa-bars">
 
@@ -593,9 +622,186 @@
 
         <div class="flex-1 flex overflow-hidden p-5">
             <div class="flex-1 overflow-y-auto mt-5">
-                <livewire:survey-creation-preview-screen />
+                @include('survey::standard', ['survey' => $survey])
+                {{-- <livewire:survey-creation-preview-screen /> --}}
             </div>
         </div>
 
+    </div>
+
+    <!-- Modal backdrop -->
+    <div class="fixed inset-0 bg-slate-900 bg-opacity-30 z-50 transition-opacity" x-show="modalOpen"
+        x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0"
+        x-transition:enter-end="opacity-100" x-transition:leave="transition ease-out duration-100"
+        x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" aria-hidden="true" x-cloak></div>
+    <!-- Modal dialog -->
+    <div id="feedback-modal"
+        class="fixed inset-0 z-50 overflow-hidden flex items-center my-4 justify-center px-4 sm:px-6" role="dialog"
+        aria-modal="true" x-show="modalOpen" x-transition:enter="transition ease-in-out duration-200"
+        x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0"
+        x-transition:leave="transition ease-in-out duration-200" x-transition:leave-start="opacity-100 translate-y-0"
+        x-transition:leave-end="opacity-0 translate-y-4" x-cloak>
+        <div class="bg-white rounded shadow-lg overflow-auto max-w-3xl w-full max-h-full"
+            @click.outside="modalOpen = false" @keydown.escape.window="modalOpen = false">
+            <!-- Modal header -->
+            <div class="px-5 py-3 border-slate-200">
+                <div class="flex justify-between items-center">
+                    <div class="font-semibold text-slate-800"></div>
+                    <button class="text-slate-400 hover:text-slate-500" @click="modalOpen = false">
+                        <div class="sr-only">Close</div>
+                        <svg class="w-4 h-4 fill-current">
+                            <path
+                                d="M7.95 6.536l4.242-4.243a1 1 0 111.415 1.414L9.364 7.95l4.243 4.242a1 1 0 11-1.415 1.415L7.95 9.364l-4.243 4.243a1 1 0 01-1.414-1.415L6.536 7.95 2.293 3.707a1 1 0 011.414-1.414L7.95 6.536z" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <!-- Modal content -->
+            <div class="px-5 py-4">
+                <div class="sm:flex sm:flex-col sm:items-start">
+                    <div class="flex w-full justify-center mb-4">
+                        <div class="w-14 h-14 rounded-full flex justify-center items-center bg-blue-100 text-blue-600">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                class="w-10 h-10 text-blue">
+
+                                <path fill-rule="evenodd"
+                                    d="M12 3.75a.75.75 0 01.75.75v6.75h6.75a.75.75 0 010 1.5h-6.75v6.75a.75.75 0 01-1.5 0v-6.75H4.5a.75.75 0 010-1.5h6.75V4.5a.75.75 0 01.75-.75z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="mt-3 text-center sm:mt-0 w-full">
+                        <h2 class="text-2xl font-semibold text-center text-gray-900">
+                            Choose a block to add to your form
+                        </h2>
+                    </div>
+                </div>
+                <div class="mt-2 w-full">
+                    <p class="text-gray-500 uppercase text-xs font-semibold mt-8">Text Fields</p>
+                    <div class="grid grid-cols-4 gap-4 mt-2">
+                        <div role="button" class="bg-gray-50 border hover:bg-gray-100 rounded-md p-2 flex flex-col"
+                            @click="modalOpen = false" wire:click="pick('short-answer')">
+                            <div class="mx-auto my-auto py-4">
+                                <center>
+                                    <i class="fa-regular fa-font h-8 w-8 text-gray-500 fa-2xl"></i>
+                                </center>
+                            </div>
+                            <p class="w-full text-xs text-gray-500 uppercase text-center font-semibold mb-4">
+                                Short Answer
+                            </p>
+                        </div>
+                        <div role="button" class="bg-gray-50 border hover:bg-gray-100 rounded-md p-2 flex flex-col"
+                            @click="modalOpen = false" wire:click="pick('long-answer')">
+                            <div class="mx-auto my-auto py-4">
+                                <center>
+                                    <i class="fa-solid fa-comment h-8 w-8 text-gray-500 fa-2xl"></i>
+                                </center>
+                            </div>
+                            <p class="w-full text-xs text-gray-500 uppercase text-center font-semibold mb-4">
+                                Long Answer
+                            </p>
+                        </div>
+                        <div @click="modalOpen = false" wire:click="pick('date')" role="button"
+                            class="bg-gray-50 border hover:bg-gray-100 rounded-md p-2 flex flex-col">
+                            <div class="mx-auto my-auto py-4">
+                                <center>
+                                    <i class="fa-regular fa-calendar h-8 w-8 text-gray-500 fa-2xl"></i>
+                                </center>
+                            </div>
+                            <p class="w-full text-xs text-gray-500 uppercase text-center font-semibold mb-4">
+                                Date
+                            </p>
+                        </div>
+                        <div @click="modalOpen = false" wire:click="pick('time')" role="button"
+                            class="bg-gray-50 border hover:bg-gray-100 rounded-md p-2 flex flex-col">
+                            <div class="mx-auto my-auto py-4">
+                                <center>
+                                    <i class="fa-regular fa-clock h-8 w-8 text-gray-500 fa-2xl"></i>
+                                </center>
+                            </div>
+                            <p class="w-full text-xs text-gray-500 uppercase text-center font-semibold mb-4">
+                                Time
+                            </p>
+                        </div>
+                    </div>
+                    <p class="text-gray-500 uppercase text-xs font-semibold mt-8">Choices</p>
+                    <div class="grid grid-cols-4 gap-4 mt-2">
+                        <div @click="modalOpen = false" wire:click="pick('checkbox')" role="button"
+                            class="bg-gray-50 border hover:bg-gray-100 rounded-md p-2 flex flex-col">
+                            <div class="mx-auto my-auto py-4">
+                                <center>
+                                    <i class="fa-regular fa-check h-8 w-8 text-gray-500 fa-2xl"></i>
+                                </center>
+                            </div>
+                            <p class="w-full text-xs text-gray-500 uppercase text-center font-semibold mb-4">
+                                Multiple Choice (Checkbox)
+                            </p>
+                        </div>
+                        <div @click="modalOpen = false" wire:click="pick('radio')" role="button"
+                            class="bg-gray-50 border hover:bg-gray-100 rounded-md p-2 flex flex-col">
+                            <div class="mx-auto my-auto py-4">
+                                <center>
+                                    <i class="fa-solid fa-circle-dot h-8 w-8 text-gray-500 fa-2xl"></i>
+                                </center>
+                            </div>
+                            <p class="w-full text-xs text-gray-500 uppercase text-center font-semibold mb-4">
+                                Single Choice (Radio)
+                            </p>
+                        </div>
+                        <div @click="modalOpen = false" wire:click="pick('likert')" role="button"
+                            class="bg-gray-50 border hover:bg-gray-100 rounded-md p-2 flex flex-col">
+                            <div class="mx-auto my-auto py-4">
+                                <center>
+                                    <i class="fa-regular fa-face-smile h-8 w-8 text-gray-500 fa-2xl"></i>
+                                </center>
+                            </div>
+                            <p class="w-full text-xs text-gray-500 uppercase text-center font-semibold mb-4">
+                                Likert Scale
+                            </p>
+                        </div>
+                        {{-- <div  @click="modalOpen = false"  wire:click="pick('radio-grid')" role="button"
+                            class="bg-gray-50 border hover:bg-gray-100 rounded-md p-2 flex flex-col">
+                            <div class="mx-auto py-4"><svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"
+                                    class="h-8 w-8 text-gray-500">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h7">
+                                    </path>
+                                </svg></div>
+                            <p class="w-full text-xs text-gray-500 uppercase text-center font-semibold mb-4">
+                                Radio Grid
+                            </p>
+                        </div> --}}
+                    </div>
+                    {{-- <p class="text-gray-500 uppercase text-xs font-semibold mt-8">File Uploads</p>
+                    <div class="grid grid-cols-4 gap-4 mt-2">
+                        <div @click="modalOpen = false" wire:click="pick('photo')" role="button"
+                            class="bg-gray-50 border hover:bg-gray-100 rounded-md p-2 flex flex-col">
+                            <div class="mx-auto my-auto py-4">
+                                <center>
+                                    <i class="fa-regular fa-image h-8 w-8 text-gray-500 fa-2xl"></i>
+                                </center>
+                            </div>
+                            <p class="w-full text-xs text-gray-500 uppercase text-center font-semibold mb-4">
+                                Photo Upload
+                            </p>
+                        </div>
+
+                        <div @click="modalOpen = false" wire:click="pick('document')" role="button"
+                            class="bg-gray-50 border hover:bg-gray-100 rounded-md p-2 flex flex-col">
+                            <div class="mx-auto my-auto py-4">
+                                <center>
+                                    <i class="fa-regular fa-file h-8 w-8 text-gray-500 fa-2xl"></i>
+                                </center>
+                            </div>
+                            <p class="w-full text-xs text-gray-500 uppercase text-center font-semibold mb-4">
+                                Document Upload
+                            </p>
+                        </div>
+
+                    </div> --}}
+
+                </div>
+            </div>
+        </div>
     </div>
 </div>
