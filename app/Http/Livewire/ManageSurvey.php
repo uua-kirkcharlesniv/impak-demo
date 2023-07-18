@@ -41,39 +41,6 @@ class ManageSurvey extends Component
         $this->survey = $survey;
     }
 
-    // Sorting functionalities
-    public function updateSectionOrder($orderIds)
-    {
-        $sections = $this->sections;
-
-        // Create a new array to store the sorted sections
-        $sortedSections = [];
-
-        // Iterate through the order IDs array
-        foreach ($orderIds as $order) {
-            $sectionName = $order['value'];
-
-            // Check if the section exists in the original array
-            if (isset($sections[$sectionName])) {
-                // Check if the section is the "root_section"
-                if ($sectionName === 'root_section') {
-                    // Add the "root_section" at the beginning of the sorted array
-                    $sortedSections = array_merge([$sectionName => $sections[$sectionName]], $sortedSections);
-                } else {
-                    // Add the section to the sorted array
-                    $sortedSections[$sectionName] = $sections[$sectionName];
-                }
-            }
-        }
-
-        // Assign the sorted sections back to the original array
-        // $this->sections = $sortedSections;
-
-        // Optionally, you can perform any other necessary actions here
-    }
-
-
-
     public function addBlock($data)
     {
         $this->survey = $this->survey->refresh();
@@ -241,5 +208,62 @@ class ManageSurvey extends Component
 
         $this->survey = $this->survey->refresh();
         $this->selectedSectionId = null;
+    }
+
+    public function updateSectionOrder($id, $old, $new)
+    {
+        $section = Section::findOrFail($id);
+
+        if ($new > $old) {
+            Section::where('survey_id', $section->survey_id)
+                ->where('sort_order', '>', $old)
+                ->where('sort_order', '<=', $new)
+                ->decrement('sort_order');
+        } else if ($new < $old) {
+            Section::where('survey_id', $section->survey_id)
+                ->where('sort_order', '>=', $new)
+                ->where('sort_order', '<', $old)
+                ->increment('sort_order');
+        }
+
+        $section->sort_order = $new;
+        $section->save();
+
+        $this->survey = $this->survey->refresh();
+    }
+
+    public function updateQuestionSectionId($questionId, $sectionId)
+    {
+        $question = Question::findOrFail($questionId);
+
+        $question->section_id = $sectionId;
+        $question->save();
+
+        $this->survey = $this->survey->refresh();
+    }
+
+    public function updateQuestionOrder($id, $new)
+    {
+        $question = Question::findOrFail($id);
+        $old = $question->sort_order;
+
+        if ($new > $old) {
+            Question::where('section_id', $question->section_id)
+                ->where('survey_id', $question->survey_id)
+                ->where('sort_order', '>', $old)
+                ->where('sort_order', '<=', $new)
+                ->decrement('sort_order');
+        } else if ($new < $old) {
+            Question::where('section_id', $question->section_id)
+                ->where('survey_id', $question->survey_id)
+                ->where('sort_order', '>=', $new)
+                ->where('sort_order', '<', $old)
+                ->increment('sort_order');
+        }
+
+        $question->sort_order = $new;
+        $question->save();
+
+        $this->survey = $this->survey->refresh();
     }
 }

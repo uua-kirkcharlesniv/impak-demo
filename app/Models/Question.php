@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Casts\AsArrayObject;
+use Illuminate\Database\Eloquent\Builder;
 
 class Question extends \MattDaneshvar\Survey\Models\Question
 {
@@ -13,6 +13,23 @@ class Question extends \MattDaneshvar\Survey\Models\Question
         'options' => 'array',
         'rules' => 'array',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope('order', function (Builder $builder) {
+            $builder->orderBy('sort_order', 'asc');
+        });
+
+        static::creating(function ($question) {
+            // Get the last highest sort value
+            $lastSortValue = static::where('section_id', $question->section_id)->max('sort_order');
+
+            // Increment the last sort value by 1
+            $question->sort_order = $lastSortValue + 1;
+        });
+    }
 
     public function getIsRequiredAttribute()
     {

@@ -15,6 +15,8 @@ import { tailwindConfig } from './utils';
 
 import 'livewire-sortable';
 
+import Sortable, { Swap } from 'sortablejs';
+
 // import component from './components/component';
 import dashboardCard01 from './components/dashboard-card-01';
 import dashboardCard02 from './components/dashboard-card-02';
@@ -46,6 +48,8 @@ import fintechCard14 from './components/fintech-card-14';
 // Call Alpine
 window.Alpine = Alpine;
 window.party = party;
+window.Sortable = Sortable;
+window.Sortable.mount(new Swap());
 Alpine.start();
 
 
