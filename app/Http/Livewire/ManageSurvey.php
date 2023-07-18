@@ -28,7 +28,9 @@ class ManageSurvey extends Component
         'survey.name' => 'required|max:250|min:3|string',
         'survey.settings.limit-per-participant' => 'nullable|numeric|min:0|max:999',
         'survey.sections.*.name' => 'required|min:1|max:250|string',
-        'survey.sections.*.questions.*.content' => 'required|min:1|max:250|string'
+        'survey.sections.*.questions.*.content' => 'required|min:1|max:250|string',
+        'survey.rationale' => 'nullable|string|max:250',
+        'survey.rationale_description' => 'nullable|string'
     ];
 
     public function render()
@@ -76,6 +78,24 @@ class ManageSurvey extends Component
         $this->validate();
 
         $this->survey->update(['name' => $data]);
+
+        $this->survey = $this->survey->refresh();
+    }
+
+    public function onRationaleChanged($data)
+    {
+        $this->validate();
+
+        $this->survey->update(['rationale' => $data]);
+
+        $this->survey = $this->survey->refresh();
+    }
+
+    public function onRationaleDescriptionChanged($data)
+    {
+        $this->validate();
+
+        $this->survey->update(['rationale_description' => $data]);
 
         $this->survey = $this->survey->refresh();
     }

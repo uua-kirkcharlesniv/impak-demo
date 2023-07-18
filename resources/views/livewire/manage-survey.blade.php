@@ -22,13 +22,13 @@
                 <div>
                     <label class="block text-sm font-medium mb-1" for="rationale_title">Title</label>
                     <input id="rationale_title" class="form-input w-full" type="text" placeholder=""
-                        wire:model.lazy="rationale" />
+                        wire:model.lazy="survey.rationale" wire:change="onRationaleChanged($event.target.value)" />
                 </div>
 
                 <div class="mt-4">
                     <label class="block text-sm font-medium mb-1" for="rationale_description">Description</label>
                     <textarea id="rationale_description" class="form-input w-full" type="text" placeholder=""
-                        wire:model.lazy="rationale_description"></textarea>
+                        wire:model.lazy="survey.rationale_description" wire:change="onRationaleDescriptionChanged($event.target.value)"></textarea>
                 </div>
 
                 <div x-data="{ option: '' }">
