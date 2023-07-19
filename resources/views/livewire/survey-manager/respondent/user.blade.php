@@ -1,5 +1,5 @@
 <div>
-    <div class="flex">
+    {{-- <div class="flex">
         <div class="flex items-center h-5">
             <input wire:model="allUsers" id="helper-checkbox" aria-describedby="helper-checkbox-text" type="checkbox"
                 class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 rounded focus:ring-green-500 focus:ring-2">
@@ -9,7 +9,7 @@
             <p id="helper-checkbox-text" class="text-xs font-normal text-gray-500">{{ $users->total() }} unique users
                 will be targeted in this survey.</p>
         </div>
-    </div>
+    </div> --}}
     @if (!$allUsers)
         <div class="mt-4"></div>
         <div class="bg-slate-100 p-5 rounded-md">
@@ -29,7 +29,8 @@
                             </p>
                         </div>
                         <div class="inline-flex items-center text-base font-semibold text-gray-900">
-                            <input type="checkbox" class="form-checkbox mt-1" name="terms" />
+                            <input type="checkbox" class="form-checkbox mt-1" wire:model="userIds"
+                                value="{{ $user->id }}" />
                         </div>
                     </div>
                 @endforeach
@@ -41,12 +42,12 @@
             <hr class="my-2">
 
             <div class="bg-slate-100 p-5 rounded-md">
-                <div class="flex items-center mr-4 mb-3">
+                {{-- <div class="flex items-center mr-4 mb-3">
                     <input type="checkbox" wire:model="allGroups"
                         class="w-4 h-4 text-purple-600 bg-gray-100 border-gray-300 rounded focus:ring-purple-500 focus:ring-2">
                     <label for="purple-checkbox" class="ml-2 text-sm font-medium text-gray-900">Select all groups
                         ({{ $groups->total() }})</label>
-                </div>
+                </div> --}}
                 @if (!$allGroups)
                     @foreach ($groups as $group)
                         <div class="flex items-center space-x-4 mb-2">
@@ -71,7 +72,8 @@
                                 </p>
                             </div>
                             <div class="inline-flex items-center text-base font-semibold text-gray-900">
-                                <input type="checkbox" class="form-checkbox mt-1" name="terms" />
+                                <input type="checkbox" class="form-checkbox mt-1"wire:model="groupIds"
+                                    value="{{ $group->id }}" />
                             </div>
                         </div>
                     @endforeach
@@ -82,12 +84,12 @@
             <hr class="my-2">
 
             <div class="bg-slate-100 p-5 rounded-md">
-                <div class="flex items-center mr-4 mb-3">
+                {{-- <div class="flex items-center mr-4 mb-3">
                     <input type="checkbox" wire:model="allDepartments"
                         class="w-4 h-4 text-purple-600 bg-gray-100 border-gray-300 rounded focus:ring-purple-500 focus:ring-2">
                     <label for="purple-checkbox" class="ml-2 text-sm font-medium text-gray-900">Select all departments
                         ({{ $departments->total() }})</label>
-                </div>
+                </div> --}}
                 @if (!$allDepartments)
                     @foreach ($departments as $department)
                         <div class="flex items-center space-x-4 mb-2">
@@ -112,7 +114,8 @@
                                 </p>
                             </div>
                             <div class="inline-flex items-center text-base font-semibold text-gray-900">
-                                <input type="checkbox" class="form-checkbox mt-1" name="terms" />
+                                <input type="checkbox" class="form-checkbox mt-1" wire:model="departmentIds"
+                                    value="{{ $department->id }}" />
                             </div>
                         </div>
                     @endforeach

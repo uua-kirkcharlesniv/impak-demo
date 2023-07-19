@@ -79,4 +79,11 @@ class Survey extends \MattDaneshvar\Survey\Models\Survey
 
         return false;
     }
+
+    public function respondents()
+    {
+        return $this->belongsToMany(Respondent::class, 'survey_respondents', 'survey_id', 'respondent_id')
+            ->withPivot('type')
+            ->withTimestamps();
+    }
 }

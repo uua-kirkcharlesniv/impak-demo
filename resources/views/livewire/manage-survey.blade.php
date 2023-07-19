@@ -96,7 +96,7 @@
                 </div>
             </x-survey-tab>
             <x-survey-tab title="respondents" icon="fa-users">
-                <livewire:survey-manager.respondent.user />
+                <livewire:survey-manager.respondent.user :survey="$survey" />
             </x-survey-tab>
             <x-survey-tab title="schedule" icon="fa-calendar-days">
                 <livewire:form-schedule-component :survey="$survey" />
