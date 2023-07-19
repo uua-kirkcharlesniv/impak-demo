@@ -1,5 +1,5 @@
 @component('survey::questions.base', compact('question'))
-    <div id="checkboxgroup-{{ $question->key }}">
+    <div id="checkboxgroup-{{ $question->key }}" data-limit="{{ $question->max }}">
         @foreach ($question->options as $option)
             <div class="mb-2">
                 <label class="relative block cursor-pointer">
@@ -23,23 +23,5 @@
     @endif
     @if (isset($question->max))
         <span class="text-sm text-gray-400">Max selection of {{ $question->max }} answers. </span>
-
-        <script>
-            var checkboxgroup = document.getElementById('checkboxgroup-{{ $question->key }}').getElementsByTagName("input");
-            var limit = "{{ $question->max }}";
-            for (var i = 0; i < checkboxgroup.length; i++) {
-                checkboxgroup[i].onclick = function() {
-                    var checkedcount = 0;
-                    for (var i = 0; i < checkboxgroup.length; i++) {
-                        checkedcount += (checkboxgroup[i].checked) ? 1 : 0;
-                    }
-                    if (checkedcount > limit) {
-                        console.log("You can select maximum of " + limit + " checkbox.");
-                        alert("You can select maximum of " + limit + " checkbox.");
-                        this.checked = false;
-                    }
-                }
-            }
-        </script>
     @endif
 @endcomponent

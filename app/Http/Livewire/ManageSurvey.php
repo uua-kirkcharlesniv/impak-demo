@@ -245,7 +245,7 @@ class ManageSurvey extends Component
                 $section->questions()->create([
                     'content' => 'Likert Scale Field',
                     'type' => 'likert',
-                    'options' => ['type:full', 'order:asc'],
+                    'options' => ['full', 'asc'],
                     'rules' => ['required'],
                 ]);
 

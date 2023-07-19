@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 class Question extends \MattDaneshvar\Survey\Models\Question
 {
-    protected $appends = ['is_required', 'formatted_type', 'max', 'min'];
+    protected $appends = ['is_required', 'formatted_type', 'max', 'min', 'likert_type', 'likert_order'];
 
     protected $casts = [
         'is_required' => 'boolean',
@@ -48,6 +48,40 @@ class Question extends \MattDaneshvar\Survey\Models\Question
         }
 
         return null;
+    }
+
+    public function getLikertTypeAttribute()
+    {
+        if ($this->type != 'likert') {
+            return null;
+        }
+
+        if (in_array('full', $this->options)) {
+            return 5;
+        }
+
+        if (in_array('boolean', $this->options)) {
+            return 2;
+        }
+
+        if (in_array('tristate', $this->options)) {
+            return 2;
+        }
+
+        return null;
+    }
+
+    public function getLikertOrderAttribute()
+    {
+        if ($this->type != 'likert') {
+            return null;
+        }
+
+        if (in_array('desc', $this->options)) {
+            return false;
+        }
+
+        return true;
     }
 
     public function getMinAttribute()
