@@ -227,8 +227,8 @@ class ManageSurvey extends Component
                 $section->questions()->create([
                     'content' => 'Checkbox Field',
                     'type' => 'multiselect',
-                    'options' => ['Question 1', 'Question 2', 'Question 3'],
-                    'rules' => ['nullable', 'array'],
+                    'options' => ['Question 1', 'Question 2', 'Question 3', 'Question 4'],
+                    'rules' => ['nullable', 'array', 'max:3'],
                 ]);
 
                 break;

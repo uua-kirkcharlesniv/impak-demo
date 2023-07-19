@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 class Question extends \MattDaneshvar\Survey\Models\Question
 {
-    protected $appends = ['is_required', 'formatted_type'];
+    protected $appends = ['is_required', 'formatted_type', 'max', 'min'];
 
     protected $casts = [
         'is_required' => 'boolean',
@@ -34,6 +34,34 @@ class Question extends \MattDaneshvar\Survey\Models\Question
     public function getIsRequiredAttribute()
     {
         return in_array('required', $this->rules);
+    }
+
+    public function getMaxAttribute()
+    {
+        $max = array_filter($this->rules, function ($rule) {
+            return str_starts_with($rule, 'max:');
+        });
+
+        if (count($max) > 0) {
+            $maxLength = intval(explode(':', array_values($max)[0])[1]);
+            return $maxLength;
+        }
+
+        return null;
+    }
+
+    public function getMinAttribute()
+    {
+        $min = array_filter($this->rules, function ($rule) {
+            return str_starts_with($rule, 'min:');
+        });
+
+        if (count($min) > 0) {
+            $minLength = intval(explode(':', array_values($min)[0])[1]);
+            return $minLength;
+        }
+
+        return null;
     }
 
     public function getTypeAttribute($data)
