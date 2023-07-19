@@ -30,7 +30,11 @@ class ManageSurvey extends Component
         'survey.sections.*.name' => 'required|min:1|max:250|string',
         'survey.sections.*.questions.*.content' => 'required|min:1|max:250|string',
         'survey.rationale' => 'nullable|string|max:250',
-        'survey.rationale_description' => 'nullable|string'
+        'survey.rationale_description' => 'nullable|string|max:1000',
+        'survey.survey_type' => 'required|string|max:250',
+        'survey.manual_survey_type' => 'nullable|string|max:250',
+        'survey.manual_sections' => 'nullable|string|max:250',
+        'survey.target_focus' => 'nullable|string|max:250',
     ];
 
     public function render()
@@ -96,6 +100,43 @@ class ManageSurvey extends Component
         $this->validate();
 
         $this->survey->update(['rationale_description' => $data]);
+
+        $this->survey = $this->survey->refresh();
+    }
+
+    public function onSurveyTypeChanged($data)
+    {
+        $this->validate();
+
+        $this->survey->survey_type = $data;
+        $this->survey->save();
+
+        $this->survey = $this->survey->refresh();
+    }
+
+    public function onManualSurveyTypeChanged($data)
+    {
+        $this->validate();
+
+        $this->survey->update(['manual_survey_type' => $data]);
+
+        $this->survey = $this->survey->refresh();
+    }
+
+    public function onManualSectionsChanged($data)
+    {
+        $this->validate();
+
+        $this->survey->update(['manual_sections' => $data]);
+
+        $this->survey = $this->survey->refresh();
+    }
+
+    public function onTargetFocusChanged($data)
+    {
+        $this->validate();
+
+        $this->survey->update(['target_focus' => $data]);
 
         $this->survey = $this->survey->refresh();
     }

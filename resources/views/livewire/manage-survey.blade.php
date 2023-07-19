@@ -31,37 +31,55 @@
                         wire:model.lazy="survey.rationale_description" wire:change="onRationaleDescriptionChanged($event.target.value)"></textarea>
                 </div>
 
-                <div x-data="{ option: '' }">
+                <div x-data="{ option: '{{ $survey->survey_type }}' }">
                     <label class="block text-sm font-medium mb-1" for="survey_type">Survey Type</label>
-                    <select class="form-select w-full" id="survey_type" x-model="option" wire:model="survey_type">
-                        <option value="post_event">Post Event Survey</option>
-                        <option value="needs">Needs Analysis Survey</option>
-                        <option value="employee">Employee Engagement Survey</option>
-                        <option value="market">Market Research Survey</option>
-                        <option value="opinion">Opinion Poll</option>
-                        <option value="demographic">Demographic Survey</option>
-                        <option value="product">Product Feedback Survey</option>
-                        <option value="event">Event Evaluation Survey</option>
-                        <option value="website">Website Feedback Survey</option>
-                        <option value="training">Training Needs Assessment</option>
-                        <option value="post_purchase">Post Purchase Survey</option>
-                        <option value="others">Others</option>
+                    <select class="form-select w-full" x-model="option" id="survey_type" name="survey_type"
+                        wire:model="survey.survey_type" wire:change="onSurveyTypeChanged($event.target.value)">
+                        <option value="post_event" {{ $survey->survey_type == 'post_event' ? 'selected' : '' }}>Post
+                            Event
+                            Survey</option>
+                        <option value="needs_analysis" {{ $survey->survey_type == 'needs_analysis' ? 'selected' : '' }}>
+                            Needs
+                            Analysis Survey</option>
+                        <option value="employee_engagement"
+                            selected="{{ $survey->survey_type == 'employee_engagement' }}">Employee Engagement Survey
+                        </option>
+                        <option value="market_research" selected="{{ $survey->survey_type == 'market_research' }}">
+                            Market Research Survey</option>
+                        <option value="opinion_poll" selected="{{ $survey->survey_type == 'opinion_poll' }}">Opinion
+                            Poll</option>
+                        <option value="demographic" selected="{{ $survey->survey_type == 'demographic' }}">Demographic
+                            Survey</option>
+                        <option value="product_feedback" selected="{{ $survey->survey_type == 'product_feedback' }}">
+                            Product Feedback Survey</option>
+                        <option value="event_evaluation" selected="{{ $survey->survey_type == 'event_evaluation' }}">
+                            Event Evaluation Survey</option>
+                        <option value="website_feedback" selected="{{ $survey->survey_type == 'website_feedback' }}">
+                            Website Feedback Survey</option>
+                        <option value="training_needs" selected="{{ $survey->survey_type == 'training_needs' }}">
+                            Training Needs Assessment</option>
+                        <option value="post_purchase" selected="{{ $survey->survey_type == 'post_purchase' }}">Post
+                            Purchase Survey</option>
+                        <option value="others" selected="{{ $survey->survey_type == 'others' }}">Others</option>
                     </select>
 
                     <div x-show="option == 'others'">
                         <input id="manual_survey_type" class="form-input w-full my-2" type="text"
-                            placeholder="Training Needs Survey" wire:model.lazy="manual_survey_type" />
+                            placeholder="Training Needs Survey" wire:model.lazy="survey.manual_survey_type"
+                            wire:change="onManualSurveyTypeChanged($event.target.value)" />
                         <label class="block text-sm font-medium mb-1" for="manual_sections">Section names</label>
                         <input id="manual_sections" class="form-input w-full" type="text"
-                            wire:model.lazy="manual_sections"
+                            wire:model.lazy="survey.manual_sections"
+                            wire:change="onManualSectionsChanged($event.target.value)"
                             placeholder="Employee Demographics, Knowledge and Skills Capacity, ..." />
                         <p id="helper-text-explanation" class="text-sm text-gray-500">Delimited by comma.</p>
                     </div>
                     <div class="mt-2">
                         <label class="block text-sm font-medium mb-1" for="sub_specialization">Sub-specialization /
                             Target Focus</label>
-                        <input id="sub_specialization" class="form-input w-full" type="text"
-                            placeholder="This is optional, but would help our AI to analyze more."
+                        <input id="sub_specialization" wire:model.lazy="survey.target_focus"
+                            wire:change="onTargetFocusChanged($event.target.value)" class="form-input w-full"
+                            type="text" placeholder="This is optional, but would help our AI to analyze more."
                             wire:model.lazy="sub_specialization" />
                     </div>
 
