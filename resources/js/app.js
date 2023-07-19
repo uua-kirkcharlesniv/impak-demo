@@ -94,8 +94,9 @@ document.addEventListener('DOMContentLoaded', () => {
   flatpickr('.datepicker', {
     static: true,
     monthSelectorType: 'static',
-    dateFormat: 'M j, Y',
-    defaultDate: [new Date().setDate(new Date().getDate() - 6)],
+    dateFormat: 'Y-m-d',
+    altFormat: 'j F Y',
+    altInput: true,
     prevArrow: '<svg class="fill-current" width="7" height="11" viewBox="0 0 7 11"><path d="M5.4 10.8l1.4-1.4-4-4 4-4L5.4 0 0 5.4z" /></svg>',
     nextArrow: '<svg class="fill-current" width="7" height="11" viewBox="0 0 7 11"><path d="M1.4 10.8L0 9.4l4-4-4-4L1.4 0l5.4 5.4z" /></svg>',
     onReady: (selectedDates, dateStr, instance) => {
@@ -114,8 +115,9 @@ document.addEventListener('DOMContentLoaded', () => {
     static: true,
     enableTime: true,
     noCalendar: true,
-    dateFormat: 'h:i K',
-    defaultDate: [new Date().setDate(new Date().getDate() - 6)],
+    dateFormat: 'H:i',
+    altFormat: 'h:i K',
+    altInput: true,
     prevArrow: '<svg class="fill-current" width="7" height="11" viewBox="0 0 7 11"><path d="M5.4 10.8l1.4-1.4-4-4 4-4L5.4 0 0 5.4z" /></svg>',
     nextArrow: '<svg class="fill-current" width="7" height="11" viewBox="0 0 7 11"><path d="M1.4 10.8L0 9.4l4-4-4-4L1.4 0l5.4 5.4z" /></svg>',
     onReady: (selectedDates, dateStr, instance) => {
