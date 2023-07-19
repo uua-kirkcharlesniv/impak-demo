@@ -1,5 +1,5 @@
 @component('survey::questions.base', compact('question'))
-    <textarea name="{{ $question->key }}" id="{{ $question->key }}" class="form-input w-full"
+    <textarea name="{{ $question->key }}" maxlength="{{ $question->max }}" id="{{ $question->key }}" class="form-input w-full"
         {{ $disabled ?? false ? 'disabled' : '' }}>{{ $value ?? old($question->key) }}</textarea>
 
     @if (isset($question->min))
