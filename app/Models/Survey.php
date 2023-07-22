@@ -12,6 +12,7 @@ class Survey extends \MattDaneshvar\Survey\Models\Survey
 
     protected $casts = [
         'recurrent_days' => 'array',
+        'settings' => 'array',
     ];
 
     protected $appends = ['is_open'];

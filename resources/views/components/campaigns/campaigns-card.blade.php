@@ -13,7 +13,7 @@
     <div class="flex flex-col h-full p-5">
         <header>
             <div class="flex items-center justify-between">
-                @if ($campaign->category === '1')
+                {{-- @if (true)
                     <div class="w-10 h-10 rounded-full flex items-center justify-center shrink-0 bg-rose-500">
                         <svg class="w-9 h-9 fill-current text-rose-50" viewBox="0 0 36 36">
                             <path d="M25 24H11a1 1 0 01-1-1v-5h2v4h12v-4h2v5a1 1 0 01-1 1zM14 13h8v2h-8z" />
@@ -39,8 +39,8 @@
                                 d="M18 10c-4.4 0-8 3.1-8 7s3.6 7 8 7h.6l5.4 2v-4.4c1.2-1.2 2-2.8 2-4.6 0-3.9-3.6-7-8-7zm4 10.8v2.3L18.9 22H18c-3.3 0-6-2.2-6-5s2.7-5 6-5 6 2.2 6 5c0 2.2-2 3.8-2 3.8z" />
                         </svg>
                     </div>
-                @endif
-                <div class="flex shrink-0 -space-x-3 -ml-px">
+                @endif --}}
+                {{-- <div class="flex shrink-0 -space-x-3 -ml-px">
                     @foreach ($campaign->members as $member)
                         <a class="block" href="{{ $member->link }}">
                             <img class="rounded-full border-2 border-white box-content"
@@ -48,19 +48,45 @@
                                 alt="{{ $member->name }}" />
                         </a>
                     @endforeach
-                </div>
+                </div> --}}
             </div>
         </header>
         <div class="grow mt-2">
             <a class="inline-flex text-slate-800 hover:text-slate-900 mb-1" href="#0">
-                <h2 class="text-xl leading-snug font-semibold">{{ $campaign->title }}</h2>
+                <h2 class="text-xl leading-snug font-semibold">{{ $campaign->name }}</h2>
             </a>
-            <div class="text-sm">{{ $campaign->content }}</div>
+            <div class="text-sm">{{ $campaign->rationale_description }}</div>
         </div>
         <footer class="mt-5">
             <div class="text-sm font-medium text-slate-500 mb-2">
                 {{ \Carbon\Carbon::parse($campaign->start_date)->format('M j') }} <span
                     class="text-slate-400">-&gt;</span> {{ \Carbon\Carbon::parse($campaign->end_date)->format('M j') }}
+            </div>
+            <div class="text-sm font-medium text-slate-500 mb-2">
+
+                @if ($campaign->recurrent_days != null)
+                    @php
+                        $daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                        $recurrentDays = $campaign->recurrent_days ?? [];
+                        $recurrentDays = array_map(fn($day) => $daysOfWeek[$day], $recurrentDays);
+                        $daysList = implode(', ', $recurrentDays);
+                    @endphp
+
+                    <span class="text-slate-400">
+                        <span class="text-slate-400">Form is open for submission every: {{ $daysList }}.</span>
+                    </span>
+                @endif
+                <br>
+                @if ($campaign->start_time != null)
+                    <span class="text-slate-400">
+                        Opens at {{ \Carbon\Carbon::parse($campaign->start_time)->format('h:i A') }}.
+                        @if ($campaign->end_time != null)
+                            Closed at {{ \Carbon\Carbon::parse($campaign->end_time)->format('h:i A') }}.
+                        @endif
+                    </span>
+                @endif
+
+
             </div>
             <div class="flex justify-between items-center">
                 <div>
@@ -69,8 +95,12 @@
                         {{ $campaign->type }}</div>
                 </div>
                 <div>
-                    @if (mt_rand(1, 100) < 60)
-                        <a class="text-sm font-medium text-indigo-500 hover:text-indigo-600" href="{{ route('survey.view', 1) }}">Start
+                    <a class="text-sm font-medium text-indigo-500 hover:text-indigo-600"
+                        href="{{ route('survey.edit', $campaign->id) }}">Edit
+                        -&gt;</a>
+                    {{-- @if (mt_rand(1, 100) < 60)
+                        <a class="text-sm font-medium text-indigo-500 hover:text-indigo-600"
+                            href="{{ route('survey.view', 1) }}">Start
                             -&gt;</a>
                     @else
                         @if (mt_rand(1, 100) < 50)
@@ -78,7 +108,7 @@
                         @else
                             <span class="text-red-500">Closed</span>
                         @endif
-                    @endif
+                    @endif --}}
 
                 </div>
             </div>

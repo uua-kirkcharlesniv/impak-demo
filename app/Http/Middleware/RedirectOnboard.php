@@ -18,10 +18,14 @@ class RedirectOnboard
     public function handle(Request $request, Closure $next)
     {
         $user = Auth::user();
-        if($user->is_onboarded == true) {
+        if ($user->is_onboarded == true) {
             return $next($request);
         } else {
-            return redirect()->route('onboarding-01');
+            if ($user->hasRole('owner')) {
+                return redirect()->route('onboarding-01');
+            }
+
+            return $next($request);
         }
     }
 }
