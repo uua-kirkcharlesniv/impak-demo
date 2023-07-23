@@ -116,6 +116,7 @@ class Question extends \MattDaneshvar\Survey\Models\Question
                 $dateFormat = array_filter($this->rules, function ($rule) {
                     return str_starts_with($rule, 'date_format:');
                 });
+                if (count($dateFormat) <= 0) return 'short-answer';
 
                 $parsedValue = explode(':', array_values($dateFormat)[0], 2)[1];
 

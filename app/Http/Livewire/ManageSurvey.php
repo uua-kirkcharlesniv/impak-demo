@@ -43,6 +43,7 @@ class ManageSurvey extends Component
     public function deattachSelectedQuestion()
     {
         $this->selectedQuestion = null;
+        $this->survey = $this->survey->refresh();
     }
 
     public function render()

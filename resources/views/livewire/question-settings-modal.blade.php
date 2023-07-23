@@ -37,22 +37,23 @@
                     </label>
                     <input
                         class="shadow appearance-none rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        type="text" placeholder="Question Name" wire:model="question.content" id="content">
+                        type="text" placeholder="Question Name" wire:model="question.content"
+                        wire:change="onContentChanged($event.target.value)" id="content">
                 </div>
                 <div class="flex items-center mb-4">
-                    <input id="required" type="checkbox" value="question.is_required"
+                    <input id="required" type="checkbox" wire:model="isRequired"
                         class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2">
                     <label for="required" class="ml-2 text-sm font-medium text-gray-900">Required</label>
                 </div>
                 @if ($question->type != 'date' && $question->type != 'time' && $question->type != 'radio' && $question->type != 'likert')
-                    @if ($question->is_required)
+                    @if ($isRequired)
                         <div class="mb-4">
                             <label class="block text-gray-700 text-sm font-bold mb-2" for="min">
                                 Minimum Characters / Choices
                             </label>
                             <input
                                 class="shadow appearance-none rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                type="number" placeholder="Leave blank to set to default" wire:model="question.min"
+                                type="number" placeholder="Leave blank to set to default" wire:model="min"
                                 id="min">
                         </div>
                     @endif
@@ -63,8 +64,8 @@
                         </label>
                         <input
                             class="shadow appearance-none rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            type="number" placeholder="Leave blank to set to default" wire:model="question.max"
-                            max="250" id="max">
+                            type="number" placeholder="Leave blank to set to default" wire:model="max" max="250"
+                            id="max">
                     </div>
                 @endif
 
@@ -75,17 +76,19 @@
                         </label>
                         <input
                             class="shadow appearance-none rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            type="text" placeholder="Enter your new choice here" id="new_choice">
+                            type="text" placeholder="Enter your new choice here" wire:model="newOptionName"
+                            id="new_choice" wire:keydown.enter="createNewOption">
                         <p id="helper-text-explanation" class="text-sm text-gray-400">Press enter to add to the list of
                             choices</p>
                     </div>
 
-                    @foreach ($question->options as $choice)
+                    @foreach ($question->options as $index => $choice)
                         <div class="flex mb-4 items-center">
                             <p class="w-full text-grey-darkest">{{ $choice }}</p>
 
                             <button
-                                class="flex-no-shrink p-2 ml-2 border rounded text-red border-red-600 hover:text-indigo-500 hover:bg-red">Remove</button>
+                                class="flex-no-shrink p-2 ml-2 border rounded text-red border-red-600 hover:text-indigo-500 hover:bg-red"
+                                wire:click="deleteOption({{ $index }})">Remove</button>
                         </div>
                     @endforeach
 
