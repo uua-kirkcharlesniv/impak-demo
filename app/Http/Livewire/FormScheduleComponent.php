@@ -28,7 +28,11 @@ class FormScheduleComponent extends Component
     public function mount($survey)
     {
         $this->survey = $survey;
-        $this->recurrent_days = $survey->recurrent_days;
+        if(isset($survey->recurrent_days)) {
+            $this->recurrent_days = $survey->recurrent_days;
+        } else {
+            $this->recurrent_days = [];
+        }
     }
 
     public function onStartDateChanged($data)
@@ -79,5 +83,7 @@ class FormScheduleComponent extends Component
     {
         $this->survey->recurrent_days = $this->recurrent_days;
         $this->survey->save();
+
+        Log::debug($this->recurrent_days);
     }
 }
