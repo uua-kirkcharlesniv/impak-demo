@@ -11,6 +11,7 @@ use Livewire\Component;
 class ManageSurvey extends Component
 {
     public Survey $survey;
+    public ?Question $selectedQuestion;
     public $selectedSectionId;
 
     // Rationale
@@ -36,6 +37,13 @@ class ManageSurvey extends Component
         'survey.manual_sections' => 'nullable|string|max:250',
         'survey.target_focus' => 'nullable|string|max:250',
     ];
+
+    protected $listeners = ['modalClosed' => 'deattachSelectedQuestion'];
+
+    public function deattachSelectedQuestion()
+    {
+        $this->selectedQuestion = null;
+    }
 
     public function render()
     {
@@ -326,5 +334,11 @@ class ManageSurvey extends Component
         $question->save();
 
         $this->survey = $this->survey->refresh();
+    }
+
+    public function editQuestion($questionId)
+    {
+        $question = Question::findOrFail($questionId);
+        $this->selectedQuestion = $question;
     }
 }

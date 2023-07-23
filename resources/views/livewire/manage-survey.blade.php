@@ -197,6 +197,11 @@
                                             </div>
                                         </div>
 
+                                        <button wire:click="editQuestion({{ $question->id }})"
+                                            class="hover:bg-nt-blue-lighter rounded transition-colors cursor-pointer p-2">
+                                            <i class="fa-regular fa-gear w-4 h-4 fill-current text-blue-600"></i>
+                                        </button>
+
                                         <button wire:click="deleteQuestion('{{ $question->id }}')"
                                             class="hover:bg-nt-blue-lighter rounded transition-colors cursor-pointer p-2">
                                             <i class="fa-regular fa-trash-can w-4 h-4 fill-current text-red-600"></i>
@@ -290,6 +295,10 @@
         </div>
 
     </div>
+
+    @if (isset($selectedQuestion))
+        <livewire:question-settings-modal :question="$selectedQuestion" wire:key="{{ $selectedQuestion->id }}" />
+    @endif
 
     <!-- Modal backdrop -->
     <div class="fixed inset-0 bg-slate-900 bg-opacity-30 z-50 transition-opacity" x-show="modalOpen"
