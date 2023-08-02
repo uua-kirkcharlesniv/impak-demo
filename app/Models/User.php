@@ -41,7 +41,11 @@ class User extends Authenticatable
         'password',
         'is_employee_onboarded',
         'phone',
-        'dob'
+        'dob',
+        'city',
+        'country',
+        'contract_type',
+        'work_model'
     ];
 
     /**

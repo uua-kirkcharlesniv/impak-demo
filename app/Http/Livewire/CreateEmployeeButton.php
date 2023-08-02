@@ -2,6 +2,9 @@
 
 namespace App\Http\Livewire;
 
+use App\Enums\Countries;
+use App\Enums\EmployeeContractType;
+use App\Enums\WorkModel;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -17,7 +20,7 @@ class CreateEmployeeButton extends Component
 
     public $first_name;
     public $last_name;
-    public $middle_name;
+    public $middle_name = '';
     public $gender = 'M';
     public $date_of_hire;
     public $position;
@@ -28,6 +31,12 @@ class CreateEmployeeButton extends Component
     public $phone;
     public $dob;
 
+    public $contract_type = EmployeeContractType::FullTime;
+    public $work_model = WorkModel::Remote;
+    public $country = Countries::PH;
+    public $city = '';
+    public $cities = array();
+
     public $groupIds = [];
     public $departmentId;
 
@@ -36,6 +45,11 @@ class CreateEmployeeButton extends Component
         'groupsSelected' => 'handleGroupsSelected',
         'departmentSelected' => 'handleDepartmentSelected',
     ];
+
+    public function mount()
+    {
+        $this->cities = User::select('city')->groupBy('city')->get()->pluck('city')->toArray();
+    }
 
     public function handleGroupsSelected($usersId)
     {
@@ -63,6 +77,10 @@ class CreateEmployeeButton extends Component
                 'email' => ['required', 'email', 'unique:users,email'],
                 'phone' => 'required|numeric',
                 'dob' => 'nullable|date',
+                'city' => 'required|string',
+                'country' => 'required|string',
+                'work_model' => 'required|string',
+                'contract_type' => 'required|string',
             ];
         }
     }
@@ -85,7 +103,11 @@ class CreateEmployeeButton extends Component
                 'email' => $this->email,
                 'phone' => $this->phone,
                 'dob' => $this->dob,
-                'password' => Hash::make('test1234')
+                'password' => Hash::make('test1234'),
+                'city' => $this->city,
+                'country' => $this->country,
+                'contract_type' => $this->contract_type,
+                'work_model' => $this->work_model,
             ]);
             $employee->assignRole('employee');
 

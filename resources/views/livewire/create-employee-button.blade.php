@@ -124,6 +124,65 @@
                                             <span class="error">{{ $message }}</span>
                                         @enderror
                                     </div>
+                                    <div class="flex">
+                                        <div class="flex-1">
+                                            <label class="block text-sm font-medium mb-1"
+                                                for="contract_type">Country<span
+                                                    class="text-rose-500">*</span></label>
+                                            <select id="country"
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                                wire:model="country">
+                                                @foreach (\App\Enums\Countries::asSelectArray() as $key => $value)
+                                                    <option value="{{ $key }}">{{ $key }}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('contract_type')
+                                                <span class="error">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                        &nbsp;
+                                        <div class="flex-1">
+                                            <label class="block text-sm font-medium mb-1" for="work_model">City /
+                                                State<span class="text-rose-500">*</span></label>
+                                            <input type="text" class="form-input" placeholder="City"
+                                                wire:model="city" />
+
+                                            @error('city')
+                                                <span class="error">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="flex">
+                                        <div class="flex-auto">
+                                            <label class="block text-sm font-medium mb-1" for="contract_type">Working
+                                                Status<span class="text-rose-500">*</span></label>
+                                            <select id="contract_type"
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                                wire:model="contract_type">
+                                                @foreach (\App\Enums\EmployeeContractType::asSelectArray() as $key => $value)
+                                                    <option value="{{ $key }}">{{ $value }}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('contract_type')
+                                                <span class="error">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                        &nbsp;
+                                        <div class="flex-auto">
+                                            <label class="block text-sm font-medium mb-1" for="work_model">Work
+                                                Model<span class="text-rose-500">*</span></label>
+                                            <select id="work_model"
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                                wire:model="work_model">
+                                                @foreach (\App\Enums\WorkModel::asSelectArray() as $key => $value)
+                                                    <option value="{{ $key }}">{{ $value }}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('work_model')
+                                                <span class="error">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
                                     <div>
                                         <label class="block text-sm font-medium mb-1" for="position">Position</label>
                                         <input id="position" class="form-input w-full px-2 py-1" type="text"
