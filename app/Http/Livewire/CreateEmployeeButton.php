@@ -26,7 +26,7 @@ class CreateEmployeeButton extends Component
     public $position;
     public $nationality;
     public $civil_status = 'Single';
-    public $highest_educational_attainment = 'HS';
+    public $highest_educational_attainment = 'UG';
     public $email;
     public $phone;
     public $dob;
@@ -78,9 +78,9 @@ class CreateEmployeeButton extends Component
                 'phone' => 'required|numeric',
                 'dob' => 'nullable|date',
                 'city' => 'required|string',
-                'country' => 'required|string',
-                'work_model' => 'required|string',
-                'contract_type' => 'required|string',
+                'country' => 'required',
+                'work_model' => 'required',
+                'contract_type' => 'required',
             ];
         }
     }
