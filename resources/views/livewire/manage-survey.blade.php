@@ -287,8 +287,8 @@
 
         </div>
 
-        <div class="flex-1 flex overflow-hidden p-5">
-            <div class="flex-1 overflow-y-auto mt-5">
+        <div class="flex-1 flex" style="overflow: hidden">
+            <div class="flex-1" style="overflow-y: scroll">
                 @include('survey::standard', ['survey' => $survey])
                 {{-- <livewire:survey-creation-preview-screen /> --}}
             </div>

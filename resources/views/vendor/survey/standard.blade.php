@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card" style="background: #FBFAFB">
     <div class="card-header bg-white p-4">
         <h2 class="font-bold text-lg">{{ $survey->name }}</h2>
         <p class="text-md text-gray-500">{{ $survey->rationale_description }}</p>

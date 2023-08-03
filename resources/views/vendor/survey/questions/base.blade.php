@@ -1,12 +1,12 @@
-<div class="w-full p-6 bg-white border border-gray-200 rounded-lg shadow">
-    <label class="mb-2 text-xl font-bold tracking-tight text-gray-900" for="{{ $question->key }}">
+<div class="w-full rounded-lg">
+    <label class="text-lg font-bold tracking-tight text-gray-900" for="{{ $question->key }}">
         {{ $question->content }}
         @if ($question->is_required)
             <span class="text-red-800"><b>*</b></span>
         @endif
     </label>
 
-    <div class="mt-4">
+    <div class="mt-2">
         {{ $slot }}
     </div>
 
