@@ -118,29 +118,27 @@
                         </div>
                     </li>
                     <!-- Calendar -->
-                    @if (Auth::user()->hasPermissionTo('manage-employees'))
-                        <li
-                            class="px-3 py-2 rounded-sm mb-0.5 last:mb-0 @if (in_array(Request::segment(1), ['employee'])) {{ 'bg-slate-900' }} @endif">
-                            <a class="block text-slate-200 hover:text-white truncate transition duration-150 @if (in_array(Request::segment(1), ['employee'])) {{ 'hover:text-slate-200' }} @endif"
-                                href="{{ route('employee.list') }}">
-                                <div class="flex items-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                        class="shrink-0 h-6 w-6 icon icon-tabler icon-tabler-user-circle" width="44"
-                                        height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50"
-                                        fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                        <circle cx="12" cy="12" r="9" />
-                                        <circle cx="12" cy="10" r="3"
-                                            class="fill-current @if (in_array(Request::segment(1), ['employee'])) {{ 'text-indigo-500' }}@else{{ 'text-slate-600' }} @endif" />
-                                        <path d="M6.168 18.849a4 4 0 0 1 3.832 -2.849h4a4 4 0 0 1 3.834 2.855"
-                                            class="fill-current @if (in_array(Request::segment(1), ['employee'])) {{ 'text-indigo-500' }}@else{{ 'text-slate-600' }} @endif" />
-                                    </svg>
-                                    <span
-                                        class="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Employees</span>
-                                </div>
-                            </a>
-                        </li>
-                    @endif
+                    <li
+                        class="px-3 py-2 rounded-sm mb-0.5 last:mb-0 @if (in_array(Request::segment(1), ['employee'])) {{ 'bg-slate-900' }} @endif">
+                        <a class="block text-slate-200 hover:text-white truncate transition duration-150 @if (in_array(Request::segment(1), ['employee'])) {{ 'hover:text-slate-200' }} @endif"
+                            href="{{ route('employee.list') }}">
+                            <div class="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                    class="shrink-0 h-6 w-6 icon icon-tabler icon-tabler-user-circle" width="44"
+                                    height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50"
+                                    fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <circle cx="12" cy="12" r="9" />
+                                    <circle cx="12" cy="10" r="3"
+                                        class="fill-current @if (in_array(Request::segment(1), ['employee'])) {{ 'text-indigo-500' }}@else{{ 'text-slate-600' }} @endif" />
+                                    <path d="M6.168 18.849a4 4 0 0 1 3.832 -2.849h4a4 4 0 0 1 3.834 2.855"
+                                        class="fill-current @if (in_array(Request::segment(1), ['employee'])) {{ 'text-indigo-500' }}@else{{ 'text-slate-600' }} @endif" />
+                                </svg>
+                                <span
+                                    class="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Employees</span>
+                            </div>
+                        </a>
+                    </li>
                     <!-- Community -->
                     <li class="px-3 py-2 rounded-sm mb-0.5 last:mb-0 @if (in_array(Request::segment(1), ['community'])) {{ 'bg-slate-900' }} @endif"
                         x-data="{ open: {{ in_array(Request::segment(1), ['community']) ? 1 : 0 }} }">

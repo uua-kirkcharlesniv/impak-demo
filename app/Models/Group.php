@@ -18,8 +18,8 @@ class Group extends Model
     public function members()
     {
         return $this->belongsToMany(User::class)
-                    ->withPivot('is_leader')
-                    ->withTimestamps();
+            ->withPivot('is_leader')
+            ->withTimestamps();
     }
 
     public function getSubtitleAttribute()
@@ -29,7 +29,7 @@ class Group extends Model
 
         $members = $this->members()->get();
         foreach ($members as $member) {
-            if($member->pivot->is_leader) {
+            if ($member->pivot->is_leader) {
                 array_push($leaders, $member->name);
             } else {
                 array_push($ordinary, $member->name);
@@ -43,11 +43,10 @@ class Group extends Model
 
     public function getIsLoggedInUserGroupLeaderAttribute()
     {
-        if(Auth::user() == null) {
+        if (Auth::user() == null) {
             return false;
         }
 
         return DB::table('group_user')->where('group_id', '=', $this->id)->where('user_id', '=', Auth::user()->id)->where('is_leader', '=', true)->exists();
-        
     }
 }

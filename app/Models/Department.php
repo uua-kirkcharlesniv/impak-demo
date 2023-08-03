@@ -18,8 +18,8 @@ class Department extends Model
     public function members()
     {
         return $this->belongsToMany(User::class)
-                    ->withPivot('is_leader')
-                    ->withTimestamps();
+            ->withPivot('is_leader')
+            ->withTimestamps();
     }
 
     public function getSubtitleAttribute()
@@ -29,7 +29,7 @@ class Department extends Model
 
         $members = $this->members()->get();
         foreach ($members as $member) {
-            if($member->pivot->is_leader) {
+            if ($member->pivot->is_leader) {
                 array_push($leaders, $member->name);
             } else {
                 array_push($ordinary, $member->name);
@@ -43,7 +43,7 @@ class Department extends Model
 
     public function getIsLoggedInUserGroupLeaderAttribute()
     {
-        if(Auth::user() == null) {
+        if (Auth::user() == null) {
             return false;
         }
 

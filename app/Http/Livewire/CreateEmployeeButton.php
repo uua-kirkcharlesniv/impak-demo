@@ -46,9 +46,14 @@ class CreateEmployeeButton extends Component
         'departmentSelected' => 'handleDepartmentSelected',
     ];
 
-    public function mount()
+    public $minimalist = false;
+
+    public function mount($minimalist = false)
     {
         $this->cities = User::select('city')->groupBy('city')->get()->pluck('city')->toArray();
+        if (isset($minimalist) && $minimalist == true) {
+            $this->minimalist = true;
+        }
     }
 
     public function handleGroupsSelected($usersId)
@@ -63,7 +68,7 @@ class CreateEmployeeButton extends Component
 
     protected function rules()
     {
-        if($this->tab == 'create') {
+        if ($this->tab == 'create') {
             return [
                 'first_name' => 'required|min:3',
                 'middle_name' => 'nullable|min:1',
@@ -87,7 +92,7 @@ class CreateEmployeeButton extends Component
 
     public function submit()
     {
-        if($this->tab == 'create') {
+        if ($this->tab == 'create') {
             $this->validate();
 
             $employee = User::create([
@@ -111,11 +116,11 @@ class CreateEmployeeButton extends Component
             ]);
             $employee->assignRole('employee');
 
-            if(count($this->groupIds) > 0) {
+            if (count($this->groupIds) > 0) {
                 $employee->groups()->attach($this->groupIds);
             }
 
-            if($this->departmentId != null) {
+            if ($this->departmentId != null) {
                 $employee->departments()->attach($this->departmentId);
             }
 
@@ -124,14 +129,14 @@ class CreateEmployeeButton extends Component
             $this->alert('success', 'Employee added!');
 
             $is_employee_onboarded = Auth::user()->is_employee_onboarded;
-            if($is_employee_onboarded == false || $is_employee_onboarded == 0) {
+            if ($is_employee_onboarded == false || $is_employee_onboarded == 0) {
                 Auth::user()->update([
                     'is_employee_onboarded' => true
                 ]);
             }
         }
     }
-    
+
     public function render()
     {
         return view('livewire.create-employee-button');

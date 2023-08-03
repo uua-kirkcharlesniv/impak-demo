@@ -16,6 +16,7 @@ use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\CampaignController;
 use App\Http\Controllers\OnboardController;
+use App\Http\Livewire\ProfileComponent;
 use App\Models\Survey;
 use Illuminate\Http\Request;
 
@@ -61,26 +62,18 @@ Route::middleware([
         });
 
         Route::name('employee.')->prefix('employee')->group(function () {
-            Route::get('/', [MemberController::class, 'indexTabs'])->name('list');
-
-            Route::get('/profile', function () {
-                return view('pages/community/profile');
-            })->name('profile');
+            Route::get('/', ProfileComponent::class)->name('list');
         });
 
         Route::name('community.')->prefix('community')->group(function () {
             Route::name('groups.')->prefix('groups')->group(function () {
                 Route::get('/', [MemberController::class, 'indexTiles'])->name('list');
-                Route::get('/{id}', [MemberController::class, 'indexTabs'])->name('view');
-
-                Route::get('/{id}/profile', function () {
-                    return view('pages/community/profile');
-                })->name('profile');
+                Route::get('/{id}', ProfileComponent::class)->name('view');
             });
 
             Route::name('departments.')->prefix('departments')->group(function () {
                 Route::get('/', [MemberController::class, 'indexTiles'])->name('list');
-                Route::get('/{id}', [MemberController::class, 'indexTabs'])->name('view');
+                Route::get('/{id}', ProfileComponent::class)->name('view');
 
                 Route::get('/{id}/profile', function () {
                     return view('pages/community/profile');

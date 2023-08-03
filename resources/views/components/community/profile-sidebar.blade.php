@@ -15,34 +15,34 @@
                             <div class="grow flex items-center truncate">
                                 <img class="w-8 h-8 rounded-full mr-2" src="{{ asset('images/user-avatar-32.png') }}"
                                     width="32" height="32" alt="Group 01" />
-                                <div class="truncate">
+                                <div class="truncate" wire:ignore>
                                     @if (in_array(Request::segment(1), ['employee']))
-                                        Impak Company ✨
-                                    @else
+                                        {{ tenant()->company }} Company ✨
+                                    @elseif(isset($host))
                                         @if (in_array(Request::segment(2), ['groups']))
-                                            Acme Group ✨
+                                            {{ $host->name }} Group ✨
                                         @else
-                                            XYZ Department ✨
+                                            {{ $host->name }} Department ✨
                                         @endif
                                     @endif
                                 </div>
                             </div>
                         </div>
                         <!-- Add button -->
-                        <button
+                        {{-- <button
                             class="p-1.5 shrink-0 rounded border border-slate-200 hover:border-slate-300 shadow-sm ml-2">
                             <svg class="w-4 h-4 fill-current text-indigo-500" viewBox="0 0 16 16">
                                 <path
                                     d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1Z" />
                             </svg>
-                        </button>
+                        </button> --}}
                     </div>
                 </div>
             </div>
             <!-- Group body -->
-            <div class="px-5 py-4">
+            <div class="px-5">
                 <!-- Search form -->
-                <form class="relative">
+                {{-- <form class="relative">
                     <label for="profile-search" class="sr-only">Search</label>
                     <input id="profile-search" class="form-input w-full pl-9 focus:border-slate-300" type="search"
                         placeholder="Search…" />
@@ -55,121 +55,64 @@
                                 d="M15.707 14.293L13.314 11.9a8.019 8.019 0 01-1.414 1.414l2.393 2.393a.997.997 0 001.414 0 .999.999 0 000-1.414z" />
                         </svg>
                     </button>
-                </form>
+                </form> --}}
                 <!-- Team members -->
                 <div class="mt-4">
-                    <div class="text-xs font-semibold text-slate-400 uppercase mb-3">
+                    <div class="text-xs font-semibold text-slate-400 uppercase mb-3" wire:ignore>
                         @if (in_array(Request::segment(1), ['employee']))
-                        Company Employees ✨
-                    @else
-                        @if (in_array(Request::segment(2), ['groups']))
-                            Group Members ✨
+                            Company Employees ✨
                         @else
-                            Department Members ✨
+                            @if (in_array(Request::segment(2), ['groups']))
+                                Group Members ✨
+                            @else
+                                Department Members ✨
+                            @endif
                         @endif
-                    @endif
                     </div>
                     <ul class="mb-6">
-                        <li class="-mx-2">
-                            <button class="w-full p-2 rounded bg-indigo-100" @click="profileSidebarOpen = false">
-                                <div class="flex items-center">
-                                    <div class="relative mr-2">
-                                        <img class="w-8 h-8 rounded-full" src="{{ asset('images/user-32-08.jpg') }}"
-                                            width="32" height="32" alt="User 08" />
+                        @foreach ($users as $user)
+                            <li class="-mx-2">
+                                <div class="flex items-center space-x-4 p-2 rounded {{ $user->id == $selectedId ? 'bg-indigo-100' : '' }}"
+                                    wire:click="$emit('userSelected', {{ $user->id }})">
+                                    <div class="flex-shrink-0">
+                                        <img class="w-8 h-8 rounded-full" src="{{ $user->profile_photo_url }}">
                                     </div>
-                                    <div class="truncate">
-                                        <span class="text-sm font-medium text-slate-800">Carolyn McNeail</span>
+                                    <div class="flex-1 min-w-0">
+                                        <p class="text-sm font-medium text-gray-900 truncate">
+                                            {{ $user->name }}
+                                        </p>
+                                        <p class="text-sm text-gray-500 truncate">
+                                            @if ($user->trashed())
+                                                <span class="text-red-500">
+                                                    Deactivated
+                                                </span>
+                                            @elseif (isset($host))
+                                                @if (isset($user->pivot->is_leader))
+                                                    @if ($user->pivot->is_leader == '1')
+                                                        @if (in_array(Request::segment(2), ['groups']))
+                                                            Group Leader
+                                                        @else
+                                                            Department Head
+                                                        @endif
+                                                    @endif
+                                                @endif
+                                                {{-- {{ ($user->pivot->is_leader == '1' ? 'Leader' : '') ?? '' }} --}}
+                                            @else
+                                                @if ($user->hasRole('owner'))
+                                                    Owner
+                                                @elseif($user->hasRole('manager'))
+                                                    Manager
+                                                @endif
+                                            @endif
+                                        </p>
                                     </div>
-                                </div>
-                            </button>
-                        </li>
-                        <li class="-mx-2">
-                            <button class="w-full p-2 rounded" @click="profileSidebarOpen = false">
-                                <div class="flex items-center truncate">
-                                    <div class="relative mr-2">
-                                        <img class="w-8 h-8 rounded-full" src="{{ asset('images/user-32-06.jpg') }}"
-                                            width="32" height="32" alt="User 06" />
-                                    </div>
-                                    <div class="truncate">
-                                        <span class="text-sm font-medium text-slate-800">Mary Roszczewski</span>
-                                    </div>
-                                </div>
-                            </button>
-                        </li>
-                        <li class="-mx-2">
-                            <button class="w-full p-2 rounded" @click="profileSidebarOpen = false">
-                                <div class="flex items-center truncate">
-                                    <div class="relative mr-2">
-                                        <img class="w-8 h-8 rounded-full" src="{{ asset('images/user-32-03.jpg') }}"
-                                            width="32" height="32" alt="User 03" />
-                                    </div>
-                                    <div class="truncate">
-                                        <span class="text-sm font-medium text-slate-800">Jerzy Wierzy</span>
-                                    </div>
-                                </div>
-                            </button>
-                        </li>
-                        <li class="-mx-2">
-                            <button class="w-full p-2 rounded" @click="profileSidebarOpen = false">
-                                <div class="flex items-center truncate">
-                                    <div class="relative mr-2">
-                                        <img class="w-8 h-8 rounded-full" src="{{ asset('images/user-32-02.jpg') }}"
-                                            width="32" height="32" alt="User 02" />
-                                        <div
-                                            class="absolute top-0 right-0 w-2.5 h-2.5 bg-emerald-500 border-2 border-white rounded-full">
-                                        </div>
-                                    </div>
-                                    <div class="truncate">
-                                        <span class="text-sm font-medium text-slate-800">Tisha Yanchev</span>
+                                    <div
+                                        class="inline-flex items-center font-semibold text-xs text-white text-gray-900 rounded-2xl py-2 px-2 bg-indigo-300">
+                                        <span class="text-green-600">⬆</span> 720
                                     </div>
                                 </div>
-                            </button>
-                        </li>
-                        <li class="-mx-2">
-                            <button class="w-full p-2 rounded" @click="profileSidebarOpen = false">
-                                <div class="flex items-center truncate">
-                                    <div class="relative mr-2">
-                                        <img class="w-8 h-8 rounded-full" src="{{ asset('images/user-32-05.jpg') }}"
-                                            width="32" height="32" alt="User 05" />
-                                        <div
-                                            class="absolute top-0 right-0 w-2.5 h-2.5 bg-emerald-500 border-2 border-white rounded-full">
-                                        </div>
-                                    </div>
-                                    <div class="truncate">
-                                        <span class="text-sm font-medium text-slate-800">Simona Lürwer</span>
-                                    </div>
-                                </div>
-                            </button>
-                        </li>
-                        <li class="-mx-2">
-                            <button class="w-full p-2 rounded" @click="profileSidebarOpen = false">
-                                <div class="flex items-center truncate">
-                                    <div class="relative mr-2">
-                                        <img class="w-8 h-8 rounded-full" src="{{ asset('images/user-32-04.jpg') }}"
-                                            width="32" height="32" alt="User 04" />
-                                    </div>
-                                    <div class="truncate">
-                                        <span class="text-sm font-medium text-slate-800">Adrian Przetocki</span>
-                                    </div>
-                                </div>
-                            </button>
-                        </li>
-                        <li class="-mx-2">
-                            <button class="w-full p-2 rounded" @click="profileSidebarOpen = false">
-                                <div class="flex items-center truncate">
-                                    <div class="relative mr-2">
-                                        <img class="w-8 h-8 rounded-full" src="{{ asset('images/user-32-01.jpg') }}"
-                                            width="32" height="32" alt="User 01" />
-                                        <div
-                                            class="absolute top-0 right-0 w-2.5 h-2.5 bg-emerald-500 border-2 border-white rounded-full">
-                                        </div>
-                                    </div>
-                                    <div class="truncate">
-                                        <span class="text-sm font-medium text-slate-800">Brian Halligan</span>
-                                    </div>
-                                </div>
-                            </button>
-                        </li>
+                            </li>
+                        @endforeach
                     </ul>
                 </div>
             </div>
