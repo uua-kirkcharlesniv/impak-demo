@@ -29,7 +29,15 @@
         @endforeach
 
         @if ($eligible)
-            <button class="btn btn-primary">Submit</button>
+            {{-- <button class="btn btn-primary">Submit</button> --}}
+            <button
+                class="w-full bg-indigo-600 hover:bg-blue text-white font-semibold hover:text-black py-2 px-4 m-4 border border-blue rounded"
+                aria-controls="feedback-modal">
+
+                <span class="hidden xs:block ml-2">
+                    Submit
+                </span>
+            </button>
         @endif
     @endif
 </div>

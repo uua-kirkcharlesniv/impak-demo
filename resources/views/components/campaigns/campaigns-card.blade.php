@@ -95,9 +95,19 @@
                         {{ $campaign->type }}</div>
                 </div>
                 <div>
+                    @if(Auth::user()->hasPermissionTo('manage-employees'))
                     <a class="text-sm font-medium text-indigo-500 hover:text-indigo-600"
                         href="{{ route('survey.edit', $campaign->id) }}">Edit
                         -&gt;</a>
+                    @else
+                        @if($campaign->is_open && $campaign->isEligible(Auth::user()))
+                        <a class="text-sm font-medium text-indigo-500 hover:text-indigo-600"
+                        href="{{ route('survey.view', $campaign->id) }}">Answer</a>
+                        @else
+                        <a class="text-sm font-medium text-red-500 hover:text-red-800"
+                        href="#">Closed</a>
+                        @endif
+                    @endif
                     {{-- @if (mt_rand(1, 100) < 60)
                         <a class="text-sm font-medium text-indigo-500 hover:text-indigo-600"
                             href="{{ route('survey.view', 1) }}">Start

@@ -104,11 +104,12 @@ Route::middleware([
                 return view('pages/campaign/create')->with(['survey' => $survey]);
             })->name('edit');
             Route::get('/{id}', [CampaignController::class, 'view'])->name('view');
-            Route::get('/{id}/1', [CampaignController::class, 'answer1']);
-            Route::get('/{id}/2', [CampaignController::class, 'answer2']);
-            Route::get('/{id}/3', [CampaignController::class, 'answer3']);
-            Route::get('/{id}/4', [CampaignController::class, 'answer4']);
-            Route::get('/{id}/completed', [CampaignController::class, 'completed']);
+            Route::post('/{id}', [CampaignController::class, 'store'])->name('process');
+            // Route::get('/{id}/1', [CampaignController::class, 'answer1']);
+            // Route::get('/{id}/2', [CampaignController::class, 'answer2']);
+            // Route::get('/{id}/3', [CampaignController::class, 'answer3']);
+            // Route::get('/{id}/4', [CampaignController::class, 'answer4']);
+            // Route::get('/{id}/completed', [CampaignController::class, 'completed']);
         });
 
         // Route for the getting the data feed

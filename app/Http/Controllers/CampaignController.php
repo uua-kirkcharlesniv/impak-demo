@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\Campaign;
 use App\Models\Survey;
 use Exception;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use MattDaneshvar\Survey\Models\Entry;
 
 class CampaignController extends Controller
 {
@@ -16,9 +18,23 @@ class CampaignController extends Controller
         return view('pages/campaigns', compact('campaigns'));
     }
 
-    public function view()
+    public function view($id)
     {
-        return view('pages/campaign/answer/intro');
+        $survey = Survey::findOrFail($id);
+        return view('pages/campaign/answer/intro')->with('survey', $survey);
+    }
+
+    public function store($id, Request $request)
+    {
+        $survey = Survey::findOrFail($id);
+        
+        $answers = $this->validate($request, $survey->rules, [
+            'required' => 'This field is required',
+            'min' => 'Must at least pick :min choices.',
+            'max' => 'Maximum of :max choices only.'
+        ]);
+
+        (new Entry)->for($survey)->by(Auth::user())->fromArray($answers)->push();
     }
 
     public function answer1()

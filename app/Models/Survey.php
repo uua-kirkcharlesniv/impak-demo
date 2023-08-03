@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
@@ -15,7 +17,7 @@ class Survey extends \MattDaneshvar\Survey\Models\Survey
         'settings' => 'array',
     ];
 
-    protected $appends = ['is_open'];
+    protected $appends = ['is_open', 'is_targeted'];
 
     public function getSlugOptions(): SlugOptions
     {
@@ -33,8 +35,58 @@ class Survey extends \MattDaneshvar\Survey\Models\Survey
         return $data;
     }
 
+    public function getIsTargetedAttribute()
+    {
+
+        if (Auth::check()) {
+            $userId = Auth::user()->id;
+            $users = Respondent::where('survey_id', $this->id)
+                ->where('type', 'user')
+                ->where('respondent_id', $userId)
+                ->count();
+            if ($users > 0) {
+                return true;
+            }
+
+            $myGroupsId = DB::table('group_user')
+                ->where('user_id', $userId)
+                ->get()
+                ->pluck('group_id');
+            $groupsCount = Respondent::where('survey_id', $this->id)
+                ->where('type', 'group')
+                ->whereIn('respondent_id', $myGroupsId)
+                ->count();
+
+            if ($groupsCount > 0) {
+                return true;
+            }
+
+            $myDepartmentIds = DB::table('group_user')
+                ->where('user_id', $userId)
+                ->get()
+                ->pluck('group_id');
+            $departmentCount = Respondent::where('survey_id', $this->id)
+                ->where('type', 'department')
+                ->whereIn('respondent_id', $myDepartmentIds)
+                ->count();
+            if ($departmentCount > 0) {
+                return true;
+            }
+        } else {
+            return $this->acceptsGuestEntries();
+        }
+
+        return false;
+    }
+
+
     public function getIsOpenAttribute()
     {
+        $isTargeted = $this->getIsTargetedAttribute();
+        if ($isTargeted == false) {
+            return false;
+        }
+
         $currentDate = Carbon::now()->format('Y-m-d');
         $currentTime = Carbon::now()->format('H:i');
         $currentDayOfWeek = Carbon::now()->dayOfWeek; // Carbon returns 0 for Sunday, 1 for Monday, and so on.

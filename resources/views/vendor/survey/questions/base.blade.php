@@ -14,9 +14,9 @@
         <div class="text-red-500 mt-3">{{ $errors->first($question->key) }}</div>
     @endif
 
-    <div class="text-green-500">
+    {{-- <div class="text-green-500">
         {{ $report ?? '' }}
-    </div>
+    </div> --}}
 
 
     <script defer="defer">

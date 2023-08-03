@@ -14,7 +14,7 @@
                     aria-hidden="true"></div>
             </label>
 
-
+            @if(Auth::user()->hasPermissionTo('manage-employees'))
             <label class="custom-control-label" for="{{ $question->key . '-' . Str::slug($option) }}">
                 @if ($includeResults ?? false)
                     <span class="text-success">
@@ -22,6 +22,7 @@
                     </span>
                 @endif
             </label>
+            @endif
         </div>
     @endforeach
 @endcomponent
