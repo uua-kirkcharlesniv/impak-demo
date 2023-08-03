@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Campaign;
 use App\Models\Survey;
+use App\Models\Templaste;
+use App\Models\Template;
 use Exception;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use MattDaneshvar\Survey\Models\Entry;
 
@@ -16,6 +18,47 @@ class CampaignController extends Controller
     {
         $campaigns = Survey::paginate(9);
         return view('pages/campaigns', compact('campaigns'));
+    }
+
+    public function viewTemplates()
+    {
+        $templates = tenancy()->central(function($tenant) { 
+            return Template::get();
+        });
+
+        return view('pages/templates', compact('templates'));
+    }
+
+    public function useTemplate($id)
+    {
+        $template = tenancy()->central(function($tenant) use ($id) { 
+            return Template::findOrFail($id);
+        });
+     
+
+        $survey = Survey::create([
+            'name' => $template->title,
+            'settings' => $template->settings,
+            'rationale' => $template->rationale,
+            'rationale_description' => $template->rationale_description,
+            'survey_type' => $template->survey_type,
+        ]);
+
+        foreach($template->data as $key => $data) {
+            Log::debug("Processing: " . $key);
+            $section = $survey->sections()->create(['name' => $key]);
+
+            foreach($data as $question => $data) {
+                $section->questions()->create([
+                    'content' => $question,
+                    'type' => $data['type'],
+                    'rules' => $data['rules'],
+                    'options' => $data['options'] ?? [],
+                ]);
+            }
+        }
+        
+        return redirect()->route('survey.edit', [$survey]);
     }
 
     public function view($id)

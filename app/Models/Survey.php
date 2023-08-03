@@ -12,6 +12,8 @@ class Survey extends \MattDaneshvar\Survey\Models\Survey
 {
     use HasSlug;
 
+    protected $fillable = ['name', 'settings', 'rationale', 'rationale_description', 'survey_type', 'manual_survey_type', 'manual_sections', 'target_focus'];
+
     protected $casts = [
         'recurrent_days' => 'array',
         'settings' => 'array',

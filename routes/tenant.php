@@ -112,6 +112,11 @@ Route::middleware([
             // Route::get('/{id}/completed', [CampaignController::class, 'completed']);
         });
 
+        Route::name('template.')->prefix('frameworks')->group(function () {
+            Route::get('/', [CampaignController::class, 'viewTemplates'])->name('list');
+            Route::get('/use/{id}', [CampaignController::class, 'useTemplate'])->name('use');
+        });
+
         // Route for the getting the data feed
         Route::get('/json-data-feed', [DataFeedController::class, 'getDataFeed'])->name('json_data_feed');
 
