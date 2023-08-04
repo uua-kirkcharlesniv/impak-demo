@@ -5,6 +5,8 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use MattDaneshvar\Survey\Models\Entry;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
@@ -19,13 +21,53 @@ class Survey extends \MattDaneshvar\Survey\Models\Survey
         'settings' => 'array',
     ];
 
-    protected $appends = ['is_open', 'is_targeted'];
+    protected $appends = ['is_open', 'is_targeted', 'target_user_ids', 'respondents_count', 'unique_users_entry_count'];
 
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
             ->generateSlugsFrom('name')
             ->saveSlugsTo('slug');
+    }
+
+    public function getTargetUserIdsAttribute()
+    {
+        $users = Respondent::where('survey_id', $this->id)
+            ->where('type', 'user')
+            ->get()->pluck('respondent_id')->toArray();
+
+        $groupIds = Respondent::where('survey_id', $this->id)
+            ->where('type', 'group')
+            ->get()->pluck('respondent_id')->toArray();
+        $groupUserIds = [];
+        foreach ($groupIds as $id) {
+            $myArray = DB::table('group_user')->where('group_id', '=', $id)->get()->pluck('user_id')->toArray();
+            $groupUserIds = array_merge($myArray, $groupUserIds);
+            Log::debug($myArray);
+        }
+
+        $departmentUserIds = [];
+        $departmentIds = Respondent::where('survey_id', $this->id)
+            ->where('type', 'department')
+            ->get()->pluck('respondent_id')->toArray();
+        foreach ($departmentIds as $id) {
+            $myArray = DB::table('department_user')->where('department_id', '=', $id)->get()->pluck('user_id')->toArray();
+            $departmentUserIds = array_merge($myArray, $departmentUserIds);
+        }
+
+
+        return array_unique(array_merge($users, $groupUserIds, $departmentUserIds));
+    }
+
+    public function getRespondentsCountAttribute()
+    {
+        return count($this->target_user_ids);
+    }
+
+    public function getUniqueUsersEntryCountAttribute()
+    {
+        $data = Entry::where('survey_id', $this->id)->distinct()->get()->count();
+        return $data;
     }
 
     public function getEndTimeAttribute($data)
@@ -42,38 +84,7 @@ class Survey extends \MattDaneshvar\Survey\Models\Survey
 
         if (Auth::check()) {
             $userId = Auth::user()->id;
-            $users = Respondent::where('survey_id', $this->id)
-                ->where('type', 'user')
-                ->where('respondent_id', $userId)
-                ->count();
-            if ($users > 0) {
-                return true;
-            }
-
-            $myGroupsId = DB::table('group_user')
-                ->where('user_id', $userId)
-                ->get()
-                ->pluck('group_id');
-            $groupsCount = Respondent::where('survey_id', $this->id)
-                ->where('type', 'group')
-                ->whereIn('respondent_id', $myGroupsId)
-                ->count();
-
-            if ($groupsCount > 0) {
-                return true;
-            }
-
-            $myDepartmentIds = DB::table('group_user')
-                ->where('user_id', $userId)
-                ->get()
-                ->pluck('group_id');
-            $departmentCount = Respondent::where('survey_id', $this->id)
-                ->where('type', 'department')
-                ->whereIn('respondent_id', $myDepartmentIds)
-                ->count();
-            if ($departmentCount > 0) {
-                return true;
-            }
+            return in_array($userId, $this->target_user_ids);
         } else {
             return $this->acceptsGuestEntries();
         }
