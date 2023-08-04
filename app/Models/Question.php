@@ -65,7 +65,7 @@ class Question extends \MattDaneshvar\Survey\Models\Question
         }
 
         if (in_array('tristate', $this->options)) {
-            return 2;
+            return 3;
         }
 
         return null;
@@ -170,6 +170,9 @@ class Question extends \MattDaneshvar\Survey\Models\Question
                 break;
             case 'multiselect':
                 return 'Checkbox';
+                break;
+            case 'range':
+                return 'Range Slider';
                 break;
             default:
                 return 'Unsupported';

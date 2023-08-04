@@ -15,7 +15,7 @@ class CampaignController extends Controller
 {
     public function index()
     {
-        $campaigns = Survey::paginate(9);
+        $campaigns = Survey::latest()->paginate(9);
         return view('pages/campaigns', compact('campaigns'));
     }
 

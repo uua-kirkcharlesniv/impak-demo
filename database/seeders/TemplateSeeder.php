@@ -35,7 +35,7 @@ class TemplateSeeder extends Seeder
                 of the workshop to the attendee and the relevance as applied to the individual role. The continuous feedback allows
                 revisions to the design of the workshop.
                 "),
-                "survey_type" => "post_event",
+                "survey_type" => "post_workshop",
                 "data" => [
                     "Program/Workshop" => [
                         "How relevant was the program/workshop content to you?" => [
@@ -102,6 +102,107 @@ class TemplateSeeder extends Seeder
                     ],
                 ]
             ]),
+            new Template([
+                'title' => 'Post Event: Measuring the Basics',
+                'settings' => [
+                    'limit-per-participant' => 1,
+                    'accept-guest-entries' => false,
+                ],
+                'rationale' => 'Measure the key indicators for a successful initiative',
+                'rationale_description' => trim("
+                The event evaluation survey measures the feedback of participants to the event with the intent to make necessary
+                improvements. It could either be an indicator of future partnerships or, similar programs to role out. Through this
+                assessment, organizers can find out if the session was good enough; the event was informative or not, presentation
+                skills of the speaker, event venue, and so on.
+                "),
+                "survey_type" => "post_event",
+                "data" => [
+                    "Event Name" => [
+                        "How would you rate the entire event?" => [
+                            "type" => "likert",
+                            "options" => ["full", "asc"],
+                            "rules" => ["required"],
+                        ],
+                        "How well did this event meet your expectations?" => [
+                            "type" => "likert",
+                            "options" => ["full", "asc"],
+                            "rules" => ["required"],
+                        ],
+                        "What are the likelihood that you will attend this event, or a similar one, again?" => [
+                            "type" => "likert",
+                            "options" => ["tristate", "asc"],
+                            "rules" => ["required"],
+                        ],
+                        "How would you rate the event in the area of: Announcements/Commercials" => [
+                            "type" => "likert",
+                            "options" => ["full", "asc"],
+                            "rules" => ["required"],
+                        ],
+                        "How would you rate the event in the area of: Joining Instructions" => [
+                            "type" => "likert",
+                            "options" => ["full", "asc"],
+                            "rules" => ["required"],
+                        ],
+                        "How would you rate the event in the area of: Registration" => [
+                            "type" => "likert",
+                            "options" => ["full", "asc"],
+                            "rules" => ["required"],
+                        ],
+                        "How would you rate the event in the area of: Staff" => [
+                            "type" => "likert",
+                            "options" => ["full", "asc"],
+                            "rules" => ["required"],
+                        ],
+                        "How would you rate the event in the area of: Speakers" => [
+                            "type" => "likert",
+                            "options" => ["full", "asc"],
+                            "rules" => ["required"],
+                        ],
+                        "How would you rate the event in the area of: Content" => [
+                            "type" => "likert",
+                            "options" => ["full", "asc"],
+                            "rules" => ["required"],
+                        ],
+                        "How would you rate the event in the area of: Venue" => [
+                            "type" => "likert",
+                            "options" => ["full", "asc"],
+                            "rules" => ["required"],
+                        ],
+                        "How would you rate the event in the area of: Time" => [
+                            "type" => "likert",
+                            "options" => ["full", "asc"],
+                            "rules" => ["required"],
+                        ],
+                        "What did you MOST LIKE about the event?" => [
+                            "type" => "text",
+                            "options" => [],
+                            "rules" => ["required", "string", "max:1000"]
+                        ],
+                        "What did you LEAST LIKE about the event?" => [
+                            "type" => "text",
+                            "options" => [],
+                            "rules" => ["required", "string", "max:1000"]
+                        ],
+                        "How much impact will this event have on your learning goals?" => [
+                            "type" => "likert",
+                            "options" => ["full", "asc"],
+                            "rules" => ["required"],
+                        ],
+                        "What other comments/suggestions do you have for us?" => [
+                            "type" => "text",
+                            "options" => [],
+                            "rules" => ["required", "string", "max:1000"]
+                        ],
+                    ],
+                    "Overall Rating" => [
+                        "Considering your over-all experience, how likely are you to recommend this event to your friends and colleague?" => [
+                            "type" => "range",
+                            "options" => ["start:1", "end:10"],
+                            "rules" => ["required", "digits_between:1,10"]
+                        ]
+                    ]
+                ]
+            ])
         ];
 
         foreach($data as $template) {
