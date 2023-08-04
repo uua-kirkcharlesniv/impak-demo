@@ -28,7 +28,7 @@ class FormScheduleComponent extends Component
     public function mount($survey)
     {
         $this->survey = $survey;
-        if(isset($survey->recurrent_days)) {
+        if (isset($survey->recurrent_days)) {
             $this->recurrent_days = $survey->recurrent_days;
         } else {
             $this->recurrent_days = [];
@@ -41,7 +41,7 @@ class FormScheduleComponent extends Component
         $endDate = Carbon::parse($this->survey->end_date);
 
         if ($startDate->lte($endDate)) {
-            $this->survey->start_date = $data;
+            $this->survey->start_date = $startDate->format('Y-m-d H:i:s');
             $this->survey->save();
         }
     }
@@ -52,7 +52,7 @@ class FormScheduleComponent extends Component
         $endDate = Carbon::parse($data);
 
         if ($endDate->gte($startDate)) {
-            $this->survey->end_date = $data;
+            $this->survey->end_date = $endDate->format('Y-m-d H:i:s');
             $this->survey->save();
         }
     }

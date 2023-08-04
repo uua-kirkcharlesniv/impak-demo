@@ -220,7 +220,7 @@ class ManageSurvey extends Component
                 $section->questions()->create([
                     'content' => 'Date Field',
                     'type' => 'text',
-                    'rules' => ['required', 'string', 'date_format:m/d/Y'],
+                    'rules' => ['required', 'string', 'date_format:Y-m-d'],
                 ]);
 
                 break;
