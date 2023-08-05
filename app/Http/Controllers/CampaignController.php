@@ -77,6 +77,8 @@ class CampaignController extends Controller
         ]);
 
         (new Entry)->for($survey)->by(Auth::user())->fromArray($answers)->push();
+
+        return redirect()->back();
     }
 
     public function answer1()
