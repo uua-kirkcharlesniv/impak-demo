@@ -37,37 +37,37 @@
                 x-transition:leave="transition ease-in-out duration-200"
                 x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 translate-y-4"
                 x-cloak>
-                <form wire:submit.prevent="submit">
-                    <div class="bg-white rounded shadow-lg overflow-auto max-w-lg w-full max-h-full"
-                        @click.outside="modalOpen = false" @keydown.escape.window="modalOpen = false">
-                        <!-- Modal header -->
-                        <div class="px-5 py-3 border-b border-slate-200">
-                            <div class="flex justify-between items-center">
-                                <div class="font-semibold text-slate-800">New Employee</div>
-                                <button class="text-slate-400 hover:text-slate-500" @click="modalOpen = false">
-                                    <div class="sr-only">Close</div>
-                                    <svg class="w-4 h-4 fill-current">
-                                        <path
-                                            d="M7.95 6.536l4.242-4.243a1 1 0 111.415 1.414L9.364 7.95l4.243 4.242a1 1 0 11-1.415 1.415L7.95 9.364l-4.243 4.243a1 1 0 01-1.414-1.415L6.536 7.95 2.293 3.707a1 1 0 011.414-1.414L7.95 6.536z" />
-                                    </svg>
-                                </button>
-                            </div>
+                <div class="bg-white rounded shadow-lg overflow-auto max-w-lg w-full max-h-full"
+                    @click.outside="modalOpen = false" @keydown.escape.window="modalOpen = false">
+                    <!-- Modal header -->
+                    <div class="px-5 py-3 border-b border-slate-200">
+                        <div class="flex justify-between items-center">
+                            <div class="font-semibold text-slate-800">New Employee</div>
+                            <button class="text-slate-400 hover:text-slate-500" @click="modalOpen = false">
+                                <div class="sr-only">Close</div>
+                                <svg class="w-4 h-4 fill-current">
+                                    <path
+                                        d="M7.95 6.536l4.242-4.243a1 1 0 111.415 1.414L9.364 7.95l4.243 4.242a1 1 0 11-1.415 1.415L7.95 9.364l-4.243 4.243a1 1 0 01-1.414-1.415L6.536 7.95 2.293 3.707a1 1 0 011.414-1.414L7.95 6.536z" />
+                                </svg>
+                            </button>
                         </div>
-                        <!-- Modal content -->
-                        <div class="px-5 py-4">
-                            <nav class="flex border-b border-gray-100 text-sm font-medium mb-5">
-                                <button wire:click="$set('tab', 'create')"
-                                    class="-mb-px border-b {{ $tab == 'create' ? 'border-current text-cyan-500' : 'border-transparent hover:text-cyan-500' }} p-4">
-                                    Create
-                                </button>
+                    </div>
+                    <!-- Modal content -->
+                    <div class="px-5 py-4">
+                        <nav class="flex border-b border-gray-100 text-sm font-medium mb-5">
+                            <button wire:click="$set('tab', 'create')"
+                                class="-mb-px border-b {{ $tab == 'create' ? 'border-current text-cyan-500' : 'border-transparent hover:text-cyan-500' }} p-4">
+                                Create
+                            </button>
 
-                                <button wire:click="$set('tab', 'import')"
-                                    class="-mb-px border-b {{ $tab == 'import' ? 'border-current text-cyan-500' : 'border-transparent hover:text-cyan-500' }} p-4">
-                                    Import
-                                </button>
+                            <button wire:click="$set('tab', 'import')"
+                                class="-mb-px border-b {{ $tab == 'import' ? 'border-current text-cyan-500' : 'border-transparent hover:text-cyan-500' }} p-4">
+                                Import
+                            </button>
 
-                            </nav>
-                            @if ($tab == 'create')
+                        </nav>
+                        @if ($tab == 'create')
+                            <form wire:submit.prevent="submit">
                                 <div class="text-sm">
                                     <div class="font-medium text-slate-800 mb-3">Add a new member to your family 🙌
                                     </div>
@@ -137,8 +137,7 @@
                                     </div>
                                     <div class="flex">
                                         <div class="flex-1">
-                                            <label class="block text-sm font-medium mb-1"
-                                                for="contract_type">Country<span
+                                            <label class="block text-sm font-medium mb-1" for="country">Country<span
                                                     class="text-rose-500">*</span></label>
                                             <select id="country"
                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
@@ -147,7 +146,7 @@
                                                     <option value="{{ $key }}">{{ $key }}</option>
                                                 @endforeach
                                             </select>
-                                            @error('contract_type')
+                                            @error('country')
                                                 <span class="error">{{ $message }}</span>
                                             @enderror
                                         </div>
@@ -275,35 +274,21 @@
                                         </div>
                                     </div>
                                 </div>
-                            @else
-                                <header
-                                    class="border-dashed border-2 border-gray-400 py-12 flex flex-col justify-center items-center">
-                                    <p class="mb-3 font-semibold text-gray-900 flex flex-wrap justify-center">
-                                        <span>Drag and drop your</span>&nbsp;<span>files anywhere or</span>
-                                    </p>
-                                    <input id="hidden-input" type="file" multiple class="hidden" />
-                                    <button id="button"
-                                        class="mt-2 rounded-sm px-3 py-1 bg-gray-200 hover:bg-gray-300 focus:shadow-outline focus:outline-none">
-                                        Upload a file
-                                    </button>
-                                    <br>
-                                    <span class="text-gray-500 text-sm">Maximum size of 3MB</span>
-                                    <span class="text-gray-500 text-sm">Accepted files are only: .xlsx, .xls,
-                                        .csv</span>
-                                </header>
-                            @endif
+                            </form>
+                        @else
+                            <livewire:file-upload />
+                        @endif
 
-                        </div>
-                        <!-- Modal footer -->
-                        <div class="px-5 py-4 border-t border-slate-200">
-                            <div class="flex flex-wrap justify-end space-x-2">
-                                <button class="btn-sm border-slate-200 hover:border-slate-300 text-slate-600"
-                                    @click="modalOpen = false">Not now</button>
-                                <button class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white">Add New</button>
-                            </div>
+                    </div>
+                    <!-- Modal footer -->
+                    <div class="px-5 py-4 border-t border-slate-200">
+                        <div class="flex flex-wrap justify-end space-x-2">
+                            <button class="btn-sm border-slate-200 hover:border-slate-300 text-slate-600"
+                                @click="modalOpen = false">Not now</button>
+                            <button class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white">Add New</button>
                         </div>
                     </div>
-                </form>
+                </div>
 
             </div>
         </div>
