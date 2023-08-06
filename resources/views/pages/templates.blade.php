@@ -6,7 +6,12 @@
 
             <!-- Left: Title -->
             <div class="mb-4 sm:mb-0">
-                <h1 class="text-2xl md:text-3xl text-slate-800 font-bold">Templates ✨</h1>
+                <h1 class="text-2xl md:text-3xl text-slate-800 font-bold">Frameworks ✨</h1>
+                <p class="text-sm text-gray-400">Choose from our science-backed frameworks to unleash the full potential
+                    <br>
+                    of your surveys and elevate
+                    your data-driven decision-making.
+                </p>
             </div>
 
         </div>
@@ -21,7 +26,7 @@
                     <div class="flex flex-col h-full p-5">
                         <header>
                             <div class="flex items-center justify-between">
-                            
+
                             </div>
                         </header>
                         <div class="grow mt-2">
@@ -31,18 +36,17 @@
                             <div class="text-sm">{{ $campaign->rationale_description }}</div>
                         </div>
                         <footer class="mt-5">
-                            
-                            
+
+
                             <div class="flex justify-between items-center">
                                 <div>
-                                    <div
-                                        class="text-xs inline-flex font-medium rounded-full text-center px-2.5 py-1 ">
+                                    <div class="text-xs inline-flex font-medium rounded-full text-center px-2.5 py-1 ">
                                         {{ $campaign->rationale }}</div>
                                 </div>
                                 <div>
                                     <a class="text-sm font-medium text-indigo-500 hover:text-indigo-600"
-                                            href="{{ route('template.use', $campaign->id) }}">Use
-                                            -&gt;</a>
+                                        href="{{ route('template.use', $campaign->id) }}">Use
+                                        -&gt;</a>
 
                                 </div>
                             </div>
