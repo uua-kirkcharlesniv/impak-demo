@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Builder;
 
 class Question extends \MattDaneshvar\Survey\Models\Question
 {
+    protected $fillable = ['type', 'options', 'content', 'rules', 'survey_id', 'sort_order'];
+
     protected $appends = ['is_required', 'formatted_type', 'max', 'min', 'likert_type', 'likert_order'];
 
     protected $casts = [
@@ -23,11 +25,15 @@ class Question extends \MattDaneshvar\Survey\Models\Question
         });
 
         static::creating(function ($question) {
-            // Get the last highest sort value
-            $lastSortValue = static::where('section_id', $question->section_id)->max('sort_order');
+            if (isset($question->sort_order)) {
+                $question->sort_order = $question->sort_order;
+            } else {
+                // Get the last highest sort value
+                $lastSortValue = static::where('section_id', $question->section_id)->max('sort_order');
 
-            // Increment the last sort value by 1
-            $question->sort_order = $lastSortValue + 1;
+                // Increment the last sort value by 1
+                $question->sort_order = $lastSortValue + 1;
+            }
         });
     }
 

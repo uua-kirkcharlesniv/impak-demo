@@ -21,7 +21,7 @@ class CampaignController extends Controller
 
     public function viewTemplates()
     {
-        $templates = tenancy()->central(function($tenant) { 
+        $templates = tenancy()->central(function ($tenant) {
             return Template::get();
         });
 
@@ -30,10 +30,9 @@ class CampaignController extends Controller
 
     public function useTemplate($id)
     {
-        $template = tenancy()->central(function($tenant) use ($id) { 
+        $template = tenancy()->central(function ($tenant) use ($id) {
             return Template::findOrFail($id);
         });
-     
 
         $survey = Survey::create([
             'name' => $template->title,
@@ -43,20 +42,24 @@ class CampaignController extends Controller
             'survey_type' => $template->survey_type,
         ]);
 
-        foreach($template->data as $key => $data) {
-            Log::debug("Processing: " . $key);
-            $section = $survey->sections()->create(['name' => $key]);
+        foreach ($template->data as $key => $data) {
+            $section = $survey->sections()->create(['name' => $key, 'sort_order' => $data['settings']['sort_order']]);
 
-            foreach($data as $question => $data) {
+            foreach ($data as $question => $data) {
+                if ($question == 'settings') {
+                    continue;
+                }
+
                 $section->questions()->create([
                     'content' => $question,
                     'type' => $data['type'],
                     'rules' => $data['rules'],
                     'options' => $data['options'] ?? [],
+                    'sort_order' => $data['sort_order'],
                 ]);
             }
         }
-        
+
         return redirect()->route('survey.edit', [$survey]);
     }
 
@@ -69,7 +72,7 @@ class CampaignController extends Controller
     public function store($id, Request $request)
     {
         $survey = Survey::findOrFail($id);
-        
+
         $answers = $this->validate($request, $survey->rules, [
             'required' => 'This field is required',
             'min' => 'Must at least pick :min choices.',
