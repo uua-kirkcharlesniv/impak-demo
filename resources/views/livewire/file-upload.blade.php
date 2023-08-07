@@ -4,6 +4,9 @@
             <p class="mb-3 font-semibold text-gray-900 flex flex-wrap justify-center">
                 <span>Select your spreadsheet file for uploading</span>
             </p>
+            <a href="https://docs.google.com/spreadsheets/d/1nr9MVjMLv-TGJLaCoQO9e8LvF6VEaNP7mK_x59qL2ck/edit?usp=sharing"
+                class="mb-4">View our template</a>
+
             <input wire:model="file" type="file"
                 class="mt-2 rounded-sm px-3 py-1 bg-gray-200 hover:bg-gray-300 focus:shadow-outline focus:outline-none" />
 
