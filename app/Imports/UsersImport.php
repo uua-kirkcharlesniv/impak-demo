@@ -12,10 +12,13 @@ use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithValidation;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithStartRow;
+use Maatwebsite\Excel\Concerns\WithEvents;
+use Maatwebsite\Excel\Events\AfterImport;
+use Maatwebsite\Excel\Events\AfterSheet;
 
 
 
-class UsersImport implements ToModel, WithValidation, WithStartRow
+class UsersImport implements ToModel, WithValidation, WithStartRow, WithEvents
 {
     /**
      * @param array $row
@@ -24,7 +27,7 @@ class UsersImport implements ToModel, WithValidation, WithStartRow
      */
     public function model(array $row)
     {
-        return new User([
+        $user =  User::create([
             'first_name' => $row[0],
             'middle_name' => $row[1] ?? '',
             'last_name' => $row[2],
@@ -44,6 +47,11 @@ class UsersImport implements ToModel, WithValidation, WithStartRow
             'contract_type' => EmployeeContractType::fromKey($row[14]),
             'work_model' => WorkModel::fromKey($row[15]),
         ]);
+
+        $user->assignRole('employee');
+
+
+        return $user;
     }
 
     public function rules(): array
@@ -81,6 +89,27 @@ class UsersImport implements ToModel, WithValidation, WithStartRow
 
 
         return $data;
+    }
+
+    /**
+     * @return array
+     */
+    public function registerEvents(): array
+    {
+        return [
+            AfterImport::class => function (AfterImport $event) {
+                // Log::debug('After import ----------');
+
+                // dd($event);
+            },
+
+
+            AfterSheet::class => function (AfterSheet $event) {
+                // Log::debug('After sheet ----------');
+                // dd($event);
+            },
+
+        ];
     }
 
 
