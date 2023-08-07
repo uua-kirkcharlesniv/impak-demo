@@ -98,7 +98,12 @@ Route::middleware([
         });
 
         Route::name('survey.')->prefix('survey')->group(function () {
-            Route::get('/', [CampaignController::class, 'index'])->name('list');
+            // Route::get('/', [CampaignController::class, 'index'])->name('list');
+
+            Route::get('/drafts', [CampaignController::class, 'drafts'])->name('drafts');
+            Route::get('/ongoing', [CampaignController::class, 'ongoing'])->name('ongoing');
+            Route::get('/past', [CampaignController::class, 'past'])->name('past');
+
             Route::get('/create', [CampaignController::class, 'create'])->name('create');
             Route::get('/edit/{survey}', function (Survey $survey) {
                 return view('pages/campaign/create')->with(['survey' => $survey]);

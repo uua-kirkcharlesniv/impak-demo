@@ -38,7 +38,8 @@
                         <option value="post_event" {{ $survey->survey_type == 'post_event' ? 'selected' : '' }}>Post
                             Event
                             Survey</option>
-                        <option value="post_workshop" {{ $survey->survey_type == 'post_workshop' ? 'selected' : '' }}>Post
+                        <option value="post_workshop" {{ $survey->survey_type == 'post_workshop' ? 'selected' : '' }}>
+                            Post
                             Workshop
                             Survey</option>
                         <option value="needs_analysis" {{ $survey->survey_type == 'needs_analysis' ? 'selected' : '' }}>
@@ -216,7 +217,7 @@
                     @endforeach
                 </div>
             </x-survey-tab>
-            <x-survey-tab title="customization" icon="fa-bars">
+            {{-- <x-survey-tab title="customization" icon="fa-bars">
 
                 <div class="mt-4">
                     <label class="block text-sm font-medium mb-1" for="normal">Logo</label>
@@ -284,8 +285,44 @@
                         </button>
                     </div>
                 </div>
-            </x-survey-tab>
+            </x-survey-tab> --}}
             {{-- </x-survey-tab> --}}
+
+            @if ($survey->publish_status == 'draft')
+                <div class="p-4 border-b sticky top-0 z-10 bg-white">
+                    <button wire:click="updateStatus('published')"
+                        class="w-full py-2 px-4
+                bg-blue-600 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200
+                text-white transition ease-in duration-200 text-center text-base font-medium focus:outline-none focus:ring-2
+                focus:ring-offset-2 rounded-lg flex items-center hover:no-underline">
+                        <span class="no-underline mx-auto"><svg viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-white inline mr-1 -mt-1">
+                                <path
+                                    d="M17 21V13H7V21M7 3V8H15M19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H16L21 8V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21Z"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round"></path>
+                            </svg> Publish </span>
+                        <!---->
+                    </button>
+                </div>
+            @elseif($survey->publish_status == 'published')
+                <div class="p-4 border-b sticky top-0 z-10 bg-white">
+                    <button wire:click="updateStatus('closed')"
+                        class="w-full py-2 px-4
+            bg-green-600 hover:bg-green-700 focus:ring-green-500 focus:ring-offset-green-200
+            text-white transition ease-in duration-200 text-center text-base font-medium focus:outline-none focus:ring-2
+            focus:ring-offset-2 rounded-lg flex items-center hover:no-underline">
+                        <span class="no-underline mx-auto"><svg viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-white inline mr-1 -mt-1">
+                                <path
+                                    d="M17 21V13H7V21M7 3V8H15M19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H16L21 8V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21Z"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round"></path>
+                            </svg> Mark as Completed </span>
+                        <!---->
+                    </button>
+                </div>
+            @endif
 
 
         </div>

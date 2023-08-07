@@ -95,6 +95,18 @@ class Survey extends \MattDaneshvar\Survey\Models\Survey
 
     public function getIsOpenAttribute()
     {
+        if ($this->publish_status == 'draft' || $this->publish_status == 'closed') {
+            return;
+        }
+
+        if (Auth::user()->hasRole('employee')) {
+            $eligiblity = $this->isEligible(Auth::user());
+
+            if ($eligiblity == false) {
+                return false;
+            }
+        }
+
         $isTargeted = $this->getIsTargetedAttribute();
         if ($isTargeted == false) {
             return false;

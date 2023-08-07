@@ -56,18 +56,6 @@ class ManageSurvey extends Component
         $this->survey = $survey;
     }
 
-    public function addBlock($data)
-    {
-        $this->survey = $this->survey->refresh();
-
-        // $sectionId = array_key_last($this->sections);
-        // $blockId = Str::random(5);
-        // while (array_key_exists($blockId, $this->sections[$sectionId]["forms"])) {
-        //     $blockId = Str::random(5);
-        // }
-        // $this->sections[$sectionId]["forms"][$blockId] = $data;
-    }
-
     public function addSection()
     {
         $this->survey->sections()->create(['name' => 'New Section']);
@@ -341,5 +329,12 @@ class ManageSurvey extends Component
     {
         $question = Question::findOrFail($questionId);
         $this->selectedQuestion = $question;
+    }
+
+    public function updateStatus($data)
+    {
+        $this->survey->update(['publish_status' => $data]);
+
+        $this->survey = $this->survey->refresh();
     }
 }

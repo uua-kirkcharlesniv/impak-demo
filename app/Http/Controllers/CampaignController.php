@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Survey;
 use App\Models\Template;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -15,7 +16,55 @@ class CampaignController extends Controller
 {
     public function index()
     {
-        $campaigns = Survey::latest()->paginate(9);
+        $campaigns = Survey::latest();
+
+        return view('pages/campaigns', compact('campaigns'));
+    }
+
+    public function drafts()
+    {
+        if (!Auth::user()->hasPermissionTo('manage-employees')) {
+            abort(401);
+        }
+
+        $campaigns = Survey::where('publish_status', 'draft')->latest()->paginate(9);
+
+        return view('pages/campaigns', compact('campaigns'));
+    }
+
+    public function ongoing()
+    {
+        if (Auth::user()->hasPermissionTo('manage-employees')) {
+            $campaigns = Survey::where('publish_status', 'published')->latest()->paginate(9);
+        } else {
+            $campaigns = Survey::where('publish_status', 'published')->where('start_date', '<=', Carbon::now())
+                ->where('end_date', '>=', Carbon::now())
+                ->latest()->get();
+
+            $user = Auth::user();
+
+            $campaigns = $campaigns->filter(function ($survey) use ($user) {
+                return $survey->isEligible($user) && $survey->is_targeted == true;
+            });
+        }
+
+        return view('pages/campaigns', compact('campaigns'));
+    }
+
+    public function past()
+    {
+        if (Auth::user()->hasPermissionTo('manage-employees')) {
+            $campaigns = Survey::where('publish_status', 'closed')->latest()->paginate(9);
+        } else {
+            $campaigns = Survey::where('publish_status', '!=', 'draft')->latest()->get();
+
+            $user = Auth::user();
+
+            $campaigns = $campaigns->filter(function ($survey) use ($user) {
+                return $survey->entriesFrom($user)->count() > 0;
+            });
+        }
+
         return view('pages/campaigns', compact('campaigns'));
     }
 
