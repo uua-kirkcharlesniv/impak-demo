@@ -87,7 +87,7 @@
                             wire:model.lazy="sub_specialization" />
                     </div>
 
-                    <div class="container mt-4 mx-0 w-full flex flex-col items-center">
+                    {{-- <div class="container mt-4 mx-0 w-full flex flex-col items-center">
                         <button
                             class="w-full bg-transparent hover:bg-blue text-blue-dark font-semibold hover:text-black py-2 px-4 border border-blue rounded"
                             @click.prevent="modalOpen = true" aria-controls="feedback-modal">
@@ -96,7 +96,7 @@
                                 Analyze & Generate
                             </span>
                         </button>
-                    </div>
+                    </div> --}}
                 </div>
             </x-survey-tab>
             <x-survey-tab title="respondents" icon="fa-users">
