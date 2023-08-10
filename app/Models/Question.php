@@ -165,7 +165,7 @@ class Question extends \MattDaneshvar\Survey\Models\Question
             case 'time':
                 return 'Time';
                 break;
-            case 'time':
+            case 'datetime':
                 return 'Date & Time';
                 break;
             case 'radio':
