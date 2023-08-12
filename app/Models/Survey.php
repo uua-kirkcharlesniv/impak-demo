@@ -2,7 +2,10 @@
 
 namespace App\Models;
 
+use Brick\Math\Exception\DivisionByZeroException;
 use Carbon\Carbon;
+use DivisionByZeroError;
+use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -21,7 +24,16 @@ class Survey extends \MattDaneshvar\Survey\Models\Survey
         'settings' => 'array',
     ];
 
-    protected $appends = ['is_open', 'is_targeted', 'target_user_ids', 'respondents_count', 'unique_users_entry_count'];
+    protected $appends = ['is_open', 'is_targeted', 'target_user_ids', 'respondents_count', 'unique_users_entry_count', 'completion_percent'];
+
+    public function getCompletionPercentAttribute()
+    {
+        try {
+            return number_format((float) $this->getUniqueUsersEntryCountAttribute() / $this->getRespondentsCountAttribute(), 2, '.', '');
+        } catch (DivisionByZeroError $e) {
+            return 0;
+        }
+    }
 
     public function getSlugOptions(): SlugOptions
     {
@@ -66,7 +78,7 @@ class Survey extends \MattDaneshvar\Survey\Models\Survey
 
     public function getUniqueUsersEntryCountAttribute()
     {
-        $data = Entry::where('survey_id', $this->id)->distinct()->get()->count();
+        $data = Entry::select('participant_id')->where('survey_id', $this->id)->groupBy('participant_id')->get()->count();
         return $data;
     }
 

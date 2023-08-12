@@ -10,27 +10,19 @@ class SurveyAnalytics extends Component
 {
     public $surveys = [];
     public $selectedSurvey;
+    public ?Survey $survey;
 
     public function mount()
     {
         $this->surveys = Survey::all();
     }
 
-    public function getSurveyProperty()
+    public function updatedSelectedSurvey($value)
     {
-        Log::debug($this->selectedSurvey);
-        return $this->surveys[$this->selectedSurvey];
-    }
-
-    public function selectedSurveyChanged()
-    {
-        dd('test');
-    }
-
-    public function selectSurvey($index)
-    {
-        if (count($this->selectedSurvey) > 0) {
-            $this->selectedSurvey = $index;
+        if ($value == "") {
+            $this->survey = null;
+        } else {
+            $this->survey = $this->surveys[$this->selectedSurvey];
         }
     }
 

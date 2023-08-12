@@ -17,7 +17,6 @@ class SurveyIndividualAnalytics extends Component
 
     public function refreshView()
     {
-        Log::debug('refreshed');
         $this->survey->refresh();
     }
 

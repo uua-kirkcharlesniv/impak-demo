@@ -11,21 +11,22 @@
 
             <!-- Right: Actions -->
             <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
-                <select wire:model="selectedSurvey" wire:change="selectedSurveyChanged()" class="form-select w-full">
+                <select wire:model="selectedSurvey" class="form-select w-full">
                     <option value="">Select a survey</option>
-                    @foreach ($surveys as $index => $survey)
-                        <option value="{{ $index }}">{{ $survey->name }}</option>
+                    @foreach ($surveys as $index => $mySurvey)
+                        <option value="{{ $index }}">{{ $mySurvey->name }}</option>
                     @endforeach
                 </select>
             </div>
         </div>
 
         <!-- Cards -->
-        <div class="grid grid-cols-12 gap-6">
-            @if (isset($selectedSurvey))
-                <livewire:survey-individual-analytics :survey="$survey" />
-            @endif
-            {{-- 
+
+
+        @if (isset($survey))
+            <livewire:survey-individual-analytics :survey="$survey" wire:key="{{ $survey->id }}" />
+        @endif
+        {{-- 
                 <!-- Line chart (Analytics) -->
                 <x-analytics.analytics-card-01 />
 
@@ -59,7 +60,6 @@
                 <!-- Table (Top Products) -->
                 <x-analytics.analytics-card-11 /> --}}
 
-        </div>
 
     </div>
 

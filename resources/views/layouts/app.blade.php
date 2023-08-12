@@ -7,7 +7,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>
-        @if(Auth::check())
+        @if (Auth::check())
             Impak | {{ tenant()->company }}
         @else
             {{ config('app.name', 'Laravel') }}
@@ -37,6 +37,7 @@
     </script>
 
     @livewireScripts
+    @livewireChartsScripts
 
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
