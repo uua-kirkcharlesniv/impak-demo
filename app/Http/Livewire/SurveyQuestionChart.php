@@ -27,10 +27,33 @@ class SurveyQuestionChart extends Component
         $labels = [];
         $compiled = [];
 
-        foreach ($dataset as $key => $value) {
-            array_push($labels, $key);
-            array_push($compiled, $value);
-            // array_push($labels, $key);
+
+
+        if ($question->type == 'likert') {
+            foreach (generateLikertNames($question->likert_type, $question->likert_order) as $index => $option) {
+                array_push($labels, $option);
+                if (array_key_exists($option, $dataset)) {
+                    array_push($compiled, $dataset[$option]);
+                } else {
+                    array_push($compiled, 0);
+                }
+            }
+        } else if ($question->type == 'range') {
+            foreach (range(1, 10) as $option) {
+                array_push($labels, $option);
+
+                if (array_key_exists($option, $dataset)) {
+                    array_push($compiled, $dataset[$option]);
+                } else {
+                    array_push($compiled, 0);
+                }
+            }
+        } else {
+            foreach ($dataset as $key => $value) {
+                array_push($labels, $key);
+                array_push($compiled, $value);
+                // array_push($labels, $key);
+            }
         }
 
         $this->labels = $labels;
