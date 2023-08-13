@@ -2,14 +2,18 @@
 
 namespace App\Http\Livewire;
 
+use App\Jobs\ProcessGenerateSurvey;
 use App\Models\Question;
 use App\Models\Section;
 use App\Models\Survey;
 use Carbon\Carbon;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
 class ManageSurvey extends Component
 {
+    use LivewireAlert;
+
     public Survey $survey;
     public ?Question $selectedQuestion;
     public $selectedSectionId;
@@ -336,5 +340,40 @@ class ManageSurvey extends Component
         $this->survey->update(['publish_status' => $data]);
 
         $this->survey = $this->survey->refresh();
+    }
+
+    public function analyzeSurvey()
+    {
+        if (empty($this->survey->rationale)) {
+            $this->alert('warning', 'Rationale field cannot be empty');
+            return;
+        }
+
+        if (strlen($this->survey->rationale) < 15) {
+            $this->alert('warning', 'Rationale field must be at least 15 characters.');
+            return;
+        }
+
+        if (empty($this->survey->rationale_description)) {
+            $this->alert('warning', 'Rationale description field cannot be empty');
+            return;
+        }
+
+        if (strlen($this->survey->rationale_description) < 100) {
+            $this->alert('warning', 'Rationale description field must be at least 100 characters.');
+            return;
+        }
+
+        if ($this->survey->survey_type == "others") {
+            if (empty($this->survey->manual_survey_type)) {
+                $this->alert('warning', 'Survey type must be specified.');
+                return;
+            }
+        }
+
+        dispatch(new ProcessGenerateSurvey($this->survey))->onConnection('database');
+        // ProcessGenerateSurvey::dispatch($this->survey);
+
+        $this->alert('success', 'Your survey will be generated in a few minutes.');
     }
 }
