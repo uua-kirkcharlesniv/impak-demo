@@ -5,7 +5,7 @@ import Alpine from 'alpinejs';
 import party from 'party-js';
 
 // Import Chart.js
-import { Chart } from 'chart.js';
+import Chart from 'chart.js/auto';
 
 // Import flatpickr
 import flatpickr from 'flatpickr';
@@ -21,6 +21,7 @@ import ApexCharts from 'apexcharts'
 
 
 // Call Alpine
+window.Chart = Chart;
 window.Alpine = Alpine;
 window.party = party;
 window.Sortable = Sortable;

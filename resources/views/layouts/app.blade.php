@@ -23,6 +23,10 @@
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @paddleJS
+
+    @stack('styles')
+    @stack('scripts')
+
 </head>
 
 <body class="font-inter antialiased bg-slate-100 text-slate-600" :class="{ 'sidebar-expanded': sidebarExpanded }"
@@ -37,7 +41,7 @@
     </script>
 
     @livewireScripts
-    @livewireChartsScripts
+    {{-- @livewireChartsScripts --}}
 
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 

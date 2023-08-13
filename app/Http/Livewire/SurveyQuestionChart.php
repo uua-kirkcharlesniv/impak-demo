@@ -20,23 +20,26 @@ class SurveyQuestionChart extends Component
     public function mount($question)
     {
         $this->question = $question;
+
+        $data = Answer::select('value')->selectRaw('COUNT(*) as count')->where('question_id', $this->question->id)->groupBy('value')->get();
+        $dataset = $data->pluck('count', 'value')->toArray();
+
+        $labels = [];
+        $compiled = [];
+
+        foreach ($dataset as $key => $value) {
+            array_push($labels, $key);
+            array_push($compiled, $value);
+            // array_push($labels, $key);
+        }
+
+        $this->labels = $labels;
+        $this->dataset = $compiled;
     }
 
     public function render()
     {
-        $data = Answer::select('value')->selectRaw('COUNT(*) as count')->where('question_id', $this->question->id)->groupBy('value')->get();
-        $dataset = $data->pluck('count', 'value')->toArray();
-        $chart = LivewireCharts::pieChartModel();
-        foreach ($dataset as $key => $value) {
-            $chart->addSlice($key, $value, rand_color());
-        }
-
-
-        return view('livewire.survey-question-chart')->with(
-            [
-                'chart' => $chart,
-            ]
-        );
+        return view('livewire.survey-question-chart');
     }
 }
 
