@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Events\SurveyGenerated;
 use App\Models\Survey;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
@@ -79,6 +80,7 @@ class ProcessGenerateSurvey implements ShouldQueue
                 - No self-promotion
                 - No offensive statements
                 - Generate at least 3 sections, and 3 questions within them, maximum of 6 sections, and 6 questions within them.
+                - If a question is a range, it must be 1 to 10.
 
                 Reply following the sample JSON:
 
@@ -98,7 +100,9 @@ class ProcessGenerateSurvey implements ShouldQueue
                 - text
                 - radio
                 - multiselect
+                - range
 
+                If type is range, the question name must be appopriately named to "... of 1 to 10"
                 If type is radio OR multiselect, the question object must have a "options" key, with value of a string array.
                 PROMPT,
             ], [
@@ -143,6 +147,14 @@ class ProcessGenerateSurvey implements ShouldQueue
                             'options' => $question['options'],
                         ]);
                         break;
+                    case 'range':
+                        $section->questions()->create([
+                            'content' => $question['question_name'],
+                            'type' => 'range',
+                            "options" => ["start:1", "end:10"],
+                            "rules" => ["required", "digits_between:1,10"],
+                        ]);
+                        break;
 
                     default:
                         Log::warning('Unsupported type! ' . $question['type']);
@@ -150,5 +162,7 @@ class ProcessGenerateSurvey implements ShouldQueue
                 }
             }
         }
+
+        event(new SurveyGenerated(tenant('id'), $this->survey->id));
     }
 }

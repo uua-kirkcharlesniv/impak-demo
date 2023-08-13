@@ -42,7 +42,20 @@ class ManageSurvey extends Component
         'survey.target_focus' => 'nullable|string|max:250',
     ];
 
-    protected $listeners = ['modalClosed' => 'deattachSelectedQuestion'];
+    public function getListeners()
+    {
+        return [
+            "echo:" . tenant('id') . ".surveys.{$this->survey->id},SurveyGenerated" => 'refreshSurveyData',
+            'modalClosed' => 'deattachSelectedQuestion',
+        ];
+    }
+
+    public function refreshSurveyData()
+    {
+        $this->alert('success', 'Survey has been successfully generated!');
+
+        $this->survey = $this->survey->refresh();
+    }
 
     public function deattachSelectedQuestion()
     {

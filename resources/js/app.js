@@ -16,8 +16,7 @@ import { tailwindConfig } from './utils';
 import 'livewire-sortable';
 
 import Sortable, { Swap } from 'sortablejs';
-import ApexCharts from 'apexcharts'
-
+// import ApexCharts from 'apexcharts'
 
 
 // Call Alpine
@@ -28,6 +27,7 @@ window.Sortable = Sortable;
 window.Sortable.mount(new Swap());
 Alpine.start();
 
+ 
 
 // Define Chart.js default settings
 /* eslint-disable prefer-destructuring */
