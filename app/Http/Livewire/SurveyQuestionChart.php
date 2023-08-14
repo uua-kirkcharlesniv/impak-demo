@@ -16,6 +16,7 @@ class SurveyQuestionChart extends Component
     public array $dataset = [];
     public array $labels = [];
     public $question;
+    public $intextGeneration = '';
 
     public function mount($question)
     {
@@ -26,8 +27,6 @@ class SurveyQuestionChart extends Component
 
         $labels = [];
         $compiled = [];
-
-
 
         if ($question->type == 'likert') {
             foreach (generateLikertNames($question->likert_type, $question->likert_order) as $index => $option) {
@@ -55,6 +54,38 @@ class SurveyQuestionChart extends Component
                 // array_push($labels, $key);
             }
         }
+
+        if (count($dataset) > 0) {
+            $maxs = array_keys($dataset, max($dataset));
+            $text = "<b>" . join(", ", $maxs) . "</b> has the highest value of " . max($dataset) . ". ";
+
+            $mins = array_keys($dataset, min($dataset));
+            $text .= "<i>" . join(", ", $mins) . "</i> has the highest lowest value of " . min($dataset) . ".";
+
+            // $avg = Answer::where('question_id', $this->question->id)->avg('value');
+
+            // $sum = 0;
+            // $count = count($dataset);
+
+            // foreach ($dataset as $key => $value) {
+            //     $sum += $value;
+            // }
+
+            // $mean = $sum / $count;
+
+            // $middle = floor($count / 2);
+
+            // if ($count % 2 == 0) {
+            //     $median = ($dataset[$middle - 1] + $dataset[$middle]) / 2;
+            // } else {
+            //     $median = $labels[$middle];
+            // }
+
+            // $text .= " <br> Median is <b>$median</b>. Mode is <b>$middle</b>";
+
+            $this->intextGeneration = $text;
+        }
+
 
         $this->labels = $labels;
         $this->dataset = $compiled;

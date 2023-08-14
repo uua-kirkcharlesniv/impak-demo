@@ -1,5 +1,11 @@
-<div class="p-4 w-full">
-    <canvas id="{{ $question->key }}"></canvas>
+<div>
+    <div class="grow">
+        <canvas id="{{ $question->key }}" class="p-4 w-full"></canvas>
+    </div>
+
+    <header class="px-5 py-4 border-t border-slate-100 flex items-center">
+        <h2 class="text-slate-800">{!! $intextGeneration !!}</h2>
+    </header>
 
     <script>
         function percentageToColor(percentage, maxHue = 120, minHue = 10) {
@@ -42,7 +48,7 @@
                 ];
                 break;
             case 10:
-                for (let i = 1; i <= 10; i++) {
+                for (let i = 0; i <= 10; i++) {
                     backgroundColor[i] = percentageToColor(i / 10)
                 }
 

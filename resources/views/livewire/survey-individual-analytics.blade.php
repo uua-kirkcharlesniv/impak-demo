@@ -106,9 +106,9 @@
                         {{-- <div class="px-5 py-1">
                             
                         </div> --}}
-                        <div class="grow">
-                            <livewire:survey-question-chart :question="$question" />
-                        </div>
+
+                        <livewire:survey-question-chart :question="$question" />
+
                     </div>
                 @endforeach
 
