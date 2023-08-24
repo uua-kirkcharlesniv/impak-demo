@@ -309,8 +309,8 @@
                 <div class="p-4 border-b sticky top-0 z-10 bg-white">
                     <button wire:click="updateStatus('closed')"
                         class="w-full py-2 px-4
-            bg-green-600 hover:bg-green-700 focus:ring-green-500 focus:ring-offset-green-200
-            text-white transition ease-in duration-200 text-center text-base font-medium focus:outline-none focus:ring-2
+                        bg-green-600 hover:bg-green-700 focus:ring-green-500 focus:ring-offset-green-200
+                        text-white transition ease-in duration-200 text-center text-base font-medium focus:outline-none focus:ring-2
             focus:ring-offset-2 rounded-lg flex items-center hover:no-underline">
                         <span class="no-underline mx-auto"><svg viewBox="0 0 24 24" fill="none"
                                 xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-white inline mr-1 -mt-1">

@@ -25,6 +25,27 @@
 
         </div>
 
+        @if ($campaigns->count() < 1)
+            <div class="max-w-2xl m-auto mt-16">
+                <div class="text-center px-4">
+                    <div
+                        class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-t from-slate-200 to-slate-100 mb-4">
+                        👩🏻‍💻
+                    </div>
+                    <h2 class="text-2xl text-slate-800 font-bold mb-2">
+                        Embark on insights, as your survey journey starts here.
+                    </h2>
+                    <div class="mb-6">
+                        Begin your voyage into valuable insights with us. Explore a world of possibilities as you take
+                        your first steps in the realm of surveys, where every question leads to discovery.
+
+                    </div>
+
+                    <livewire:create-survey-button />
+                </div>
+            </div>
+        @endif
+
         <!-- Cards -->
         <div class="grid grid-cols-12 gap-6">
 

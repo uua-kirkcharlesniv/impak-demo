@@ -39,7 +39,7 @@ class CreateCommunityButton extends Component
     public function render()
     {
         $users = User::role('employee')->get();
-        if($this->selectedUserId != null) {
+        if ($this->selectedUserId != null) {
             $filteredUsers = $users->filter(function ($user) {
                 return $user->id != $this->selectedUserId;
             });
@@ -71,8 +71,8 @@ class CreateCommunityButton extends Component
         $members = $this->membersIds;
         $masterlist = [];
 
-        
-        if($this->isDepartment) {
+
+        if ($this->isDepartment) {
             $model = Department::create([
                 'name' => $this->name,
             ]);
@@ -92,9 +92,14 @@ class CreateCommunityButton extends Component
 
         $model->members()->attach($masterlist);
 
-        $this->alert('success', $this->isDepartment ? 'Department added!' : 'Group added!');
+        // $this->alert('success', $this->isDepartment ? 'Department added!' : 'Group added!');
 
         $this->resetExcept('isDepartment');
 
+        if ($this->isDepartment) {
+            return redirect()->route('community.departments.list');
+        } else {
+            return redirect()->route('community.groups.list');
+        }
     }
 }

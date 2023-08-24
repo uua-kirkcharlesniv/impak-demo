@@ -1,8 +1,8 @@
 <div>
     @if (Auth::user()->hasPermissionTo('manage-employees'))
-        <div x-data="{ modalOpen: {{ Auth::user()->is_employee_onboarded == false &&auth()->user()->can('manage-employees')? 'true': 'false' }} }">
+        <div>
             @if (isset($minimalist) && $minimalist)
-                <button @click.prevent="modalOpen = true"
+                <button @click.prevent="employeeModalOpen = true"
                     class="p-1.5 shrink-0 rounded border border-slate-200 hover:border-slate-300 shadow-sm ml-2">
                     <svg class="w-4 h-4 fill-current text-indigo-500" viewBox="0 0 16 16">
                         <path
@@ -10,7 +10,7 @@
                     </svg>
                 </button>
             @else
-                <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white" @click.prevent="modalOpen = true"
+                <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white" @click.prevent="employeeModalOpen = true"
                     aria-controls="feedback-modal">
                     <svg class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
                         <path
@@ -23,7 +23,7 @@
             @endif
 
             <!-- Modal backdrop -->
-            <div class="fixed inset-0 bg-slate-900 bg-opacity-30 z-50 transition-opacity" x-show="modalOpen"
+            <div class="fixed inset-0 bg-slate-900 bg-opacity-30 z-50 transition-opacity" x-show="employeeModalOpen"
                 x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0"
                 x-transition:enter-end="opacity-100" x-transition:leave="transition ease-out duration-100"
                 x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" aria-hidden="true" x-cloak>
@@ -31,19 +31,19 @@
             <!-- Modal dialog -->
             <div id="feedback-modal"
                 class="fixed inset-0 z-50 overflow-hidden flex items-center my-4 justify-center px-4 sm:px-6"
-                role="dialog" aria-modal="true" x-show="modalOpen"
+                role="dialog" aria-modal="true" x-show="employeeModalOpen"
                 x-transition:enter="transition ease-in-out duration-200"
                 x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0"
                 x-transition:leave="transition ease-in-out duration-200"
                 x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 translate-y-4"
                 x-cloak>
                 <div class="bg-white rounded shadow-lg overflow-auto max-w-lg w-full max-h-full"
-                    @click.outside="modalOpen = false" @keydown.escape.window="modalOpen = false">
+                    @click.outside="employeeModalOpen = false" @keydown.escape.window="employeeModalOpen = false">
                     <!-- Modal header -->
                     <div class="px-5 py-3 border-b border-slate-200">
                         <div class="flex justify-between items-center">
                             <div class="font-semibold text-slate-800">New Employee</div>
-                            <button class="text-slate-400 hover:text-slate-500" @click="modalOpen = false">
+                            <button class="text-slate-400 hover:text-slate-500" @click="employeeModalOpen = false">
                                 <div class="sr-only">Close</div>
                                 <svg class="w-4 h-4 fill-current">
                                     <path
@@ -278,7 +278,7 @@
                                 <div class=" py-4 border-t border-slate-200">
                                     <div class="flex flex-wrap justify-end space-x-2">
                                         <button class="btn-sm border-slate-200 hover:border-slate-300 text-slate-600"
-                                            @click="modalOpen = false">Not now</button>
+                                            @click="employeeModalOpen = false">Not now</button>
                                         <button class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white">Add
                                             New</button>
                                     </div>
