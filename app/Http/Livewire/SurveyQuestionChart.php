@@ -15,15 +15,28 @@ class SurveyQuestionChart extends Component
 {
     public array $dataset = [];
     public array $labels = [];
+    public array $answers = [];
     public $question;
     public $intextGeneration = '';
+    public $min;
+    public $max;
 
-    public function mount($question)
+    public $sectionIndex;
+    public $questionIndex;
+
+    public function mount($sectionIndex, $questionIndex, $question)
     {
+        $this->sectionIndex = $sectionIndex;
+        $this->questionIndex = $questionIndex;
+
         $this->question = $question;
 
         $data = Answer::select('value')->selectRaw('COUNT(*) as count')->where('question_id', $this->question->id)->groupBy('value')->get();
         $dataset = $data->pluck('count', 'value')->toArray();
+
+        if ($question->type == 'short-answer' || $question->type == 'long-answer') {
+            $this->answers = Answer::where('question_id', $this->question->id)->get()->toArray();
+        }
 
         $labels = [];
         $compiled = [];
@@ -59,8 +72,16 @@ class SurveyQuestionChart extends Component
             $maxs = array_keys($dataset, max($dataset));
             $text = "<b>" . join(", ", $maxs) . "</b> has the highest value of " . max($dataset) . ". ";
 
+            if (count($maxs) > 0) {
+                $this->max = $maxs[0];
+            }
+
             $mins = array_keys($dataset, min($dataset));
             $text .= "<i>" . join(", ", $mins) . "</i> has the highest lowest value of " . min($dataset) . ".";
+
+            if (count($mins) > 0) {
+                $this->min = $mins[0];
+            }
 
             // $avg = Answer::where('question_id', $this->question->id)->avg('value');
 

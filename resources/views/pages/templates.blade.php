@@ -48,7 +48,7 @@
                     </a>
                     <div class="p-5">
                         <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">
-                            {{ $campaign->rationale }}
+                            {{ $campaign->title }}
                         </h5>
                         <div>
 
