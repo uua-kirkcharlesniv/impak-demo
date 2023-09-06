@@ -27,6 +27,21 @@
     @stack('styles')
     @stack('scripts')
 
+    <style>
+        .clearfix::after {
+            content: " ";
+            display: block;
+            height: 0;
+            clear: both;
+            *zoom: expression(this.runtimeStyle['zoom']='1', this.innerHTML +='<div class="ie7-clear"></div>');
+        }
+
+        .ie7-clear {
+            display: block;
+            clear: both;
+        }
+    </style>
+
 </head>
 
 <body class="font-inter antialiased bg-slate-100 text-slate-600" :class="{ 'sidebar-expanded': sidebarExpanded }"
