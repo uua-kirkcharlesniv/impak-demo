@@ -4,10 +4,10 @@
 
         <div class="min-h-screen h-full flex flex-col after:flex-1">
 
-            <div class="flex-1">
+            {{-- <div class="flex-1">
 
                 <!-- Progress bar -->
-                {{-- <div class="px-4 pt-12">
+                <div class="px-4 pt-12">
                     <div class="max-w-md mx-auto w-full">
                         <div class="relative">
                             <div class="absolute left-0 top-1/2 -mt-px w-full h-0.5 bg-slate-200" aria-hidden="true">
@@ -32,12 +32,13 @@
                             </ul>
                         </div>
                     </div>
-                </div> --}}
-            </div>
-            <form action="{{ route('survey.process', $survey->id) }}" method="POST">
+                </div>
+            </div> --}}
+            <livewire:survey-answer-page :survey="$survey" />
+            {{-- <form action="{{ route('survey.process', $survey->id) }}" method="POST">
                 @csrf
                 @include('survey::standard', ['survey' => $survey])
-            </form>
+            </form> --}}
 
             {{-- <div class="flex-1 px-4 ">
                 <div class="max-w-md mx-auto">
