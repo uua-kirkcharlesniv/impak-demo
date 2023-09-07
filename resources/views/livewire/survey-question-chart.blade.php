@@ -1,3 +1,7 @@
+@php
+    $time = now();
+@endphp
+
 <div>
     @if ($question->type == 'short-answer' || $question->type == 'long-answer')
         @php
@@ -61,7 +65,7 @@
                 </ul>
             @endif
             <div class="grow">
-                <canvas id="{{ $question->key }}" class="p-4 w-full"></canvas>
+                <canvas id="{{ $question->key }}-{{ $time }}" class="p-4 w-full"></canvas>
             </div>
         </div>
 
@@ -203,7 +207,7 @@
 
 
 
-            new Chart(document.getElementById("{{ $question->key }}"), {
+            new Chart(document.getElementById("{{ $question->key }}-{{ $time }}"), {
                 type: type,
                 data: {
                     labels: labels,

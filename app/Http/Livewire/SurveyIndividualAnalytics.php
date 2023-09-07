@@ -20,6 +20,11 @@ class SurveyIndividualAnalytics extends Component
         $this->survey->refresh();
     }
 
+    public function refreshData()
+    {
+        $this->survey->refresh();
+    }
+
     public function render()
     {
         return view('livewire.survey-individual-analytics');

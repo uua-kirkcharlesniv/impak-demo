@@ -1,5 +1,6 @@
-<div>
-    <div class="flex flex-col col-span-full bg-white shadow-lg rounded-sm border border-slate-200">
+<div wire:poll.30s.visible="refreshData">
+    <div class="flex flex-col col-span-full bg-white shadow-lg rounded-sm border border-slate-200"
+        wire:key="analytics-survey-{{ $survey->id }}">
         <div class="px-5 py-6">
             <div class="md:flex md:justify-between md:items-center">
                 <!-- Left side -->
@@ -94,7 +95,7 @@
         </div>
     </div>
     @foreach ($survey->sections as $sectionIndex => $section)
-        <div class="mt-4 mb-8">
+        <div class="mt-4 mb-8" wire:key="{{ $section->id }}">
             <h1 class="font-bold text-2xl text-slate-800">{{ $section->name }}</h1>
             <div class="grid grid-cols-12 gap-6 mt-4">
                 @foreach ($section->questions as $questionIndex => $question)
@@ -131,7 +132,8 @@
                             
                         </div> --}}
 
-                        <livewire:survey-question-chart :sectionIndex="$sectionIndex" :questionIndex="$questionIndex" :question="$question" />
+                        <livewire:survey-question-chart :sectionIndex="$sectionIndex" :questionIndex="$questionIndex" :question="$question"
+                            wire:key="{{ $survey->id }}.{{ $section->id }}.{{ $question->id }}.{{ now() }}" />
 
                     </div>
                 @endforeach
