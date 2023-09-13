@@ -69,11 +69,13 @@ Route::middleware([
             Route::name('groups.')->prefix('groups')->group(function () {
                 Route::get('/', [MemberController::class, 'indexTiles'])->name('list');
                 Route::get('/{id}', ProfileComponent::class)->name('view');
+                Route::get('/{id}/delete', [MemberController::class, 'deleteGroup'])->name('delete');
             });
 
             Route::name('departments.')->prefix('departments')->group(function () {
                 Route::get('/', [MemberController::class, 'indexTiles'])->name('list');
                 Route::get('/{id}', ProfileComponent::class)->name('view');
+                Route::get('/{id}/delete', [MemberController::class, 'deleteDepartment'])->name('delete');
 
                 Route::get('/{id}/profile', function () {
                     return view('pages/community/profile');

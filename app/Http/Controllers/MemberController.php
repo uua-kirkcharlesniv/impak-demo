@@ -7,6 +7,7 @@ use App\Models\Group;
 use Illuminate\Http\Request;
 use App\Models\Member;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class MemberController extends Controller
 {
@@ -25,5 +26,29 @@ class MemberController extends Controller
         }
 
         return view('pages/community/groups-tiles', compact('members'));
+    }
+
+    public function deleteGroup($id)
+    {
+        if (!Auth::user()->hasPermissionTo('manage-groups')) {
+            abort(401);
+        }
+
+        $group = Group::findOrFail($id);
+        $group->delete();
+
+        return redirect()->route('community.groups.list');
+    }
+
+    public function deleteDepartment($id)
+    {
+        if (!Auth::user()->hasPermissionTo('manage-departments')) {
+            abort(401);
+        }
+
+        $department = Department::findOrFail($id);
+        $department->delete();
+
+        return redirect()->route('community.departments.list');
     }
 }

@@ -49,9 +49,17 @@
                             x-transition:leave-end="opacity-0" x-cloak>
                             <ul>
                                 <li>
-                                    <a class="font-medium text-sm text-rose-500 hover:text-rose-600 flex py-1 px-3"
-                                        href="#0" @click="open = false" @focus="open = true"
-                                        @focusout="open = false">Remove</a>
+                                    @if (in_array(Request::segment(2), ['groups']))
+                                        <a class="font-medium text-sm text-rose-500 hover:text-rose-600 flex py-1 px-3"
+                                            href="{{ route('community.groups.delete', $member->id) }}"
+                                            @click="open = false" @focus="open = true"
+                                            @focusout="open = false">Remove</a>
+                                    @elseif (in_array(Request::segment(2), ['departments']))
+                                        <a class="font-medium text-sm text-rose-500 hover:text-rose-600 flex py-1 px-3"
+                                            href="{{ route('community.departments.delete', $member->id) }}"
+                                            @click="open = false" @focus="open = true"
+                                            @focusout="open = false">Remove</a>
+                                    @endif
                                 </li>
                             </ul>
                         </div>
