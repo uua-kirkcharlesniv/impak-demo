@@ -48,9 +48,9 @@
                             @else
                                 <button
                                     class="p-1.5 shrink-0 rounded border border-slate-200 hover:border-slate-300 shadow-sm"
-                                    wire:click="deleteDoAction">
+                                    wire:click="deleteDoAction('{{ Request::segment(2) }}')">
                                     @if (Auth::user()->id == $user->id)
-                                        <i class="fa-regular text-xl text-red-700 fa-right-from-bracket"></i>
+                                        <i class="fa-solid text-xl text-red-700 fa-right-from-bracket"></i>
                                     @else
                                         <i class="fa-regular text-xl text-red-700 fa-trash"></i>
                                     @endif

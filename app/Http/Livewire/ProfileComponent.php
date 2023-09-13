@@ -42,12 +42,23 @@ class ProfileComponent extends Component
         $this->selectedId = $id;
     }
 
-    public function deleteDoAction()
+    public function deleteDoAction($subroute)
     {
         if (isset($this->host)) {
-            // in groups/departments
+            if (!isset($subroute)) {
+                abort(400);
+            }
+
             $this->host->members()->detach($this->user->id);
             $this->loadData($this->host->id);
+
+            if (Auth::user()->id == $this->user->id) {
+                if ($subroute == 'groups') {
+                    return redirect()->route('community.groups.list');
+                } else if ($subroute == 'departments') {
+                    return redirect()->route('community.departments.list');
+                }
+            }
         } else {
             $user = User::findOrFail($this->user->id);
             $user->delete();
