@@ -51,7 +51,9 @@ Route::middleware([
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');
 
-
+    Route::get('/', function () {
+        return redirect('/dashboard');
+    })->name('tenant-login');
 
     Route::middleware(['auth:sanctum', 'verified', 'auth.onboard'])->group(function () {
 

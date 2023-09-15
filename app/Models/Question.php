@@ -139,7 +139,7 @@ class Question extends \MattDaneshvar\Survey\Models\Question
                         return 'time';
                     }
 
-                    dd($parsedValue);
+                    // dd($parsedValue);
                 } else {
                     // no matches, return 'text'
                     return 'text';

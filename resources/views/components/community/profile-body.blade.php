@@ -2,18 +2,17 @@
 
     <!-- Profile background -->
     <div class="relative h-56 bg-slate-200">
-        <div class="object-cover h-full w-full flex items-center justify-center" width="1000    " height="220">
-
-            <h1 class="font-extrabold text-transparent text-8xl bg-clip-text"
-                style="background: #121FCF;
-                background: radial-gradient(circle farthest-corner at center center, #121FCF 0%, #CF1512 100%);
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;">
-                {{ tenant()->company }} company
-            </h1>
-
-        </div>
-
+        <img class="object-cover h-full w-full" src="https://images.unsplash.com/photo-1560179707-f14e90ef3623"
+            width="979" height="220" alt="Profile background" />
+        <!-- Close button -->
+        <button class="md:hidden absolute top-4 left-4 sm:left-6 text-white opacity-80 hover:opacity-100"
+            @click.stop="profileSidebarOpen = !profileSidebarOpen" aria-controls="profile-sidebar"
+            :aria-expanded="profileSidebarOpen">
+            <span class="sr-only">Close sidebar</span>
+            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10.7 18.7l1.4-1.4L7.8 13H20v-2H7.8l4.3-4.3-1.4-1.4L4 12z" />
+            </svg>
+        </button>
     </div>
 
     <!-- Content -->

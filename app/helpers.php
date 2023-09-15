@@ -28,11 +28,11 @@ function fetchLikertFace($length, $index, $asc)
     $item = generateLikertNames($length, $asc)[$index];
 
     $facesArray = [
-        '<i class="fa-regular text-4xl text-red-700 fa-face-sad-cry"></i>',
-        '<i class="fa-regular text-4xl text-red-500 fa-face-sad-tear"></i>',
-        '<i class="fa-regular text-4xl text-amber-500 fa-face-meh"></i>',
-        '<i class="fa-regular text-4xl text-green-500 fa-face-smile"></i>',
-        '<i class="fa-regular text-4xl text-green-700 fa-face-smile-beam"></i>'
+        '<i class="text-3xl">😞</i>',
+        '<i class="text-3xl">😟</i>',
+        '<i class="text-3xl">😐</i>',
+        '<i class="text-3xl">🙂</i>',
+        '<i class="text-3xl">☺️</i>',
     ];
 
     switch ($item) {

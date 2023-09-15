@@ -175,7 +175,7 @@ class CampaignController extends Controller
                 'recurrent_days' => []
             ]);
         } catch (Exception $e) {
-            dd($e);
+            // dd($e);
         }
 
 

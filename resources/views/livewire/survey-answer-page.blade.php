@@ -52,7 +52,9 @@
         </div>
 
         <div class="bg-gray-200 rounded-full h-4 mt-4 mb-6">
-            <div class="h-4 bg-blue-600 rounded-full" style="width: {{ $isAtEnd ? 100 : $this->progressPercentage }}%">
+            <div class="h-4 bg-blue-600 text-xs font-medium text-blue-100 text-right pl-0.5 py-0.5 pr-1 leading-none rounded-full"
+                style="width: {{ $isAtEnd ? 100 : $this->progressPercentage }}%">
+                {{ round($isAtEnd ? 100 : $this->progressPercentage) }}%
             </div>
         </div>
         <h1 class="font-black text-black text-xl mb-2">{{ $survey->name }}</h1>
@@ -146,9 +148,27 @@
                     <div wire:key="{{ $this->question->id }}" class="mt-4">
                         @switch($this->question->type)
                             @case('likert')
-                                <div class="flex items-center justify-around w-full">
-                                    @foreach (generateLikertNames($this->question->likert_type, $this->question->likert_order) as $index => $option)
-                                        <label
+                                @foreach (generateLikertNames($this->question->likert_type, $this->question->likert_order) as $index => $option)
+                                    <div class="mt-2 w-1/2">
+
+                                        <label class="relative block cursor-pointer">
+                                            <input type="radio" name="{{ $this->question->key }}" wire:model="answer"
+                                                id="{{ $this->question->key . '-' . Str::slug($option) }}"
+                                                value="{{ $option }}" class="peer sr-only"
+                                                {{ ($value ?? old($this->question->key)) == $option ? 'checked' : '' }}
+                                                {{ $disabled ?? false ? 'disabled' : '' }} />
+                                            <div
+                                                class="flex items-center bg-white text-sm font-medium text-slate-800 p-4 rounded border border-slate-200 hover:border-slate-300 shadow-sm duration-150 ease-in-out">
+                                                <span class="mr-2">
+                                                    {!! fetchLikertFace($this->question->likert_type, $index, $this->question->likert_order) !!}
+                                                </span>
+                                                <span>{{ $option }}</span>
+                                            </div>
+                                            <div class="absolute inset-0 border-2 border-transparent peer-checked:border-indigo-400 rounded pointer-events-none"
+                                                aria-hidden="true"></div>
+                                        </label>
+                                    </div>
+                                    {{-- <label
                                             class="relative block flex flex-col items-center hover:border hover:shadow-lg rounded border-indigo-700 p-6">
                                             <input type="radio" name="{{ $this->question->key }}" wire:model="answer"
                                                 value="{{ $option }}"
@@ -161,9 +181,8 @@
                                             <span class="text-lg font-bold">{{ $option }}</span>
                                             <div class="absolute inset-0 border-2 border-transparent peer-checked:border-indigo-400 rounded pointer-events-none"
                                                 aria-hidden="true"></div>
-                                        </label>
-                                    @endforeach
-                                </div>
+                                        </label> --}}
+                                @endforeach
                             @break;
                             @case('long-answer')
                             @case('short-answer')
@@ -238,21 +257,17 @@
                                 </div>
                             @break;
                             @case('range')
-                                <input type="range" min="1" max="10" step="1"
-                                    name="{{ $this->question->key }}" wire:model="answer" id="{{ $this->question->key }}"
-                                    class="w-full" list="markers">
-                                <datalist id="markers">
-                                    <option value="1"></option>
-                                    <option value="2"></option>
-                                    <option value="3"></option>
-                                    <option value="4"></option>
-                                    <option value="5"></option>
-                                    <option value="6"></option>
-                                    <option value="7"></option>
-                                    <option value="8"></option>
-                                    <option value="9"></option>
-                                    <option value="10"></option>
-                                </datalist>
+                                <div class="range" style="--step:1; --min:1; --max:10" class="pl-2 pb-2">
+                                    <input type="range" min="1" max="10" step="1"
+                                        name="{{ $this->question->key }}" wire:model="answer"
+                                        id="{{ $this->question->key }}" class="w-1/2" list="markers">
+
+                                </div>
+
+                            @break;
+                            @case('date')
+                            @break;
+                            @case('time')
                             @break;
                         @endswitch
 
