@@ -70,25 +70,6 @@
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8">
                                 <div
                                     class="rounded-md border p-4 flex flex-col items-center cursor-pointer hover:bg-gray-50 relative">
-                                    <div class="p-4"><i
-                                            class="fa-regular fa-face-grin-stars w-8 text-blue-500 fa-2xl"></i>
-                                    </div>
-                                    <p class="font-medium">Start from a blank form</p>
-                                    <a href="{{ route('survey.create') }}" class="absolute inset-0"></a>
-                                </div>
-                                <div wire:click.prevent="$set('tab', 'create')"
-                                    class="rounded-md border p-4 flex flex-col items-center cursor-pointer hover:bg-gray-50">
-                                    <div class="p-4 relative"><svg xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8 text-blue-500">
-                                            <path fill-rule="evenodd"
-                                                d="M14.615 1.595a.75.75 0 01.359.852L12.982 9.75h7.268a.75.75 0 01.548 1.262l-10.5 11.25a.75.75 0 01-1.272-.71l1.992-7.302H3.75a.75.75 0 01-.548-1.262l10.5-11.25a.75.75 0 01.913-.143z"
-                                                clip-rule="evenodd"></path>
-                                        </svg></div>
-                                    <p class="font-medium text-indigo-600">Use our AI to create the form</p><span
-                                        class="text-xs text-gray-500">(1 min)</span>
-                                </div>
-                                <div
-                                    class="rounded-md border p-4 flex flex-col items-center cursor-pointer hover:bg-gray-50 relative">
                                     <div class="p-4 relative"><svg xmlns="http://www.w3.org/2000/svg"
                                             viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8 text-blue-500">
                                             <path
@@ -100,6 +81,26 @@
                                 </div>
                                 <div
                                     class="rounded-md border p-4 flex flex-col items-center cursor-pointer hover:bg-gray-50 relative">
+                                    <div class="p-4"><i
+                                            class="fa-regular fa-face-grin-stars w-8 text-blue-500 fa-2xl"></i>
+                                    </div>
+                                    <p class="font-medium">Start from a blank form</p>
+                                    <a href="{{ route('survey.create') }}" class="absolute inset-0"></a>
+                                </div>
+                                {{-- <div wire:click.prevent="$set('tab', 'create')"
+                                    class="rounded-md border p-4 flex flex-col items-center cursor-pointer hover:bg-gray-50">
+                                    <div class="p-4 relative"><svg xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8 text-blue-500">
+                                            <path fill-rule="evenodd"
+                                                d="M14.615 1.595a.75.75 0 01.359.852L12.982 9.75h7.268a.75.75 0 01.548 1.262l-10.5 11.25a.75.75 0 01-1.272-.71l1.992-7.302H3.75a.75.75 0 01-.548-1.262l10.5-11.25a.75.75 0 01.913-.143z"
+                                                clip-rule="evenodd"></path>
+                                        </svg></div>
+                                    <p class="font-medium text-indigo-600">Use our AI to create the form</p><span
+                                        class="text-xs text-gray-500">(1 min)</span>
+                                </div> --}}
+
+                                {{-- <div
+                                    class="rounded-md border p-4 flex flex-col items-center cursor-pointer hover:bg-gray-50 relative">
                                     <div class="p-4 relative"><svg xmlns="http://www.w3.org/2000/svg"
                                             viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8 text-blue-500">
                                             <path
@@ -108,7 +109,7 @@
                                         </svg></div>
                                     <p class="font-medium text-center">Start a target research from our sub-frameworks
                                     </p><a href="/subframeworks" class="absolute inset-0"></a>
-                                </div>
+                                </div> --}}
                             </div>
                         @else
                             <div class="mt-4">
