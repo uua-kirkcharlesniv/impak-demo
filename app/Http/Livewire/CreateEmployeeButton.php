@@ -5,10 +5,12 @@ namespace App\Http\Livewire;
 use App\Enums\Countries;
 use App\Enums\EmployeeContractType;
 use App\Enums\WorkModel;
+use App\Mail\EmployeeRegister;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
@@ -134,6 +136,8 @@ class CreateEmployeeButton extends Component
                     'is_employee_onboarded' => true
                 ]);
             }
+
+            Mail::to($employee->email)->send(new EmployeeRegister($employee));
         }
     }
 
