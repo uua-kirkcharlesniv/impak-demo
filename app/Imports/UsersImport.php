@@ -4,10 +4,12 @@ namespace App\Imports;
 
 use App\Enums\EmployeeContractType;
 use App\Enums\WorkModel;
+use App\Mail\EmployeeRegister;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithValidation;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
@@ -47,6 +49,8 @@ class UsersImport implements ToModel, WithValidation, WithStartRow, WithEvents
             'contract_type' => EmployeeContractType::fromKey($row[14]),
             'work_model' => WorkModel::fromKey($row[15]),
         ]);
+
+        Mail::to($user->email)->send(new EmployeeRegister($user));
 
         $user->assignRole('employee');
 
