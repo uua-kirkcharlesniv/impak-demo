@@ -197,6 +197,8 @@ return [
         App\Providers\FortifyServiceProvider::class,
         App\Providers\JetstreamServiceProvider::class,
         App\Providers\TenancyServiceProvider::class,
+
+        Sichikawa\LaravelSendgridDriver\SendgridTransportServiceProvider::class
     ],
 
     /*
