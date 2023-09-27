@@ -200,6 +200,13 @@
                                         @error('position')
                                             <span class="error">{{ $message }}</span>
                                         @enderror
+                                        <div class="flex items-start mt-4">
+                                            <input type="checkbox" class="form-checkbox" name="is_admin"
+                                                id="is_admin" wire:model="is_admin" />
+                                            <span class="text-sm ml-2">
+                                                Employee has a <b>managerial role</b>
+                                            </span>
+                                        </div>
                                     </div>
                                     <div class="flex">
                                         <div>

@@ -26,6 +26,7 @@ class CreateEmployeeButton extends Component
     public $gender = 'M';
     public $date_of_hire;
     public $position;
+    public $is_admin = false;
     public $nationality;
     public $civil_status = 'Single';
     public $highest_educational_attainment = 'UG';
@@ -116,7 +117,11 @@ class CreateEmployeeButton extends Component
                 'contract_type' => $this->contract_type,
                 'work_model' => $this->work_model,
             ]);
-            $employee->assignRole('employee');
+            if ($this->is_admin) {
+                $employee->assignRole('manager');
+            } else {
+                $employee->assignRole('employee');
+            }
 
             if (count($this->groupIds) > 0) {
                 $employee->groups()->attach($this->groupIds);
