@@ -16,6 +16,7 @@ use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\CampaignController;
 use App\Http\Controllers\OnboardController;
+use App\Http\Controllers\TenantApiController;
 use App\Http\Livewire\ProfileComponent;
 use App\Models\Survey;
 use Illuminate\Http\Request;
@@ -307,5 +308,17 @@ Route::middleware([
         Route::fallback(function () {
             return view('pages/utility/404');
         });
+    });
+});
+
+Route::middleware([
+    'api',
+    InitializeTenancyByDomain::class,
+    PreventAccessFromCentralDomains::class,
+])->prefix('api')->group(function () {
+    Route::post('/login', [TenantApiController::class, 'login']);
+
+    Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+        return $request->user();
     });
 });
