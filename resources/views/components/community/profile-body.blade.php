@@ -32,6 +32,15 @@
                 <!-- Actions -->
                 <div class="flex space-x-2 sm:mb-2">
 
+                    @if (Auth::user()->hasPermissionTo('manage-groups') || Auth::user()->hasPermissionTo('manage-departments'))
+                        @if (isset($host) && $user->pivot->is_leader == false)
+                            <button
+                                class="p-1.5 shrink-0 rounded border border-green-600 hover:border-green-700 shadow-sm"
+                                wire:click="promote">
+                                Promote
+                            </button>
+                        @endif
+                    @endif
                     @if (Auth::user()->hasPermissionTo('manage-groups') ||
                             Auth::user()->hasPermissionTo('manage-departments') ||
                             Auth::user()->id == $user->id)

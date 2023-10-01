@@ -17,8 +17,9 @@ class ProfileComponent extends Component
     public $selectedId;
     public $host;
     public $initialRequest;
+    public $availableMembers = [];
 
-    protected $listeners = ['userSelected' => 'selectUser'];
+    protected $listeners = ['userSelected' => 'selectUser', 'addUser' => 'addUser'];
 
     public function getUserProperty()
     {
@@ -40,6 +41,32 @@ class ProfileComponent extends Component
     public function selectUser($id)
     {
         $this->selectedId = $id;
+    }
+
+    public function addUser($id)
+    {
+        $hostType = class_basename($this->host);
+        if ($hostType == 'Group' || $hostType == 'Department') {
+            $this->availableMembers = $this->availableMembers->reject(function ($user) use ($id) {
+                return $user->id == $id;
+            });
+            $this->host->members()->attach($id);
+            $this->loadData($this->host->id);
+        } else {
+            abort(500);
+        }
+    }
+
+    public function promote()
+    {
+        $hostType = class_basename($this->host);
+        if ($hostType == 'Group' || $hostType == 'Department') {
+
+            $this->host->members()->updateExistingPivot($this->user->id, ['is_leader' => true], true);
+            $this->loadData($this->host->id);
+        } else {
+            abort(500);
+        }
     }
 
     public function deleteDoAction($subroute)
@@ -93,6 +120,10 @@ class ProfileComponent extends Component
 
             $this->users = $group->members;
 
+            $alreadyMemberIds = $group->members->pluck('id')->toArray();
+            $availableMembers = User::whereNotIn('id', $alreadyMemberIds)->get();
+            $this->availableMembers = $availableMembers;
+
             if (count($this->users) <= 0) {
                 return redirect()->route('community.groups.list');
             }
@@ -104,6 +135,10 @@ class ProfileComponent extends Component
             $this->host = $department;
 
             $this->users = $department->members;
+
+            $alreadyMemberIds = $department->members->pluck('id')->toArray();
+            $availableMembers = User::whereNotIn('id', $alreadyMemberIds)->get();
+            $this->availableMembers = $availableMembers;
 
             if (count($this->users) <= 0) {
                 return redirect()->route('community.departments.list');

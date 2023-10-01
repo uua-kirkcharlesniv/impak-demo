@@ -87,15 +87,18 @@
                                                     Deactivated
                                                 </span>
                                             @elseif (isset($host))
-                                                @if (isset($user->pivot->is_leader))
-                                                    @if ($user->pivot->is_leader == '1')
-                                                        @if (in_array(Request::segment(2), ['groups']))
-                                                            Group Leader
-                                                        @else
-                                                            Department Head
+                                                <div wire:ignore>
+                                                    @if (isset($user->pivot->is_leader))
+                                                        @if ($user->pivot->is_leader == '1')
+                                                            @if (in_array(Request::segment(2), ['groups']))
+                                                                Group Leader
+                                                            @else
+                                                                Department Head
+                                                            @endif
                                                         @endif
                                                     @endif
-                                                @endif
+                                                </div>
+
                                                 {{-- {{ ($user->pivot->is_leader == '1' ? 'Leader' : '') ?? '' }} --}}
                                             @else
                                                 @if ($user->hasRole('owner'))
@@ -116,6 +119,39 @@
                     </ul>
                 </div>
             </div>
+            @if ($this->availableMembers != null && count($this->availableMembers) > 0)
+                <div wire:key="{{ $this->availableMembers }}">
+                    <div class="px-5">
+                        <div class="text-xs font-semibold text-slate-400 uppercase mb-3" wire:ignore>
+                            Add a new member
+                        </div>
+                        <ul class="mb-6">
+                            @foreach ($this->availableMembers as $user)
+                                <li class="-mx-2">
+                                    <div class="flex items-center space-x-4 p-2 rounded">
+                                        <div class="flex-shrink-0">
+                                            <img class="w-8 h-8 rounded-full" src="{{ $user->profile_photo_url }}">
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm font-medium text-gray-900 truncate">
+                                                {{ $user->name }}
+                                            </p>
+                                            <p class="text-sm text-gray-500 truncate">
+                                                {{ $user->email }}
+                                            </p>
+                                        </div>
+                                        <div class="inline-flex items-center font-semibold text-xs text-white text-gray-900 rounded-full py-2 px-2 bg-green-600"
+                                            wire:click="$emit('addUser', {{ $user->id }})">
+                                            ADD
+                                        </div>
+                                    </div>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+            @endif
+
         </div>
 
     </div>
