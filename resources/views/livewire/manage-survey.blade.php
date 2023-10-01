@@ -465,6 +465,17 @@
                                 Used for likert scales, and single choice questions
                             </p>
                         </div>
+                        <div @click="modalOpen = false" wire:click="pick('range')" role="button"
+                            class="bg-gray-50 border hover:bg-gray-100 rounded-md p-2 flex flex-col">
+                            <div class="mx-auto my-auto py-4">
+                                <center>
+                                    <i class="fa-solid fa-sliders h-8 w-8 text-gray-500 fa-2xl"></i>
+                                </center>
+                            </div>
+                            <p class="w-full text-xs text-gray-500 uppercase text-center font-bold mb-4">
+                                Range Slider
+                            </p>
+                        </div>
                         {{-- <div @click="modalOpen = false" wire:click="pick('likert')" role="button"
                             class="bg-gray-50 border hover:bg-gray-100 rounded-md p-2 flex flex-col">
                             <div class="mx-auto my-auto py-4">

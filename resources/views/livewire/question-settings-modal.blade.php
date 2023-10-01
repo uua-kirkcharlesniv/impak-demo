@@ -45,7 +45,12 @@
                         class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2">
                     <label for="required" class="ml-2 text-sm font-medium text-gray-900">Required</label>
                 </div>
-                @if ($question->type != 'date' && $question->type != 'time' && $question->type != 'radio' && $question->type != 'likert')
+                @if (
+                    $question->type != 'date' &&
+                        $question->type != 'time' &&
+                        $question->type != 'radio' &&
+                        $question->type != 'likert' &&
+                        $question->type != 'range')
                     @if ($isRequired)
                         <div class="mb-4">
                             <label class="block text-gray-700 text-sm font-bold mb-2" for="min">
@@ -66,6 +71,48 @@
                             class="shadow appearance-none rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             type="number" placeholder="Leave blank to set to default" wire:model="max" max="250"
                             id="max">
+                    </div>
+                @endif
+
+                @if ($question->type == 'range')
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="min">
+                            Minimum value
+                        </label>
+                        <input
+                            class="shadow appearance-none rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            type="number" placeholder="Leave blank to set to default" wire:model="min" id="min">
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="max">
+                            Maximum value
+                        </label>
+                        <input
+                            class="shadow appearance-none rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            type="number" placeholder="Leave blank to set to default" wire:model="max" max="250"
+                            id="max">
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="max">
+                            Minimum value label
+                        </label>
+                        <input
+                            class="shadow appearance-none rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            type="text" placeholder="Leave blank to set to default" wire:model="question.options.0"
+                            wire:change="onChoiceChanged(0, $event.target.value)" max="250" id="minValue">
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="max">
+                            Maximum value label
+                        </label>
+                        <input
+                            class="shadow appearance-none rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            type="text" placeholder="Leave blank to set to default"
+                            wire:change="onChoiceChanged(1, $event.target.value)" wire:model="question.options.1"
+                            max="250" id="maxValue">
                     </div>
                 @endif
 

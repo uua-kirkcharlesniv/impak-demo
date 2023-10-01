@@ -279,6 +279,17 @@ class ManageSurvey extends Component
 
                 $additionals['helper'] = '';
                 break;
+            case 'range':
+                $section->questions()->create([
+                    'content' => 'Range Slider',
+                    'type' => 'range',
+                    'options' => [
+                        'Not likely',
+                        'Most likely'
+                    ],
+                    'rules' => ['min:1', 'max:10'],
+                ]);
+                break;
         }
 
         $this->survey = $this->survey->refresh();
