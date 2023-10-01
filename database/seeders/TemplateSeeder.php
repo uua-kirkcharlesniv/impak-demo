@@ -199,13 +199,13 @@ class TemplateSeeder extends Seeder
                         "Name of Co-Facilitator" => [
                             "type" => "text",
                             "options" => [],
-                            "rules" => ["string", "max:250"],
+                            "rules" => ["nullable", "string", "max:250"],
                             "sort_order" => 3,
                         ],
                         "How would you rate the level of expertise that the program host/2nd facilitator exhibited during the session?" => [
                             "type" => "radio",
                             "options" => $this->chooseTemplate('4_knowledgeability'),
-                            "rules" => [],
+                            "rules" => ["nullable"],
                             "sort_order" => 4,
                         ]
                     ],
