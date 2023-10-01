@@ -9,6 +9,115 @@ use Illuminate\Support\Facades\Log;
 
 class TemplateSeeder extends Seeder
 {
+    private function chooseTemplate($template)
+    {
+        $choices = [];
+
+        switch ($template) {
+            case '8_truth':
+                $choices = [
+                    'Definitely False',
+                    'Mostly False',
+                    'Somewhat False',
+                    'Slightly False',
+                    'Slightly True',
+                    'Somewhat True',
+                    'Mostly True',
+                    'Definitely True',
+                ];
+                break;
+            case '5_wellness':
+                $choices = [
+                    'Very well',
+                    'Well',
+                    'Neutral',
+                    'Not much',
+                    'Hardly',
+                ];
+
+                break;
+            case '4_relevancy':
+                $choices = [
+                    'Very relevant',
+                    'Somewhat relevant',
+                    'Not much relevant',
+                    'Not relevant',
+                ];
+                break;
+            case '4_appropriateness':
+                $choices = [
+                    'Very much appropriate',
+                    'Appropriate',
+                    'Not much appropriate',
+                    'Not appropriate at all',
+                ];
+                break;
+            case '4_timeliness':
+                $choices = [
+                    'Very timely and responsive',
+                    'Somewhat timely',
+                    'Not much',
+                    'Not at all',
+                ];
+                break;
+            case '4_knowledgeability':
+                $choices = [
+                    'Very much knowledgeable',
+                    'Knowledgeable',
+                    'Not much knowledgeable',
+                    'Not knowledgeable',
+                ];
+                break;
+            case '4_satisfaction':
+                $choices = [
+                    'Very satisfied',
+                    'Satisfied',
+                    'Dissatisfied',
+                    'Very dissatisfied',
+                ];
+                break;
+            case '4_excellency':
+                $choices = [
+                    'It was excellent!',
+                    'Just ok',
+                    'There were portions not good',
+                    'Not good at all',
+                ];
+                break;
+            case '4_impact':
+                $choices = [
+                    'Very much',
+                    'Somewhat',
+                    'Hardly',
+                    'No impact',
+                ];
+                break;
+            case '4_completeness':
+                $choices = [
+                    'Very detailed and complete',
+                    'Complete',
+                    'Not complete',
+                    'Not detailed and complete all',
+                ];
+                break;
+            case '3_completeness':
+                $choices = [
+                    'Complete',
+                    'Not complete',
+                    'Not detailed and complete all',
+                ];
+                break;
+            case '3_tristate':
+                $choices = [
+                    'Yes',
+                    'Can\'t Say',
+                    'No',
+                ];
+                break;
+        }
+
+        return $choices;
+    }
 
     /**
      * Run the database seeds.
@@ -35,33 +144,39 @@ class TemplateSeeder extends Seeder
                             "sort_order" => 1,
                         ],
                         "How relevant was the program/workshop content to you?" => [
-                            "type" => "likert",
-                            "options" => ["full", "asc"],
+                            "type" => "radio",
+                            "options" => $this->chooseTemplate('4_relevancy'),
                             "rules" => ["required"],
                             "sort_order" => 1,
                         ],
                         "How would you rate the activities in the program/workshop?" => [
-                            "type" => "likert",
-                            "options" => ["full", "asc"],
+                            "type" => "radio",
+                            "options" => $this->chooseTemplate('4_appropriateness'),
                             "rules" => ["required"],
                             "sort_order" => 2,
                         ],
                         "How did the program/workshop respond to your current development needs?" => [
-                            "type" => "likert",
-                            "options" => ["full", "asc"],
+                            "type" => "radio",
+                            "options" => $this->chooseTemplate('4_timeliness'),
                             "rules" => ["required"],
                             "sort_order" => 3,
                         ],
                         "Rate your level of knowledge on the subject matter before attending the program? Select and pin from 1 (no knowledge to 10 (with high level of knowledge and understanding)" => [
                             "type" => "range",
-                            "options" => ["start:1", "end:10"],
-                            "rules" => ["required", "digits_between:1,10"],
+                            'options' => [
+                                'Not likely',
+                                'Most likely'
+                            ],
+                            'rules' => ['min:1', 'max:10'],
                             "sort_order" => 4,
                         ],
                         "Rate your level of knowledge on the subject matter after attending the program? Select and pin from 1 (no knowledge to 10 (with high level of knowledge and understanding)" => [
                             "type" => "range",
-                            "options" => ["start:1", "end:10"],
-                            "rules" => ["required", "digits_between:1,10"],
+                            'options' => [
+                                'Not likely',
+                                'Most likely'
+                            ],
+                            'rules' => ['min:1', 'max:10'],
                             "sort_order" => 5,
                         ]
                     ],
@@ -76,10 +191,22 @@ class TemplateSeeder extends Seeder
                             "sort_order" => 1,
                         ],
                         "How would you rate the level of expertise that the program host/main facilitator exhibited during the session?" => [
-                            "type" => "likert",
-                            "options" => ["full", "asc"],
+                            "type" => "radio",
+                            "options" => $this->chooseTemplate('4_knowledgeability'),
                             "rules" => ["required"],
                             "sort_order" => 2,
+                        ],
+                        "Name of Co-Facilitator" => [
+                            "type" => "text",
+                            "options" => [],
+                            "rules" => ["string", "max:250"],
+                            "sort_order" => 3,
+                        ],
+                        "How would you rate the level of expertise that the program host/2nd facilitator exhibited during the session?" => [
+                            "type" => "radio",
+                            "options" => $this->chooseTemplate('4_knowledgeability'),
+                            "rules" => [],
+                            "sort_order" => 4,
                         ]
                     ],
                     "Learning Environment" => [
@@ -87,14 +214,14 @@ class TemplateSeeder extends Seeder
                             "sort_order" => 3,
                         ],
                         "How would you rate the platform program/cascade/training session?" => [
-                            "type" => "likert",
-                            "options" => ["full", "asc"],
+                            "type" => "radio",
+                            "options" => $this->chooseTemplate('4_satisfaction'),
                             "rules" => ["required"],
                             "sort_order" => 1,
                         ],
                         "How would you rate the learning materials provided to you?" => [
-                            "type" => "likert",
-                            "options" => ["full", "asc"],
+                            "type" => "radio",
+                            "options" => $this->chooseTemplate('4_completeness'),
                             "rules" => ["required"],
                             "sort_order" => 2,
                         ],
@@ -104,15 +231,18 @@ class TemplateSeeder extends Seeder
                             "sort_order" => 4,
                         ],
                         "Rate your over-all experience of the program" => [
-                            "type" => "likert",
-                            "options" => ["full", "asc"],
+                            "type" => "radio",
+                            "options" => $this->chooseTemplate('4_satisfaction'),
                             "rules" => ["required"],
                             "sort_order" => 1,
                         ],
                         "How like would you recommend this program to your peers/managers and teammates" => [
                             "type" => "range",
-                            "options" => ["start:1", "end:10"],
-                            "rules" => ["required", "digits_between:1,10"],
+                            'options' => [
+                                'Not likely',
+                                'Most likely'
+                            ],
+                            'rules' => ['min:1', 'max:10'],
                             "sort_order" => 2,
                         ]
                     ],
@@ -134,20 +264,20 @@ class TemplateSeeder extends Seeder
                             "sort_order" => 1,
                         ],
                         "How would you rate the entire event?" => [
-                            "type" => "likert",
-                            "options" => ["full", "asc"],
+                            "type" => "radio",
+                            "options" => $this->chooseTemplate('4_excellency'),
                             "rules" => ["required"],
                             "sort_order" => 1,
                         ],
                         "How well did this event meet your expectations?" => [
-                            "type" => "likert",
-                            "options" => ["full", "asc"],
+                            "type" => "radio",
+                            "options" => $this->chooseTemplate('5_wellness'),
                             "rules" => ["required"],
                             "sort_order" => 2,
                         ],
                         "What are the likelihood that you will attend this event, or a similar one, again?" => [
-                            "type" => "likert",
-                            "options" => ["tristate", "asc"],
+                            "type" => "radio",
+                            "options" => $this->chooseTemplate('3_tristate'),
                             "rules" => ["required"],
                             "sort_order" => 3,
                         ],
@@ -164,8 +294,8 @@ class TemplateSeeder extends Seeder
                             "sort_order" => 5,
                         ],
                         "How much impact will this event have on your learning goals?" => [
-                            "type" => "likert",
-                            "options" => ["full", "asc"],
+                            "type" => "radio",
+                            "options" => $this->chooseTemplate('4_impact'),
                             "rules" => ["required"],
                             "sort_order" => 6,
                         ],
@@ -181,50 +311,50 @@ class TemplateSeeder extends Seeder
                             "sort_order" => 2,
                         ],
                         "Announcements/Commercials" => [
-                            "type" => "likert",
-                            "options" => ["full", "asc"],
+                            "type" => "radio",
+                            "options" => $this->chooseTemplate('4_satisfaction'),
                             "rules" => ["required"],
                             "sort_order" => 1,
                         ],
                         "Joining Instructions" => [
-                            "type" => "likert",
-                            "options" => ["full", "asc"],
+                            "type" => "radio",
+                            "options" => $this->chooseTemplate('4_satisfaction'),
                             "rules" => ["required"],
                             "sort_order" => 2,
                         ],
                         "Registration" => [
-                            "type" => "likert",
-                            "options" => ["full", "asc"],
+                            "type" => "radio",
+                            "options" => $this->chooseTemplate('4_satisfaction'),
                             "rules" => ["required"],
                             "sort_order" => 3,
                         ],
                         "Staff" => [
-                            "type" => "likert",
-                            "options" => ["full", "asc"],
+                            "type" => "radio",
+                            "options" => $this->chooseTemplate('4_satisfaction'),
                             "rules" => ["required"],
                             "sort_order" => 4,
                         ],
                         "Speakers" => [
-                            "type" => "likert",
-                            "options" => ["full", "asc"],
+                            "type" => "radio",
+                            "options" => $this->chooseTemplate('4_satisfaction'),
                             "rules" => ["required"],
                             "sort_order" => 5,
                         ],
                         "Content" => [
-                            "type" => "likert",
-                            "options" => ["full", "asc"],
+                            "type" => "radio",
+                            "options" => $this->chooseTemplate('4_satisfaction'),
                             "rules" => ["required"],
                             "sort_order" => 6,
                         ],
                         "Venue" => [
-                            "type" => "likert",
-                            "options" => ["full", "asc"],
+                            "type" => "radio",
+                            "options" => $this->chooseTemplate('4_satisfaction'),
                             "rules" => ["required"],
                             "sort_order" => 7,
                         ],
                         "Time" => [
-                            "type" => "likert",
-                            "options" => ["full", "asc"],
+                            "type" => "radio",
+                            "options" => $this->chooseTemplate('4_satisfaction'),
                             "rules" => ["required"],
                             "sort_order" => 8,
                         ],
@@ -235,8 +365,11 @@ class TemplateSeeder extends Seeder
                         ],
                         "Considering your over-all experience, how likely are you to recommend this event to your friends and colleague?" => [
                             "type" => "range",
-                            "options" => ["start:1", "end:10"],
-                            "rules" => ["required", "digits_between:1,10"],
+                            'options' => [
+                                'Not likely',
+                                'Most likely'
+                            ],
+                            'rules' => ['min:1', 'max:10'],
                             "sort_order" => 1,
                         ]
                     ]
