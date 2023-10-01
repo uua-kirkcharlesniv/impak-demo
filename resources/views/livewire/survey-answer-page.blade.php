@@ -262,7 +262,8 @@
                                     <div class="range"
                                         style="--step:1; --min:{{ $this->question->min }}; --max:{{ $this->question->max }}"
                                         class="pl-2 pb-2">
-                                        <input type="range" min="1" max="10" step="1"
+                                        <input type="range" min="{{ $this->question->min }}"
+                                            max="{{ $this->question->max }}" step="1"
                                             name="{{ $this->question->key }}" wire:model="answer"
                                             id="{{ $this->question->key }}" class="w-1/2" list="markers">
 
