@@ -317,8 +317,19 @@ Route::middleware([
     PreventAccessFromCentralDomains::class,
 ])->prefix('api')->group(function () {
     Route::post('/login', [TenantApiController::class, 'login']);
+    Route::get('/tenant', function (Request $request) {
+        return tenant();
+    });
 
-    Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-        return $request->user();
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::get('/user', function (Request $request) {
+            return $request->user();
+        });
+
+        Route::post('community', [TenantApiController::class, 'communityList']);
+        Route::get('survey/available', [TenantApiController::class, 'availableSurveys']);
+        Route::get('survey/completed', [TenantApiController::class, 'completedSurveys']);
+        Route::get('survey/{id}', [TenantApiController::class, 'getSurvey']);
+        Route::post('survey/{id}', [TenantApiController::class, 'submitSurvey']);
     });
 });

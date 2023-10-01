@@ -224,7 +224,7 @@ class ManageSurvey extends Component
             case 'date':
                 $section->questions()->create([
                     'content' => 'Date Field',
-                    'type' => 'text',
+                    'type' => 'date',
                     'rules' => ['required', 'string', 'date_format:Y-m-d'],
                 ]);
 
