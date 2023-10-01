@@ -69,6 +69,36 @@
                     </div>
                 @endif
 
+                @if ($question->type == 'radio')
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="new_choice">
+                            Available Template Chooser
+                        </label>
+                        <select id="templateChooser" wire:model="templateChooser" class="form-select">
+                            <option>Select a template to use</option>
+                            <optgroup label="8-point Likert Scales">
+                                <option value="8_truth">Truth Scale (False to True)</option>
+                            </optgroup>
+                            <optgroup label="5-point Likert Scales">
+                                <option value="5_wellness">Wellness Scale</option>
+                            </optgroup>
+                            <optgroup label="4-point Likert Scales">
+                                <option value="4_relevancy">Relevancy Scale</option>
+                                <option value="4_appropriateness">Appropriateness Scale</option>
+                                <option value="4_timeliness">Timeliness Scale</option>
+                                <option value="4_knowledgeability">Knowledgeability Scale</option>
+                                <option value="4_satisfaction">Satisfaction Scale</option>
+                                <option value="4_excellency">Excellency Scale</option>
+                                <option value="4_impact">Impact Scale</option>
+                            </optgroup>
+                            <optgroup label="3-point Likert Scales">
+                                <option value="3_completeness">Completeness Scale</option>
+                                <option value="3_tristate">Tristate Boolean (Yes/No/Neutral)</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                @endif
+
                 @if ($question->type == 'radio' || $question->type == 'multiselect')
                     <div class="mb-4">
                         <label class="block text-gray-700 text-sm font-bold mb-2" for="new_choice">
@@ -78,13 +108,50 @@
                             class="shadow appearance-none rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             type="text" placeholder="Enter your new choice here" wire:model="newOptionName"
                             id="new_choice" wire:keydown.enter="createNewOption">
-                        <p id="helper-text-explanation" class="text-sm text-gray-400">Press enter to add to the list of
+                        <p id="helper-text-explanation" class="text-sm text-gray-400">Press enter to add to the list
+                            of
                             choices</p>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="new_choice">
+                            Reverse Choices?
+                        </label>
+                        <button
+                            class="flex-no-shrink p-2 ml-2 border rounded text-red border-indigo-600 hover:text-indigo-500 hover:bg-indigo"
+                            wire:click="reverse">Reverse</button>
                     </div>
 
                     @foreach ($question->options as $index => $choice)
                         <div class="flex mb-4 items-center">
-                            <p class="w-full text-grey-darkest">{{ $choice }}</p>
+                            <div class="flex flex-col flex-grow truncate" x-data="{
+                                isEditing: false,
+                                focus: function() {
+                                    const textInput = this.$refs.textInput;
+                                    textInput.focus();
+                                    textInput.select();
+                                }
+                            }" x-cloak>
+                                <div tabindex="0"
+                                    class="relative max-w-full flex items-center hover:bg-gray-100 rounded px-2 cursor-pointer"
+                                    style="height: auto;" x-on:click="isEditing = true">
+                                    <div x-show=!isEditing>
+                                        <div class="cursor-pointer max-w-full truncate w-full">
+                                            {{ $choice }}
+                                        </div>
+                                        <span class="text-xs text-gray-600" id="passwordHelp">Click to update
+                                            text</span>
+
+                                    </div>
+                                    <div x-show=isEditing class="flex flex-col">
+                                        <input type="text"
+                                            class="form-input w-full px-2 border border-gray-400 text-lg shadow-inner"
+                                            x-ref="textInput" wire:model.lazy="question.options.{{ $index }}"
+                                            wire:change="onChoiceChanged({{ $index }}, $event.target.value)"
+                                            x-on:keydown.enter="isEditing = false" x-on:blur="isEditing = false" />
+                                    </div>
+                                </div>
+                            </div>
 
                             <button
                                 class="flex-no-shrink p-2 ml-2 border rounded text-red border-red-600 hover:text-indigo-500 hover:bg-red"

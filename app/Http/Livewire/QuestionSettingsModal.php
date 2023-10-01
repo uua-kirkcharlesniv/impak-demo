@@ -12,12 +12,14 @@ class QuestionSettingsModal extends Component
 
     protected $rules = [
         'question.content' => 'required|max:250|min:2|string',
+        'question.options.*' => 'required|max:250|min:1|string'
     ];
 
     public $isRequired = false;
     public $min = 0;
     public $max = 250;
     public $newOptionName = '';
+    public $templateChooser;
 
     public function render()
     {
@@ -165,6 +167,121 @@ class QuestionSettingsModal extends Component
         $choices = $this->question->options;
         unset($choices[$index]);
 
+        $this->question->update(['options' => $choices]);
+    }
+
+    public function reverse()
+    {
+        $choices = $this->question->options;
+
+        $this->question->update(['options' => array_reverse($choices)]);
+    }
+
+    public function updatedTemplateChooser($data)
+    {
+        $choices = [];
+        switch ($data) {
+            case '8_truth':
+                $choices = [
+                    'Definitely False',
+                    'Mostly False',
+                    'Somewhat False',
+                    'Slightly False',
+                    'Slightly True',
+                    'Somewhat True',
+                    'Mostly True',
+                    'Definitely True',
+                ];
+                break;
+            case '5_wellness':
+                $choices = [
+                    'Very well',
+                    'Well',
+                    'Neutral',
+                    'Not much',
+                    'Hardly',
+                ];
+
+                break;
+            case '4_relevancy':
+                $choices = [
+                    'Very relevant',
+                    'Somewhat relevant',
+                    'Not much relevant',
+                    'Not relevant',
+                ];
+                break;
+            case '4_appropriateness':
+                $choices = [
+                    'Very much appropriate',
+                    'Appropriate',
+                    'Not much appropriate',
+                    'Not appropriate at all',
+                ];
+                break;
+            case '4_timeliness':
+                $choices = [
+                    'Very timely and responsive',
+                    'Somewhat timely',
+                    'Not much',
+                    'Not at all',
+                ];
+                break;
+            case '4_knowledgeability':
+                $choices = [
+                    'Very much knowledgeable',
+                    'Knowledgeable',
+                    'Not much knowledgeable',
+                    'Not knowledgeable',
+                ];
+                break;
+            case '4_satisfaction':
+                $choices = [
+                    'Very satisfied',
+                    'Satisfied',
+                    'Dissatisfied',
+                    'Very dissatisfied',
+                ];
+                break;
+            case '4_excellency':
+                $choices = [
+                    'It was excellent!',
+                    'Just ok',
+                    'There were portions not good',
+                    'Not good at all',
+                ];
+                break;
+            case '4_impact':
+                $choices = [
+                    'Very much',
+                    'Somewhat',
+                    'Hardly',
+                    'No impact',
+                ];
+                break;
+            case '3_completeness':
+                $choices = [
+                    'Complete',
+                    'Not complete',
+                    'Not detailed and complete all',
+                ];
+                break;
+            case '3_tristate':
+                $choices = [
+                    'Yes',
+                    'Can\'t Say',
+                    'No',
+                ];
+                break;
+        }
+
+        $this->question->update(['options' => $choices]);
+    }
+
+    public function onChoiceChanged($index, $data)
+    {
+        $choices = $this->question->options;
+        $choices[$index] = $data;
         $this->question->update(['options' => $choices]);
     }
 

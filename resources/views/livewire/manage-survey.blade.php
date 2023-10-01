@@ -444,8 +444,11 @@
                                     <i class="fa-regular fa-check h-8 w-8 text-gray-500 fa-2xl"></i>
                                 </center>
                             </div>
-                            <p class="w-full text-xs text-gray-500 uppercase text-center font-semibold mb-4">
-                                Multiple Choice (Checkbox)
+                            <p class="w-full text-xs text-gray-500 uppercase text-center font-bold mb-4">
+                                Checkbox
+                            </p>
+                            <p class="w-full text-xs text-gray-500 uppercase text-center font-light mb-4">
+                                Used for multiple choice questions
                             </p>
                         </div>
                         <div @click="modalOpen = false" wire:click="pick('radio')" role="button"
@@ -455,11 +458,14 @@
                                     <i class="fa-solid fa-circle-dot h-8 w-8 text-gray-500 fa-2xl"></i>
                                 </center>
                             </div>
-                            <p class="w-full text-xs text-gray-500 uppercase text-center font-semibold mb-4">
-                                Single Choice (Radio)
+                            <p class="w-full text-xs text-gray-500 uppercase text-center font-bold mb-4">
+                                Radio
+                            </p>
+                            <p class="w-full text-xs text-gray-500 uppercase text-center font-light mb-4">
+                                Used for likert scales, and single choice questions
                             </p>
                         </div>
-                        <div @click="modalOpen = false" wire:click="pick('likert')" role="button"
+                        {{-- <div @click="modalOpen = false" wire:click="pick('likert')" role="button"
                             class="bg-gray-50 border hover:bg-gray-100 rounded-md p-2 flex flex-col">
                             <div class="mx-auto my-auto py-4">
                                 <center>
@@ -469,7 +475,7 @@
                             <p class="w-full text-xs text-gray-500 uppercase text-center font-semibold mb-4">
                                 Likert Scale
                             </p>
-                        </div>
+                        </div> --}}
                         {{-- <div  @click="modalOpen = false"  wire:click="pick('radio-grid')" role="button"
                             class="bg-gray-50 border hover:bg-gray-100 rounded-md p-2 flex flex-col">
                             <div class="mx-auto py-4"><svg xmlns="http://www.w3.org/2000/svg" fill="none"
