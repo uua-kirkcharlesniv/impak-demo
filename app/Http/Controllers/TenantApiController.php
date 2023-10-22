@@ -9,6 +9,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use MattDaneshvar\Survey\Models\Entry;
 
 class TenantApiController extends Controller
@@ -61,7 +62,7 @@ class TenantApiController extends Controller
         });
 
         return response()->json([
-            'data' => $campaigns,
+            'data' => [...$campaigns],
         ]);
     }
 
@@ -104,5 +105,37 @@ class TenantApiController extends Controller
         return response()->json([
             'message' => 'Success',
         ]);
+    }
+
+    public function validateAnswer(Request $request)
+    {
+        $request->validate([
+            'key' => 'required',
+            'answer' => 'nullable',
+            'rules' => 'nullable',
+        ]);
+
+        $validator = Validator::make([
+            $request->key => $request->answer
+        ], [
+            $request->key => $request->rules
+        ], [
+            'required' => 'This field is required',
+            'min' => 'Must at least pick :min choices.',
+            'max' => 'Maximum of :max choices only.'
+        ]);
+
+        if ($validator->fails()) {
+            foreach ($validator->errors()->all() as $error) {
+                return response()->json([
+                    'message' => $error,
+                ], 422);
+            }
+            return;
+        } else {
+            return response()->json([
+                'message' => $request->rules,
+            ]);
+        }
     }
 }

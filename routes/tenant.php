@@ -331,5 +331,6 @@ Route::middleware([
         Route::get('survey/completed', [TenantApiController::class, 'completedSurveys']);
         Route::get('survey/{id}', [TenantApiController::class, 'getSurvey']);
         Route::post('survey/{id}', [TenantApiController::class, 'submitSurvey']);
+        Route::post('validate-answer', [TenantApiController::class, 'validateAnswer']);
     });
 });
