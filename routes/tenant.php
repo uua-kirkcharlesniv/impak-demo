@@ -15,6 +15,7 @@ use App\Http\Controllers\MemberController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\CampaignController;
+use App\Http\Controllers\MoodController;
 use App\Http\Controllers\OnboardController;
 use App\Http\Controllers\TenantApiController;
 use App\Http\Livewire\ProfileComponent;
@@ -332,5 +333,10 @@ Route::middleware([
         Route::get('survey/{id}', [TenantApiController::class, 'getSurvey']);
         Route::post('survey/{id}', [TenantApiController::class, 'submitSurvey']);
         Route::post('validate-answer', [TenantApiController::class, 'validateAnswer']);
+
+        Route::post('mood/submit', [MoodController::class, 'store']);
+        Route::get('mood/timeline', [MoodController::class, 'timeline']);
+        Route::get('mood/analytics/weekly', [MoodController::class, 'personalAnalyticsWeekly']);
+        Route::get('mood/analytics/monthly', [MoodController::class, 'personalAnalyticsMonthly']);
     });
 });
