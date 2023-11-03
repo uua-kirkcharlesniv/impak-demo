@@ -7,8 +7,10 @@ use App\Models\Group;
 use App\Models\Survey;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use MattDaneshvar\Survey\Models\Entry;
 
@@ -39,9 +41,9 @@ class TenantApiController extends Controller
         ]);
 
         if ($request->input('type') == 'groups') {
-            $data = Group::all();
+            $data = Group::with('members')->get();
         } else {
-            $data = Department::all();
+            $data = Department::with('members')->get();
         }
 
         return response()->json([
@@ -137,5 +139,54 @@ class TenantApiController extends Controller
                 'message' => $request->rules,
             ]);
         }
+    }
+
+    public function changePassword(Request $request): JsonResponse
+    {
+        $request->validate([
+            'old_password' => 'required',
+            'new_password' => 'required|min:6',
+            'confirm_password' => 'required|same:new_password'
+        ]);
+
+        if (!Hash::check($request->input('old_password'), Auth::user()->password)) {
+            return response()->json([
+                'message' => 'Invalid old password.'
+            ], 400);
+        }
+
+        if (Hash::check($request->input('new_password'), Auth::user()->password)) {
+            return response()->json([
+                'message' => 'Your new password must not be the same as your old password.'
+            ], 400);
+        }
+
+        $user = Auth::user();
+        $user->update([
+            'password' => Hash::make($request->input('new_password'))
+        ]);
+
+        return response()->json([
+            'message' => 'Successfully changed your password.'
+        ]);
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $user = Auth::user();
+
+        $data = $request->validate([
+            'email' => 'email|nullable|unique:users,email,' . $user->id,
+            'last_name' => 'nullable|max:55',
+            'first_name' => 'nullable|max:55',
+            'phone' => 'nullable|string',
+        ]);
+
+        User::where('id', $user->id)->update(array_filter($data));
+
+        return response()->json([
+            'message' => 'Successfully updated profile.',
+            'data' => User::findOrFail($user->id),
+        ]);
     }
 }

@@ -338,5 +338,8 @@ Route::middleware([
         Route::get('mood/timeline', [MoodController::class, 'timeline']);
         Route::get('mood/analytics/weekly', [MoodController::class, 'personalAnalyticsWeekly']);
         Route::get('mood/analytics/monthly', [MoodController::class, 'personalAnalyticsMonthly']);
+
+        Route::post('change-password', [TenantApiController::class, 'changePassword']);
+        Route::post('update-profile', [TenantApiController::class, 'updateProfile']);
     });
 });
