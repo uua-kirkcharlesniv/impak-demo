@@ -40,6 +40,13 @@
                             $photo = 'https://unsplash.com/photos/uGP_6CAD-14/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8Mnx8aGFwcHklMjBmZWVsaW5nfGVufDB8fHx8MTY5OTU2ODQ5MHww&force=true&w=640';
 
                             break;
+
+                        case 'training_needs':
+                            $bgColor = 'bg-red-400';
+                            $textColor = 'text-white';
+                            $photo = 'https://unsplash.com/photos/Oalh2MojUuk/download?ixid=M3wxMjA3fDB8MXxhbGx8fHx8fHx8fHwxNjk5NTczOTY5fA&force=true&w=640';
+                            break;
+
                         default:
                             $bgColor = 'bg-gray-200';
                             $textColor = 'text-black';
