@@ -189,4 +189,14 @@ class TenantApiController extends Controller
             'data' => User::findOrFail($user->id),
         ]);
     }
+
+    public function deactivateAccount()
+    {
+        $user = User::findOrFail(Auth::user()->id);
+        $user->delete();
+
+        return response()->json([
+            'message' => 'Successfully deleted user.'
+        ]);
+    }
 }

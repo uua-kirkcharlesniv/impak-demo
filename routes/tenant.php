@@ -341,5 +341,6 @@ Route::middleware([
 
         Route::post('change-password', [TenantApiController::class, 'changePassword']);
         Route::post('update-profile', [TenantApiController::class, 'updateProfile']);
+        Route::post('delete-account', [TenantApiController::class, 'deactivateAccount']);
     });
 });
