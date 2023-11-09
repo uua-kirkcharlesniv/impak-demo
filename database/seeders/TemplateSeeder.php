@@ -506,7 +506,213 @@ class TemplateSeeder extends Seeder
                         ],
                     ],
                 ]
-            ])
+            ]),
+            new Template([
+                'title' => 'Optimism Test',
+                'settings' => [
+                    'limit-per-participant' => 1,
+                    'accept-guest-entries' => false,
+                ],
+                'rationale' => 'The Optimism Test is a valuable tool for understanding and measuring the current state of optimism in employees.',
+                'rationale_description' => trim("It can be used to identify people who are at risk for depression and other mental health problems, to help people to learn optimism and to evaluate the effectiveness of interventions designed to increase optimism. The survey can also be used to research the relationship between explanatory style and other variables, such as health, happiness, and success."),
+                "survey_type" => "mental_health",
+                "data" => [
+                    "Questionnaire" => [
+                        "settings" => [
+                            "sort_order" => 1,
+                        ],
+                        "I expect good things to happen to me in general." => [
+                            "type" => "range",
+                            'options' => [
+                                'I\'m discouraged',
+                                'I\'m hopeful'
+                            ],
+                            'rules' => ['min:1', 'max:10'],
+                            "sort_order" => 1,
+                        ],
+                        "I believe that I am a lucky person." => [
+                            "type" => "range",
+                            'options' => [
+                                'I\'m unlucky',
+                                'I\'m lucky'
+                            ],
+                            'rules' => ['min:1', 'max:10'],
+                            "sort_order" => 2,
+                        ],
+                        "I am able to bounce back from setbacks quickly." => [
+                            "type" => "range",
+                            'options' => [
+                                'I\'m easily defeated',
+                                'I\'m resilient'
+                            ],
+                            'rules' => ['min:1', 'max:10'],
+                            "sort_order" => 3,
+                        ],
+                        "I stay positive even when things are tough." => [
+                            "type" => "range",
+                            'options' => [
+                                'I\'m easily upset',
+                                'I\'m unfazed'
+                            ],
+                            'rules' => ['min:1', 'max:10'],
+                            "sort_order" => 4,
+                        ],
+                        "I believe that my successes are due to my own efforts and abilities." => [
+                            "type" => "range",
+                            'options' => [
+                                'Definitely not',
+                                'Absolutely!'
+                            ],
+                            'rules' => ['min:1', 'max:10'],
+                            "sort_order" => 5,
+                        ],
+                        "I believe that my failures are due to temporary factors or bad luck." => [
+                            "type" => "range",
+                            'options' => [
+                                'It\'s out of my control',
+                                'I can make my own choices'
+                            ],
+                            'rules' => ['min:1', 'max:10'],
+                            "sort_order" => 6,
+                        ],
+                        "I expect bad things to happen to me in general." => [
+                            "type" => "range",
+                            'options' => [
+                                'I am cursed',
+                                'I am blessed'
+                            ],
+                            'rules' => ['min:1', 'max:10'],
+                            "sort_order" => 7,
+                        ],
+                        "I believe that I am an unlucky person." => [
+                            "type" => "range",
+                            'options' => [
+                                'I\'m out of luck',
+                                'I\'m very fortunate',
+                            ],
+                            'rules' => ['min:1', 'max:10'],
+                            "sort_order" => 8,
+                        ],
+                        "I find it difficult to bounce back from setbacks." => [
+                            "type" => "range",
+                            'options' => [
+                                'I\'m slow to recover',
+                                'I bounce back easily',
+                            ],
+                            'rules' => ['min:1', 'max:10'],
+                            "sort_order" => 9,
+                        ],
+                        "I tend to get discouraged easily." => [
+                            "type" => "range",
+                            'options' => [
+                                'I\'m easily discouraged',
+                                'I\'m inspired',
+                            ],
+                            'rules' => ['min:1', 'max:10'],
+                            "sort_order" => 10,
+                        ],
+                        "I believe that my successes are due to luck or help from others." => [
+                            "type" => "range",
+                            'options' => [
+                                'I don\'t get the breaks I need',
+                                'I am responsible for my success',
+                            ],
+                            'rules' => ['min:1', 'max:10'],
+                            "sort_order" => 11,
+                        ],
+                        "I believe that my successes are due to luck or help from others." => [
+                            "type" => "range",
+                            'options' => [
+                                'I don\'t get the breaks I need',
+                                'I am responsible for my success',
+                            ],
+                            'rules' => ['min:1', 'max:10'],
+                            "sort_order" => 11,
+                        ],
+                        "I believe that my failures are due to my own lack of ability." => [
+                            "type" => "range",
+                            'options' => [
+                                'I don\'t have what it takes',
+                                'I can achieve my goals if I work hard',
+                            ],
+                            'rules' => ['min:1', 'max:10'],
+                            "sort_order" => 12,
+                        ],
+                        "I am optimistic about my future." => [
+                            "type" => "range",
+                            'options' => [
+                                'The future is gloomy',
+                                'The future is bright',
+                            ],
+                            'rules' => ['min:1', 'max:10'],
+                            "sort_order" => 13,
+                        ],
+                        "I am confident in my ability to achieve my goals." => [
+                            "type" => "range",
+                            'options' => [
+                                'I\'m not sure',
+                                'Yes, I can!',
+                            ],
+                            'rules' => ['min:1', 'max:10'],
+                            "sort_order" => 14,
+                        ],
+                        "I believe that I can control my own destiny." => [
+                            "type" => "range",
+                            'options' => [
+                                'I have no choice',
+                                'I\'m in control',
+                            ],
+                            'rules' => ['min:1', 'max:10'],
+                            "sort_order" => 15,
+                        ],
+                        "I am hopeful about the future." => [
+                            "type" => "range",
+                            'options' => [
+                                'No',
+                                'Yes!',
+                            ],
+                            'rules' => ['min:1', 'max:10'],
+                            "sort_order" => 16,
+                        ],
+                        "I am positive about the world." => [
+                            "type" => "range",
+                            'options' => [
+                                'The world is a bad place',
+                                'The world is a good place',
+                            ],
+                            'rules' => ['min:1', 'max:10'],
+                            "sort_order" => 17,
+                        ],
+                        "I am optimistic about my chances of success." => [
+                            "type" => "range",
+                            'options' => [
+                                'I\'m doomed to fail',
+                                'I\'m confident I will succeed',
+                            ],
+                            'rules' => ['min:1', 'max:10'],
+                            "sort_order" => 18,
+                        ],
+                        "I believe that I can overcome any obstacle." => [
+                            "type" => "range",
+                            'options' => [
+                                'I can\'t handle it',
+                                'I\'m a problem solver',
+                            ],
+                            'rules' => ['min:1', 'max:10'],
+                            "sort_order" => 19,
+                        ],
+                        "I am confident in my ability to handle challenges." => [
+                            "type" => "range",
+                            'options' => [
+                                'I don\'t know if I can handle challenges',
+                                'I can handle anything that comes my way',
+                            ],
+                            'rules' => ['min:1', 'max:10'],
+                            "sort_order" => 20,
+                        ],
+                    ],
+                ]
+            ]),
         ];
 
         foreach ($data as $template) {
