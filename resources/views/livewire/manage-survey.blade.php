@@ -38,6 +38,9 @@
                         <option value="post_event" {{ $survey->survey_type == 'post_event' ? 'selected' : '' }}>Post
                             Event
                             Survey</option>
+                        <option value="mental_health" {{ $survey->survey_type == 'mental_health' ? 'selected' : '' }}>
+                            Mental Health
+                        </option>
                         <option value="post_workshop" {{ $survey->survey_type == 'post_workshop' ? 'selected' : '' }}>
                             Post
                             Workshop
