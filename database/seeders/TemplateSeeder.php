@@ -713,6 +713,163 @@ class TemplateSeeder extends Seeder
                     ],
                 ]
             ]),
+            new Template([
+                'title' => 'Kirkpatrick Level 1 Assessment',
+                'settings' => [
+                    'limit-per-participant' => 1,
+                    'accept-guest-entries' => false,
+                ],
+                'rationale' => 'This framework is important for organizations because it provides feedback on the training experience, builds trust and rapport with learners, and can help to justify the investment in training.',
+                'rationale_description' => trim("Organizations can use Level 1 assessment to identify areas for improvement, gauge the effectiveness of training delivery methods, assess the overall quality of the training experience, identify high-performing trainers, track trends over time, and communicate the value of training to stakeholders."),
+                "survey_type" => "training_needs",
+                "data" => [
+                    "Program/Workshop" => [
+                        "settings" => [
+                            "sort_order" => 1,
+                        ],
+                        "How relevant was the program/workshop content to you?" => [
+                            "type" => "range",
+                            'options' => [
+                                'Very relevant',
+                                'Not relevant'
+                            ],
+                            'rules' => ['min:1', 'max:10'],
+                            "sort_order" => 1,
+                        ],
+                        "How would you rate the activities in the program/ workshop?" => [
+                            "type" => "range",
+                            'options' => [
+                                'Very appopriate',
+                                'Not appopriate at all'
+                            ],
+                            'rules' => ['min:1', 'max:10'],
+                            "sort_order" => 2,
+                        ],
+                        "How did the program/workshop respond to your current development needs?" => [
+                            "type" => "range",
+                            'options' => [
+                                'Very timely and responsive',
+                                'Not at all'
+                            ],
+                            'rules' => ['min:1', 'max:10'],
+                            "sort_order" => 3,
+                        ],
+                        "Rate your level of knowledge on the subject matter BEFORE attending the program?" => [
+                            "type" => "range",
+                            'options' => [
+                                'No knowledge',
+                                'With high level of knowledge and understanding'
+                            ],
+                            'rules' => ['min:1', 'max:10'],
+                            "sort_order" => 4,
+                        ],
+                        "Rate your level of knowledge on the subject matter AFTER attending the program?" => [
+                            "type" => "range",
+                            'options' => [
+                                'No knowledge',
+                                'With high level of knowledge and understanding'
+                            ],
+                            'rules' => ['min:1', 'max:10'],
+                            "sort_order" => 5,
+                        ],
+                    ],
+                    "Facilitator" => [
+                        "settings" => [
+                            "sort_order" => 2,
+                        ],
+                        "Name of Main Facilitator" => [
+                            "type" => "text",
+                            "options" => [],
+                            "rules" => ["required", "string", "max:250"],
+                            "sort_order" => 1,
+                        ],
+                        "How would you rate the level of expertise that the main facilitator exhibited during the session?" => [
+                            "type" => "range",
+                            'options' => [
+                                'Not knowledgeable',
+                                'Very knowledgeable'
+                            ],
+                            'rules' => ['min:1', 'max:10'],
+                            "sort_order" => 2,
+                        ],
+                    ],
+                    "Learning Environment" => [
+                        "settings" => [
+                            "sort_order" => 3,
+                        ],
+                        "How would you rate the platform used during the program/cascade/training session?" => [
+                            "type" => "range",
+                            'options' => [
+                                'Not appropriate',
+                                'Very appropriate'
+                            ],
+                            'rules' => ['min:1', 'max:10'],
+                            "sort_order" => 1,
+                        ],
+                        "How would you rate the level of expertise that the main facilitator exhibited during the session?" => [
+                            "type" => "range",
+                            'options' => [
+                                'Lacks details and incomplete',
+                                'Very detailed and complete'
+                            ],
+                            'rules' => ['min:1', 'max:10'],
+                            "sort_order" => 2,
+                        ],
+                    ],
+                    "Overall Rating" => [
+                        "settings" => [
+                            "sort_order" => 4,
+                        ],
+                        "Please rate your over-all experience with the program." => [
+                            "type" => "range",
+                            'options' => [
+                                'Waste of time',
+                                'Amazing!'
+                            ],
+                            'rules' => ['min:1', 'max:10'],
+                            "sort_order" => 1,
+                        ],
+                        "How likely will you recommend this program to your peers/managers and teammates?" => [
+                            "type" => "range",
+                            'options' => [
+                                'Will not recommend',
+                                'Will highly recommend'
+                            ],
+                            'rules' => ['min:1', 'max:10'],
+                            "sort_order" => 2,
+                        ],
+                    ],
+                    "Other comments" => [
+                        "settings" => [
+                            "sort_order" => 5,
+                        ],
+                        "What went well during the program?" => [
+                            "type" => "text",
+                            "options" => [],
+                            "rules" => ["required", "string", "max:1000"],
+                            "sort_order" => 1,
+                        ],
+                        "What can be improved?" => [
+                            "type" => "text",
+                            "options" => [],
+                            "rules" => ["required", "string", "max:1000"],
+                            "sort_order" => 2,
+                        ],
+                        "What follow-up activities or programs would you like to attend to further deepen your knowledge and skills?" => [
+                            "type" => "text",
+                            "options" => [],
+                            "rules" => ["required", "string", "max:1000"],
+                            "sort_order" => 3,
+                        ],
+                        "Other comments?" => [
+                            "type" => "text",
+                            "options" => [],
+                            "rules" => ["nullable", "string", "max:250"],
+                            "sort_order" => 4,
+                        ],
+                    ],
+                ]
+            ]),
         ];
 
         foreach ($data as $template) {
