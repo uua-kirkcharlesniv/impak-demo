@@ -119,6 +119,22 @@ class TemplateSeeder extends Seeder
         return $choices;
     }
 
+    private function fiveRange($sortOrder)
+    {
+        return [
+            "type" => "radio",
+            "options" => [
+                "Strongly agree",
+                "Agree",
+                "Neither Agree nor Disagree",
+                "Disagree",
+                "Strongly Disagree"
+            ],
+            "rules" => ["required"],
+            "sort_order" => $sortOrder,
+        ];
+    }
+
     /**
      * Run the database seeds.
      *
@@ -866,6 +882,56 @@ class TemplateSeeder extends Seeder
                             "options" => [],
                             "rules" => ["nullable", "string", "max:250"],
                             "sort_order" => 4,
+                        ],
+                    ],
+                ]
+            ]),
+            new Template([
+                'title' => 'Kirkpatrick Level 2 Assessment',
+                'settings' => [
+                    'limit-per-participant' => 1,
+                    'accept-guest-entries' => false,
+                ],
+                'rationale' => 'This framework is designed to measure the extent to which training program participants have improved their knowledge and skills as a result of the training.',
+                'rationale_description' => trim("Kirkpatrick Level 2 assessment measures the degree to which participants have learned the material presented in a training program. This is the second level of the Kirkpatrick Model of Training Evaluation, which is a four-level model that is widely used by organizations to evaluate the effectiveness of their training programs."),
+                "survey_type" => "training_needs",
+                "data" => [
+                    "Questionnaire" => [
+                        "settings" => [
+                            "sort_order" => 1,
+                        ],
+                        "I was able to understand and learn the training material." => $this->fiveRange(1),
+                        "The training was relevant to my current role and responsibilities." => $this->fiveRange(2),
+                        "I am confident that I can apply what I learned in the training to my work." => $this->fiveRange(3),
+                        "The knowledge and skills I learned in this training will help me improve how I do my job." => $this->fiveRange(4),
+                        "I will be able to answer questions about this training." => $this->fiveRange(5),
+                        "I had enough opportunities to practice what I was learning." => $this->fiveRange(6),
+                        "The training materials were helpful and easy to understand." => $this->fiveRange(7),
+                        "The activities simulated the work environment." => $this->fiveRange(8),
+                        "I will be able to explain to a colleague the key concepts from this training." => $this->fiveRange(9),
+                        "I am motivated to immediately apply what I've learned." => $this->fiveRange(10),
+                    ],
+                    "Other comments" => [
+                        "settings" => [
+                            "sort_order" => 2,
+                        ],
+                        "What are the key takeaways from this training?" => [
+                            "type" => "text",
+                            "options" => [],
+                            "rules" => ["required", "string", "max:1000"],
+                            "sort_order" => 1,
+                        ],
+                        "How do you plan to apply what you've learned at work?" => [
+                            "type" => "text",
+                            "options" => [],
+                            "rules" => ["nullable", "string", "max:1000"],
+                            "sort_order" => 2,
+                        ],
+                        "What other support do you need to be able to apply the knowledge and skills learned?" => [
+                            "type" => "text",
+                            "options" => [],
+                            "rules" => ["required", "string", "max:1000"],
+                            "sort_order" => 3,
                         ],
                     ],
                 ]
