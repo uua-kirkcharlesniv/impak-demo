@@ -89,6 +89,7 @@ class CampaignController extends Controller
             'rationale' => $template->rationale,
             'rationale_description' => $template->rationale_description,
             'survey_type' => $template->survey_type,
+            'framework_id' => $template->id,
         ]);
 
         foreach ($template->data as $key => $data) {
