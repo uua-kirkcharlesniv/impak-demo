@@ -9,7 +9,7 @@
             if ($sectionIndex == 0 && $questionIndex > 3) {
                 $maxHeight = '185px';
             }
-            
+
             $color = 'bg-indigo-500';
             if ($sectionIndex == 0 && $questionIndex == 4) {
                 $color = 'bg-red-500';
@@ -212,7 +212,7 @@
                 data: {
                     labels: labels,
                     datasets: [{
-                        label: label,
+                        label: 'Data',
                         backgroundColor: backgroundColor,
                         data: dataset
                     }]

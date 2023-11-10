@@ -66,7 +66,7 @@
                         aria-label="Select date range" aria-haspopup="true" @click.prevent="open = !open"
                         :aria-expanded="open">
                         <span class="flex items-center">
-                            <span x-text="$refs.options.children[selected].children[0].innerHTML"></span>
+                            <span>{{ $nameSelected }}</span>
                         </span>
                         <svg class="shrink-0 ml-1 fill-current text-slate-400" width="11" height="7"
                             viewBox="0 0 11 7">
@@ -81,26 +81,22 @@
                         x-transition:leave="transition ease-out duration-100" x-transition:leave-start="opacity-100"
                         x-transition:leave-end="opacity-0" x-cloak>
                         <div class="font-medium text-sm text-slate-600 divide-y divide-slate-200" x-ref="options">
-                            @for ($i = 0; $i < rand(5, 20); $i++)
-                                <button tabindex="{{ $i }}"
+                            @foreach ($data as $id => $name)
+                                <button tabindex="{{ $id }}"
                                     class="flex items-center justify-between w-full hover:bg-slate-50 py-2 px-3 cursor-pointer"
-                                    :class="selected === {{ $i }} && 'text-indigo-500'" @click="selected = {{ $i }};open = false"
-                                    @focus="open = true" @focusout="open = false">
-                                    <span>{{ucfirst($filterApplied)}}:
-                                    @if($filterApplied == 'employee')
-                                        {{ fake()->name() }}
-                                    @else
-                                        {{ fake()->company() }}
-                                    @endif
-                                    </span>
+                                    :class="selected === {{ $id }} && 'text-indigo-500'"
+                                    @click="selected = {{ $id }};open = false" @focus="open = true"
+                                    wire:click="changeId('{{ $id }}', '{{ $name }}')"
+                                    @focusout="open = false">
+                                    <span>{{ $name }}</span>
                                     <svg class="shrink-0 ml-2 fill-current text-indigo-400"
-                                        :class="selected !== {{ $i }} && 'invisible'" width="12" height="9"
-                                        viewBox="0 0 12 9">
+                                        :class="selected !== {{ $id }} && 'invisible'" width="12"
+                                        height="9" viewBox="0 0 12 9">
                                         <path
                                             d="M10.28.28L3.989 6.575 1.695 4.28A1 1 0 00.28 5.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28.28z" />
                                     </svg>
                                 </button>
-                            @endfor
+                            @endforeach
                         </div>
                     </div>
                 </div>

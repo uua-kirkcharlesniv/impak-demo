@@ -133,7 +133,7 @@ Route::middleware([
 
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
         Route::get('/dashboard/analytics', [DashboardController::class, 'analytics'])->name('analytics');
-        Route::get('/dashboard/fintech', [DashboardController::class, 'fintech'])->name('fintech');
+        Route::get('/dashboard/mood', [DashboardController::class, 'mood'])->name('mood');
         Route::get('/ecommerce/customers', [CustomerController::class, 'index'])->name('customers');
         Route::get('/ecommerce/orders', [OrderController::class, 'index'])->name('orders');
         Route::get('/ecommerce/invoices', [InvoiceController::class, 'index'])->name('invoices');
