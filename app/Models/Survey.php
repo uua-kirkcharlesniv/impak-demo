@@ -24,7 +24,7 @@ class Survey extends \MattDaneshvar\Survey\Models\Survey
         'settings' => 'array',
     ];
 
-    protected $appends = ['is_open', 'is_targeted', 'target_user_ids', 'respondents_count', 'unique_users_entry_count', 'completion_percent'];
+    protected $appends = ['is_open', 'is_targeted', 'target_user_ids', 'respondents_count', 'unique_users_entry_count', 'completion_percent', 'photo', 'last_entry_date', 'open_at'];
 
     public function getCompletionPercentAttribute()
     {
@@ -33,6 +33,19 @@ class Survey extends \MattDaneshvar\Survey\Models\Survey
         } catch (DivisionByZeroError $e) {
             return 0;
         }
+    }
+
+    public function getLastEntryDateAttribute()
+    {
+        $lastEntry = $this->lastEntry(Auth::user());
+        if ($lastEntry) {
+            return Carbon::parse($lastEntry->created_at)->setTimezone('Asia/Manila')->format('h:i A, M d');
+        }
+    }
+
+    public function getOpenAtAttribute()
+    {
+        return Carbon::parse($this->end_time)->setTimezone('Asia/Manila')->format('h:i A') . ", " . Carbon::parse($this->end_date)->setTimezone('Asia/Manila')->format('M d');
     }
 
     public function getSlugOptions(): SlugOptions
@@ -175,5 +188,25 @@ class Survey extends \MattDaneshvar\Survey\Models\Survey
         return $this->belongsToMany(Respondent::class, 'survey_respondents', 'survey_id', 'respondent_id')
             ->withPivot('type')
             ->withTimestamps();
+    }
+
+    public function getPhotoAttribute()
+    {
+        switch ($this->survey_type) {
+            case 'post_event':
+                return 'https://unsplash.com/photos/F2KRf_QfCqw/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8M3x8ZXZlbnR8ZW58MHx8fHwxNjkyNjMwNTcyfDA&force=true&w=640';
+                break;
+            case 'post_workshop':
+                return 'https://plus.unsplash.com/premium_photo-1661713210744-f5be3c3491fe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80';
+                break;
+            case 'mental_health':
+                return 'https://unsplash.com/photos/uGP_6CAD-14/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8Mnx8aGFwcHklMjBmZWVsaW5nfGVufDB8fHx8MTY5OTU2ODQ5MHww&force=true&w=640';
+                break;
+            case 'training_needs':
+                return 'https://unsplash.com/photos/Oalh2MojUuk/download?ixid=M3wxMjA3fDB8MXxhbGx8fHx8fHx8fHwxNjk5NTczOTY5fA&force=true&w=640';
+                break;
+        }
+
+        return 'https://unsplash.com/photos/nC6CyrVBtkU/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8M3x8Y29tcGFueXxlbnwwfHx8fDE2OTk5Mjg1ODd8MA&force=true&w=640';
     }
 }
