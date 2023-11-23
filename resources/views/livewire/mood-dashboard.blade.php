@@ -2,18 +2,193 @@
     $time = now();
 @endphp
 
-<div>
-    <div class="flex flex-col col-span-full bg-white shadow-lg rounded-sm border border-slate-200">
+<div class="flex flex-col h-full">
+    <div class="flex grid lg:grid-cols-5 md:grid-cols-2 sm:grid-cols-1 gap-6">
+        <div class="bg-white rounded-b-2xl p-4 border-t-8 border-indigo-200">
+            <div class="flex flex-wrap">
+                <div class="w-3/5">
+                    <h1 class="text-black text-sm font-bold">Mood score this period</h1>
+                </div>
+                <div class="w-2/5 place-items-center m-auto">
+                    <h1 class="text-center font-black text-2xl text-lime-600">52%</h1>
+                </div>
+            </div>
+        </div>
+        <div class="bg-white rounded-b-2xl p-4 border-t-8 border-indigo-400">
+            <div class="flex flex-wrap">
+                <div class="w-3/5">
+                    <h1 class="text-black text-sm font-bold">Average mood this period</h1>
+                </div>
+                <div class="w-2/5 place-items-center m-auto">
+                    @svg('happy', 'm-auto')
+                </div>
+            </div>
+        </div>
+        <div class="bg-white rounded-b-2xl p-4 border-t-8 border-indigo-600">
+            <div class="flex flex-wrap">
+                <div class="w-3/5">
+                    <h1 class="text-black text-sm font-bold">Recurring mood this period</h1>
+                </div>
+                <div class="w-2/5 place-items-center m-auto">
+                    @svg('neutral', 'm-auto')
+                </div>
+            </div>
+        </div>
+        <div class="bg-white rounded-b-2xl p-4 border-t-8 border-amber-400">
+            <div class="flex flex-wrap">
+                <div class="w-3/5">
+                    <h1 class="text-black text-sm font-bold">Average mood this period</h1>
+                </div>
+                <div class="w-2/5 place-items-center m-auto">
+                    @svg('happy', 'm-auto')
+                </div>
+            </div>
+        </div>
+        <div class="bg-white rounded-b-2xl p-4 border-t-8 border-amber-600">
+            <div class="flex flex-wrap">
+                <div class="w-3/5">
+                    <h1 class="text-black text-sm font-bold">Average mood this period</h1>
+                </div>
+                <div class="w-2/5 place-items-center m-auto">
+                    @svg('happy', 'm-auto')
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="flex-1" style="height: 100%">
+        <div class="grid grid-cols-3 grid-rows-3 mt-4 gap-4 h-full w-full">
+            <div class="bg-white rounded-xl col-span-2 p-4 row-span-2">
+                <div class="flex justify-between mb-4">
+                    <h1 class="font-bold text-xl">Monthly mood chart</h1>
+                    <h1 class="font-medium">Month of November</h1>
+                </div>
+                <div class="w-full mt-6">
+                    <div class="flex flex-row gap-8">
+                        <h1 class="flex">
+                            <div class="flex flex-col justify-between ml-5 pb-12 pt-2">
+                                @svg('overjoyed')
+                                @svg('happy')
+                                @svg('neutral')
+                                @svg('sad')
+                                @svg('depressed')
+                            </div>
+                        </h1>
+                        <h1 class="flex-1">
+                            <div class="w-full" style="height: 42.5vh">
+                                <canvas id="monthly-mood-chart"></canvas>
+                            </div>
+                            <script type="module">
+                                let data = @js($fetchedData);
+                                let labels = Object.keys(data)
+                                let dataset = Object.values(data)
+
+                                let options = {
+                                    maintainAspectRatio: false,
+                                    layout: {
+                                        padding: 20,
+                                    },
+                                    interaction: {
+                                        intersect: false,
+                                        mode: 'nearest',
+                                    },
+                                    plugins: {
+                                        legend: {
+                                            display: false
+                                        }
+                                    },
+                                    scale: {
+                                        ticks: {
+                                            precision: 0
+                                        }
+                                    },
+                                    legend: {
+                                        display: false
+                                    },
+                                    title: {
+                                        display: false,
+                                    },
+                                    scales: {
+                                        y: {
+                                            border: {
+                                                display: false,
+                                            },
+                                            grid: {
+                                                display: false,
+                                            },
+                                            ticks: {
+                                                maxTicksLimit: 10,
+                                                display: false,
+                                            },
+                                            max: 100,
+                                            min: 0,
+                                        },
+                                        x: {
+                                            border: {
+                                                display: true,
+                                            },
+                                            grid: {
+                                                display: false,
+                                            },
+                                        },
+                                    },
+                                    responsive: true
+                                };
+
+                                var canvas = document.getElementById("monthly-mood-chart");
+                                var ctx = canvas.getContext("2d");
+                                var gradient = ctx.createLinearGradient(0, 0, 0, 400);
+                                gradient.addColorStop(0, 'rgba(59, 130, 248, 0.5)');
+                                gradient.addColorStop(1, 'rgba(59, 130, 248, 0.05)');
+
+                                console.log(data)
+
+                                new Chart(canvas, {
+                                    type: 'line',
+                                    data: {
+                                        labels: labels,
+                                        datasets: [{
+                                            label: 'Mood Score',
+                                            data: dataset,
+                                            fill: true,
+                                            backgroundColor: gradient,
+                                            borderColor: 'rgb(99 102 241)',
+                                            borderWidth: 2,
+                                            pointRadius: 0,
+                                            pointHoverRadius: 4,
+                                            pointBackgroundColor: 'rgb(99 102 241)',
+                                            clip: 20,
+                                            lineTension: 0.4,
+                                        }],
+                                    },
+                                    options: options,
+                                });
+                            </script>
+                        </h1>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white col-span-1 row-span-2">
+                <h1>hello</h1>
+            </div>
+            <div class="bg-white col-span-1 row-span-1">
+                <h1>hello</h1>
+            </div>
+            <div class="bg-white col-span-1  row-span-1">
+                <h1>hello</h1>
+            </div>
+            <div class="bg-white col-span-1 row-span-1">
+                <h1>hello</h1>
+            </div>
+
+        </div>
+    </div>
+
+
+    {{-- <div class="flex flex-col col-span-full bg-white shadow-lg rounded-sm border border-slate-200">
         <div class="px-5 py-6">
             <div class="md:flex md:justify-between md:items-center">
-                <!-- Left side -->
                 <div class="flex items-center mb-4 md:mb-0">
-                    <!-- Avatar -->
-                    {{-- <div class="mr-4">
-                        <img class="inline-flex rounded-full" src="{{ asset('images/user-64-14.jpg') }}" width="64"
-                            height="64" alt="User" />
-                    </div> --}}
-                    <!-- User info -->
                     <div>
                         <div class="mb-2">Hey <strong
                                 class="font-medium text-slate-800">{{ tenant()->company }}</strong> 👋, the average mood
@@ -22,33 +197,6 @@
                         <div class="text-3xl font-bold text-emerald-500">{{ $average }}%</div>
                     </div>
                 </div>
-                <!-- Right side -->
-                {{-- <ul class="shrink-0 flex flex-wrap justify-end md:justify-start -space-x-3 -ml-px">
-                    <li>
-                        <a class="block" href="#0">
-                            <img class="w-9 h-9 rounded-full" src="{{ asset('images/company-icon-01.svg') }}"
-                                width="36" height="36" alt="Account 01" />
-                        </a>
-                    </li>
-                    <li>
-                        <a class="block" href="#0">
-                            <img class="w-9 h-9 rounded-full" src="{{ asset('images/company-icon-02.svg') }}"
-                                width="36" height="36" alt="Account 02" />
-                        </a>
-                    </li>
-                    <li>
-                        <a class="block" href="#0">
-                            <img class="w-9 h-9 rounded-full" src="{{ asset('images/company-icon-03.svg') }}"
-                                width="36" height="36" alt="Account 03" />
-                        </a>
-                    </li>
-                    <li>
-                        <a class="block" href="#0">
-                            <img class="w-9 h-9 rounded-full" src="{{ asset('images/company-icon-04.svg') }}"
-                                width="36" height="36" alt="Account 04" />
-                        </a>
-                    </li>
-                </ul> --}}
             </div>
         </div>
     </div>
@@ -62,74 +210,13 @@
         </header>
 
         <div>
-            {{-- <ul class="flex flex-wrap ml-6">
-                <li style="margin-right: 16px;"><button style="display: inline-flex; align-items: center;"><span
-                            style="display: block; width: 12px; height: 12px; border-radius: 9999px; margin-right: 8px; border-width: 3px; border-color: rgb(96, 165, 250); pointer-events: none;"></span><span
-                            style="display: flex; align-items: center;"><span class="text-slate-800 "
-                                style="font-size: 1.35rem; line-height: 1.33; font-weight: 700; margin-right: 8px; pointer-events: none;">MIN</span><span
-                                class="text-slate-400" style="font-size: 0.875rem; line-height: 1.5715;">Most
-                                answered</span></span></button></li>
-                <li style="margin-right: 16px;"><button style="display: inline-flex; align-items: center;"><span
-                            style="display: block; width: 12px; height: 12px; border-radius: 9999px; margin-right: 8px; border-width: 3px; border-color: rgb(99, 102, 241); pointer-events: none;"></span><span
-                            style="display: flex; align-items: center;"><span class="text-slate-800"
-                                style="font-size: 1.35rem; line-height: 1.33; font-weight: 700; margin-right: 8px; pointer-events: none;">MAX</span><span
-                                class="text-slate-400" style="font-size: 0.875rem; line-height: 1.5715;">Least
-                                answered</span></span></button></li>
-            </ul> --}}
             <div class="grow">
                 <canvas id="{{ $filter }}-{{ $selectedId }}-{{ $time }}" class="p-4 w-full"></canvas>
             </div>
         </div>
 
         <script>
-            let data = @js($fetchedData);
-            let labels = Object.keys(data)
-            let dataset = Object.values(data)
-
-            let options = {
-                layout: {
-                    padding: {
-                        top: 12,
-                        bottom: 16,
-                        left: 20,
-                        right: 20,
-                    },
-                },
-
-                plugins: {
-                    legend: {
-                        display: false
-                    }
-                },
-                scale: {
-                    ticks: {
-                        precision: 0
-                    }
-                },
-                legend: {
-                    display: false
-                },
-                title: {
-                    display: false,
-                },
-                scales: {
-                    y: {
-                        border: {
-                            display: false,
-                        },
-                        ticks: {
-                            maxTicksLimit: 10,
-                        },
-                        max: 100,
-                        min: 0,
-                    },
-                },
-                responsive: true
-            };
-
-            backgroundColor = [
-                "rgb(129 140 248)"
-            ];
+           
             var chkReadyState = setInterval(function() {
                 if (document.readyState == "complete") {
                     try {
@@ -158,7 +245,6 @@
         <div class="flex flex-col mt-4 col-span-full bg-white shadow-lg rounded-sm border border-slate-200">
             <div class="px-5 py-6">
                 <div class="md:flex md:justify-between md:items-center">
-                    <!-- Left side -->
                     <div class="flex items-center mb-4 md:mb-0">
 
                         <div>
@@ -187,7 +273,7 @@
                 </div>
             @endforeach
         </div>
-    @endif
+    @endif --}}
 
 
 </div>
