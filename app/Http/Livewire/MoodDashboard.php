@@ -31,6 +31,8 @@ class MoodDashboard extends Component
     public $recommendationTitle;
     public $recommendations = [];
 
+    public $completionRate = 45;
+
     public function mount()
     {
         $this->filter = 'company';
