@@ -296,8 +296,93 @@
                     </script>
                 </div>
             </div>
-            <div class="bg-white col-span-1 row-span-1">
-                <h1>hello</h1>
+            <div class="bg-white rounded-xl col-span-1 p-4 row-span-1">
+                <div class="mb-4">
+                    <h1 class="font-bold text-xl">Mood Score throughout the week</h1>
+                </div>
+                <div class="w-full mt-6">
+                    <div class="w-full" style="height: 17vh">
+                        <canvas id="week-chart"></canvas>
+                    </div>
+
+                    <script type="module">
+                        let data = @js($weeksData);
+                        let labels = Object.keys(data)
+                        let dataset = Object.values(data)
+
+                        let options = {
+                            maintainAspectRatio: false,
+                            layout: {
+                                padding: 20,
+                            },
+                            interaction: {
+                                intersect: false,
+                                mode: 'nearest',
+                            },
+                            animation: {
+                                duration: 200,
+                            },
+                            plugins: {
+                                legend: {
+                                    display: false
+                                },
+                            },
+                            legend: {
+                                display: false
+                            },
+                            title: {
+                                display: false,
+                            },
+                            scales: {
+                                y: {
+                                    border: {
+                                        display: false,
+                                    },
+                                    grid: {
+                                        display: false,
+                                    },
+                                    ticks: {
+                                        maxTicksLimit: 10,
+                                        display: false,
+                                    },
+                                    max: 100,
+                                    min: 0,
+                                },
+                                x: {
+                                    border: {
+                                        display: true,
+                                    },
+                                    grid: {
+                                        display: false,
+                                    },
+                                },
+                            },
+                            responsive: true
+                        };
+
+                        var canvas = document.getElementById("week-chart");
+                        var ctx = canvas.getContext("2d");
+                        var gradient = ctx.createLinearGradient(0, 0, 0, 600);
+                        gradient.addColorStop(0, 'rgb(129 140 248)');
+                        gradient.addColorStop(1, 'rgb(49 46 129)');
+
+                        new Chart(canvas, {
+                            type: 'bar',
+                            data: {
+                                labels: labels,
+                                datasets: [{
+                                    label: 'Mood Score',
+                                    data: dataset,
+                                    fill: true,
+                                    backgroundColor: gradient,
+                                    borderRadius: 50,
+                                    barThickness: 20,
+                                }],
+                            },
+                            options: options,
+                        });
+                    </script>
+                </div>
             </div>
             <div class="col-span-1 row-span-1">
                 <div class="flex flex-col w-full h-full gap-4">
