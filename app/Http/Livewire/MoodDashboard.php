@@ -32,9 +32,19 @@ class MoodDashboard extends Component
     public $recommendations = [];
 
     public $completionRate = 45;
+    public $employeesCount = 0;
+    public $departmentCount = 0;
+    public $groupCount = 0;
+    public $activeSurveysCount = 0;
+
 
     public function mount()
     {
+        $this->employeesCount = User::role('employee')->count();
+        $this->departmentCount = Department::count();
+        $this->groupCount = Group::count();
+        $this->activeSurveysCount = Survey::where('publish_status', 'published')->count();
+
         $this->filter = 'company';
 
         $this->filterIdChanged(null, null);

@@ -10,47 +10,47 @@
                     <h1 class="text-black text-sm font-bold">Mood score this period</h1>
                 </div>
                 <div class="w-2/5 place-items-center m-auto">
-                    <h1 class="text-center font-black text-2xl text-lime-600">52%</h1>
+                    <h1 class="text-center font-black text-2xl text-lime-600">{{ $average }}%</h1>
                 </div>
             </div>
         </div>
         <div class="bg-white rounded-b-2xl p-4 border-t-8 border-indigo-400">
             <div class="flex flex-wrap">
                 <div class="w-3/5">
-                    <h1 class="text-black text-sm font-bold">Average mood this period</h1>
+                    <h1 class="text-black text-sm font-bold">Number of employees</h1>
                 </div>
                 <div class="w-2/5 place-items-center m-auto">
-                    @svg('happy', 'm-auto')
+                    <h1 class="text-center font-black text-2xl text-indigo-600">{{ $employeesCount }}</h1>
                 </div>
             </div>
         </div>
         <div class="bg-white rounded-b-2xl p-4 border-t-8 border-indigo-600">
             <div class="flex flex-wrap">
                 <div class="w-3/5">
-                    <h1 class="text-black text-sm font-bold">Recurring mood this period</h1>
+                    <h1 class="text-black text-sm font-bold">Number of deparments</h1>
                 </div>
                 <div class="w-2/5 place-items-center m-auto">
-                    @svg('neutral', 'm-auto')
+                    <h1 class="text-center font-black text-2xl text-indigo-600">{{ $departmentCount }}</h1>
                 </div>
             </div>
         </div>
         <div class="bg-white rounded-b-2xl p-4 border-t-8 border-amber-400">
             <div class="flex flex-wrap">
                 <div class="w-3/5">
-                    <h1 class="text-black text-sm font-bold">Average mood this period</h1>
+                    <h1 class="text-black text-sm font-bold">Number of <br>groups</h1>
                 </div>
                 <div class="w-2/5 place-items-center m-auto">
-                    @svg('happy', 'm-auto')
+                    <h1 class="text-center font-black text-2xl text-indigo-600">{{ $groupCount }}</h1>
                 </div>
             </div>
         </div>
         <div class="bg-white rounded-b-2xl p-4 border-t-8 border-amber-600">
             <div class="flex flex-wrap">
                 <div class="w-3/5">
-                    <h1 class="text-black text-sm font-bold">Average mood this period</h1>
+                    <h1 class="text-black text-sm font-bold">Number of active running surveys</h1>
                 </div>
                 <div class="w-2/5 place-items-center m-auto">
-                    @svg('happy', 'm-auto')
+                    <h1 class="text-center font-black text-2xl text-indigo-600">{{ $activeSurveysCount }}</h1>
                 </div>
             </div>
         </div>
