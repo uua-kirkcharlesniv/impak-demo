@@ -82,35 +82,14 @@
 
     @foreach ($survey->sections as $sectionIndex => $section)
         <div class="mt-4 mb-8" wire:key="{{ $section->id }}">
-            <h1 class="font-bold text-2xl text-slate-800">{{ $section->name }}</h1>
             <div class="grid grid-cols-12 gap-6 mt-4">
                 @foreach ($section->questions as $questionIndex => $question)
-                    @php
-                        switch ($question->type) {
-                            case 'likert':
-                                $size = 6;
-                                break;
-                            case 'range':
-                                $size = 12;
-                                break;
-                            default:
-                                $size = 6;
-                                break;
-                        }
-
-                        if ($sectionIndex == 0 && $questionIndex > 3) {
-                            $size = 4;
-                        } elseif ($sectionIndex == 1) {
-                            $size = 4;
-                        }
-
-                        if ($sectionIndex == 1 && $questionIndex > 5) {
-                            $size = 6;
-                        }
-                    @endphp
-
                     <div
-                        class="flex flex-col col-span-full xl:col-span-{{ $size }} row-span-6 bg-white shadow-lg rounded-sm border border-slate-200">
+                        class="flex flex-col col-span-full xl:col-span-{{ $rowSpans[$sectionIndex][$questionIndex] }} row-span-6 bg-white shadow-lg rounded-sm border border-slate-200">
+                        <header class="border-l-8 border-red-500 bg-slate-200 font-bold p-4 text-black"
+                            style="border-color: #{{ substr(md5($section->id), 0, 6) }}">
+                            {{ $section->name }}
+                        </header>
                         <header class="px-5 py-4 flex items-center">
                             <h2 class="font-semibold text-slate-800">{{ $question->content }}</h2>
                         </header>
