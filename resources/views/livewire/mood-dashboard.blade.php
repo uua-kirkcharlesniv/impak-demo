@@ -415,8 +415,16 @@
                     </div>
                 </div>
             </div>
-            <div class="bg-white col-span-1 row-span-1">
-                <h1>hello</h1>
+            <div class="rounded-2xl bg-white text-white col-span-1 row-span-1 p-4 h-full w-full"
+                style="background-color: #6E57E6">
+                <div class="flex flex-col h-full">
+                    <div class="flex mb-6">Your average mood this period</div>
+                    <div class="flex-1 m-auto h-full">
+                        @svg('neutral', 'm-auto w-32 h-32')
+                        <h1 class="mt-4 font-black text-center text-2xl">Neutral</h1>
+                        <h1 class="mt-4 font-extralight text-center text-sm">Let us know how can we help you more!</h1>
+                    </div>
+                </div>
             </div>
 
         </div>
