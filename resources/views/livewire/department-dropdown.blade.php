@@ -17,14 +17,12 @@
             x-transition:leave="transition ease-out duration-100" x-transition:leave-start="opacity-100"
             x-transition:leave-end="opacity-0" x-cloak>
             <div class="font-medium text-sm text-slate-600 divide-y divide-slate-200" x-ref="options">
-                @foreach($departments as $department)
+                @foreach ($departments as $department)
                     <button tabindex="{{ $department->id }}"
                         class="flex items-center justify-between w-full hover:bg-slate-50 py-2 px-3 cursor-pointer"
-                        :class="{{ $selectedDepartmentId }} == {{ $department->id }} && 'text-indigo-500'"
-                        wire:click.prevent="selectDepartment({{ $department->id }})"
-                        @click="open = false"
-                        @focus="open = true"
-                        @focusout="open = false">
+                        :class="{{ $selectedDepartmentId ?? -1 }} == {{ $department->id }} && 'text-indigo-500'"
+                        wire:click.prevent="selectDepartment({{ $department->id }})" @click="open = false"
+                        @focus="open = true" @focusout="open = false">
                         <span>{{ $department->name }}</span>
                     </button>
                 @endforeach
