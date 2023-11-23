@@ -17,10 +17,10 @@
                 $color = 'bg-sky-500';
             }
         @endphp
+
         <div class="p-3 mb-6" style="overflow:auto">
             <header class="text-xs uppercase text-slate-400 bg-slate-50 rounded-sm font-semibold p-2">Answers</header>
             <ul class="my-1" style="max-height: {{ $maxHeight }};">
-                <!-- Item -->
                 @foreach ($answers as $answer)
                     <li class="flex px-2">
                         <div class="w-9 h-9 rounded-full shrink-0 {{ $color }} my-2 mr-3">
@@ -70,27 +70,6 @@
         </div>
 
         <script>
-            // function percentageToColor(percentage, maxHue = 350, minHue = 220) {
-            //     const hue = percentage * (maxHue - minHue) + minHue;
-            //     return `hsl(${hue}, 100%, 50%)`;
-            // }
-
-            function hashCode(str) { // java String#hashCode
-                var hash = 0;
-                for (var i = 0; i < str.length; i++) {
-                    hash = str.charCodeAt(i) + ((hash << 6) - hash);
-                }
-                return hash;
-            }
-
-            function intToRGB(i) {
-                var c = (i & 0x00FFFFFF)
-                    .toString(16)
-                    .toUpperCase();
-
-                return "00000".substring(0, 6 - c.length) + c;
-            }
-
             let labels = @js($labels);
             let dataset = @js($dataset);
             let label = labels[0] ?? '';
@@ -101,20 +80,13 @@
 
             switch (labels.length) {
                 case 3:
-                    // backgroundColor = ["rgb(220 38 38)", "rgb(251 191 36)", "rgb(22 163 74)",
-                    // ];
                     backgroundColor = ["rgba(239, 68, 68, 0.8)", "rgba(56, 189, 248, 0.8)", "rgba(16, 185, 129, 0.8)", ];
                     break;
                 case 5:
-                    // backgroundColor = ["rgb(185 28 28)", "rgb(239 68 68)", "rgb(245 158 11)",
-                    //     "rgb(34 197 94)",
-                    //     "rgb(21 128 61)"
-                    // ];
                     backgroundColor = ["rgb(129 140 248)", "rgb(99 102 241)", "rgb(79 70 229)",
                         "rgb(67 56 202)",
                         "#3644A2"
                     ];
-                    // backgroundColor = ["#6366F1"];
                     break;
                 case 10:
                     backgroundColor = [
@@ -129,9 +101,6 @@
                         "rgba(79, 70, 229, 1)",
                         "rgba(55, 48, 163, 1)",
                     ];
-                    // for (let i = 0; i <= 10; i++) {
-                    //     backgroundColor[i] = percentageToColor(i / 10)
-                    // }
 
                     break;
                 default:
@@ -205,8 +174,6 @@
                 }
             }
 
-
-
             new Chart(document.getElementById("{{ $question->key }}-{{ $time }}"), {
                 type: type,
                 data: {
@@ -221,10 +188,4 @@
             });
         </script>
     @endif
-
-    {{-- <header class="px-5 py-4 border-t border-slate-100 flex items-center">
-        <h2 class="text-slate-800">{!! $intextGeneration !!}</h2>
-    </header> --}}
-
-
 </div>

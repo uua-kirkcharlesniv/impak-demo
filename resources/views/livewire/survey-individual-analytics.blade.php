@@ -3,22 +3,12 @@
         wire:key="analytics-survey-{{ $survey->id }}">
         <div class="px-5 py-6">
             <div class="md:flex md:justify-between md:items-center">
-                <!-- Left side -->
                 <div class="flex items-center mb-4 md:mb-0">
-                    <!-- Avatar -->
-                    {{-- <div class="mr-4">
-                        <img class="inline-flex rounded-full" src="{{ asset('images/user-64-14.jpg') }}" width="64"
-                            height="64" alt="User" />
-                    </div> --}}
-                    <!-- User info -->
                     <div>
                         <strong class="text-slate-800 font-xl text-3xl"> {{ $survey->name }}</strong>
                     </div>
                 </div>
-                <!-- Right side -->
                 <div class="text-3xl font-bold text-emerald-500">{{ $survey->completion_percent * 100 }}%</div>
-                {{-- <div class="shrink-0 flex flex-wrap justify-end md:justify-start -space-x-3 -ml-px">
-                </div> --}}
             </div>
             <div class="w-full h-4 my-4 mb-4 bg-gray-200 rounded-full dark:bg-gray-700">
                 <div class="h-4 bg-blue-600 rounded-full dark:bg-blue-500"
@@ -27,9 +17,7 @@
             <div class="rounded-sm">
                 <div class="overflow-x-auto">
                     <table class="table-auto w-full divide-y divide-slate-200">
-                        <!-- Table body -->
                         <tbody class="text-sm" x-data="{ open: false }">
-                            <!-- Row -->
                             <tr>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                     <div class="flex justify-center items-center">
@@ -84,16 +72,14 @@
                                         </div>
                                     </div>
                                 </td>
-
-
                             </tr>
-
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
     </div>
+
     @foreach ($survey->sections as $sectionIndex => $section)
         <div class="mt-4 mb-8" wire:key="{{ $section->id }}">
             <h1 class="font-bold text-2xl text-slate-800">{{ $section->name }}</h1>
@@ -111,33 +97,28 @@
                                 $size = 6;
                                 break;
                         }
-                        
+
                         if ($sectionIndex == 0 && $questionIndex > 3) {
                             $size = 4;
                         } elseif ($sectionIndex == 1) {
                             $size = 4;
                         }
-                        
+
                         if ($sectionIndex == 1 && $questionIndex > 5) {
                             $size = 6;
                         }
-                        
                     @endphp
+
                     <div
                         class="flex flex-col col-span-full xl:col-span-{{ $size }} row-span-6 bg-white shadow-lg rounded-sm border border-slate-200">
                         <header class="px-5 py-4 flex items-center">
                             <h2 class="font-semibold text-slate-800">{{ $question->content }}</h2>
                         </header>
-                        {{-- <div class="px-5 py-1">
-                            
-                        </div> --}}
 
                         <livewire:survey-question-chart :sectionIndex="$sectionIndex" :questionIndex="$questionIndex" :question="$question"
                             wire:key="{{ $survey->id }}.{{ $section->id }}.{{ $question->id }}.{{ now() }}" />
-
                     </div>
                 @endforeach
-
             </div>
         </div>
     @endforeach
