@@ -95,7 +95,8 @@
                         </header>
 
                         <livewire:survey-question-chart :sectionIndex="$sectionIndex" :questionIndex="$questionIndex" :question="$question"
-                            wire:key="{{ $survey->id }}.{{ $section->id }}.{{ $question->id }}.{{ now() }}" />
+                            wire:key="{{ $survey->id }}.{{ $section->id }}.{{ $question->id }}.{{ now() }}"
+                            :frameworkId="$survey->framework_id" />
                     </div>
                 @endforeach
             </div>

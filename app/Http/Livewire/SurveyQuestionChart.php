@@ -23,11 +23,13 @@ class SurveyQuestionChart extends Component
 
     public $sectionIndex;
     public $questionIndex;
+    public $frameworkId;
 
-    public function mount($sectionIndex, $questionIndex, $question)
+    public function mount($sectionIndex, $questionIndex, $question, $frameworkId)
     {
         $this->sectionIndex = $sectionIndex;
         $this->questionIndex = $questionIndex;
+        $this->frameworkId = $frameworkId;
 
         $this->question = $question;
 

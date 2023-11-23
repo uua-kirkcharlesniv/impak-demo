@@ -139,6 +139,7 @@
                 responsive: true
             };
 
+            var frameworkId = "{{ $frameworkId }}";
             var questionType = "{{ $question->type }}";
             if (questionType == 'long-answer' || questionType == 'short-answer') {
                 options['indexAxis'] = 'y';
