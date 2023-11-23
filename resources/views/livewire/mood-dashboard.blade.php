@@ -168,8 +168,133 @@
                     </div>
                 </div>
             </div>
-            <div class="bg-white col-span-1 row-span-2">
-                <h1>hello</h1>
+            <div class="bg-white rounded-xl col-span-1 p-4 row-span-2">
+                <div class="mb-4">
+                    <h1 class="font-bold text-xl">Mood Distribution</h1>
+                </div>
+                <div class="w-full mt-6">
+                    <div id="mood-legends" class="px-5 pt-2 pb-6">
+                        <ul class="flex flex-wrap justify-center gap-2"></ul>
+                    </div>
+                    <div class="w-full" style="height: 35vh">
+
+                        <canvas id="mood-distribution"></canvas>
+
+                    </div>
+
+                    <script type="module">
+                        let data = @js($moodDistribution);
+                        let labels = Object.keys(data)
+                        let dataset = Object.values(data)
+
+                        let options = {
+                            cutout: '80%',
+                            maintainAspectRatio: false,
+                            layout: {
+                                padding: 20,
+                            },
+                            interaction: {
+                                intersect: false,
+                                mode: 'nearest',
+                            },
+                            animation: {
+                                duration: 200,
+                            },
+                            plugins: {
+                                legend: {
+                                    display: false
+                                },
+                                htmlLegend: {
+                                    containerID: 'mood-legends',
+                                },
+                            },
+                            legend: {
+                                display: false
+                            },
+                            title: {
+                                display: false,
+                            },
+                            responsive: true
+                        };
+
+                        var canvas = document.getElementById("mood-distribution");
+                        var ctx = canvas.getContext("2d");
+                        var gradient = ctx.createLinearGradient(0, 0, 0, 400);
+                        gradient.addColorStop(0, 'rgba(59, 130, 248, 0.5)');
+                        gradient.addColorStop(1, 'rgba(59, 130, 248, 0.05)');
+
+                        new Chart(canvas, {
+                            type: 'doughnut',
+                            data: {
+                                labels: labels,
+                                datasets: [{
+                                    label: 'Mood Score',
+                                    data: dataset,
+                                    fill: true,
+                                    backgroundColor: [
+                                        'rgb(49 46 129)',
+                                        'rgb(67 56 202)',
+                                        'rgb(99 102 241)',
+                                        'rgb(165 180 252)',
+                                        'rgb(199 210 254)',
+                                    ],
+                                }],
+                            },
+                            options: options,
+                            plugins: [{
+                                id: 'htmlLegend',
+                                afterUpdate(c, args, options) {
+                                    const legendContainer = document.getElementById(options.containerID);
+                                    const ul = legendContainer.querySelector('ul');
+                                    if (!ul) return;
+                                    // Remove old legend items
+                                    while (ul.firstChild) {
+                                        ul.firstChild.remove();
+                                    }
+                                    // Reuse the built-in legendItems generator
+                                    const items = c.options.plugins.legend.labels.generateLabels(c);
+                                    items.forEach((item) => {
+                                        const li = document.createElement('li');
+                                        li.style.margin = 1;
+                                        // Button element
+                                        const button = document.createElement('button');
+                                        button.classList.add('btn-xs');
+                                        button.style.backgroundColor = 'white';
+                                        button.style.borderWidth = '0.25px';
+                                        button.style.borderColor = 'rgb(226 232 240)';
+                                        button.style.color = 'rgb(100 116 139)';
+                                        button.style.boxShadow =
+                                            '0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -1px rgba(0, 0, 0, 0.02)';
+                                        button.style.opacity = item.hidden ? '.3' : '';
+                                        button.onclick = () => {
+                                            c.toggleDataVisibility(item.index, !item.index);
+                                            c.update();
+                                        };
+                                        // Color box
+                                        const box = document.createElement('span');
+                                        box.style.display = 'block';
+                                        box.style.width = '1.5rem';
+                                        box.style.height = '1rem';
+                                        box.style.backgroundColor = item.fillStyle;
+                                        box.style.borderRadius = '6px';
+                                        box.style.marginRight = '10px';
+                                        box.style.pointerEvents = 'none';
+                                        // Label
+                                        const label = document.createElement('span');
+                                        label.style.display = 'flex';
+                                        label.style.alignItems = 'center';
+                                        const labelText = document.createTextNode(item.text);
+                                        label.appendChild(labelText);
+                                        li.appendChild(button);
+                                        button.appendChild(box);
+                                        button.appendChild(label);
+                                        ul.appendChild(li);
+                                    });
+                                },
+                            }],
+                        });
+                    </script>
+                </div>
             </div>
             <div class="bg-white col-span-1 row-span-1">
                 <h1>hello</h1>

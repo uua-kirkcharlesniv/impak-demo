@@ -25,6 +25,7 @@ class MoodDashboard extends Component
 
     public $average = 0;
     public $fetchedData = [];
+    public $moodDistribution = [];
 
     public $recommendationTitle;
     public $recommendations = [];
@@ -145,6 +146,20 @@ class MoodDashboard extends Component
         }
 
         $this->fetchedData = $finalResult;
+
+        // Load distribution
+        $groupedDistribution = $data->groupBy(function ($model) {
+            return $model->mood;
+        });
+
+        $parsedDistribution = [];
+        $parsedDistribution['Very happy'] = $groupedDistribution[5]->count();
+        $parsedDistribution['Happy'] = $groupedDistribution[4]->count();
+        $parsedDistribution['Neutral'] = $groupedDistribution[3]->count();
+        $parsedDistribution['Sad'] = $groupedDistribution[2]->count();
+        $parsedDistribution['Very sad'] = $groupedDistribution[1]->count();
+
+        $this->moodDistribution = $parsedDistribution;
     }
 
     public function detectIfMoodOrOptimismWasTaken()
