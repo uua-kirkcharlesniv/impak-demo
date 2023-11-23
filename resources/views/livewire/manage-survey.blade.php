@@ -18,90 +18,100 @@
                         placeholder="Leave blank to set to 1" />
                 </div>
             </x-survey-tab>
-            <x-survey-tab title="rationale" icon="fa-brain">
-                <div>
-                    <label class="block text-sm font-medium mb-1" for="rationale_title">Title</label>
-                    <input id="rationale_title" class="form-input w-full" type="text" placeholder=""
-                        wire:model.lazy="survey.rationale" wire:change="onRationaleChanged($event.target.value)" />
-                </div>
-
-                <div class="mt-4">
-                    <label class="block text-sm font-medium mb-1" for="rationale_description">Description</label>
-                    <textarea id="rationale_description" class="form-input w-full" type="text" placeholder=""
-                        wire:model.lazy="survey.rationale_description" wire:change="onRationaleDescriptionChanged($event.target.value)"></textarea>
-                </div>
-
-                <div x-data="{ option: '{{ $survey->survey_type }}' }">
-                    <label class="block text-sm font-medium mb-1" for="survey_type">Survey Type</label>
-                    <select class="form-select w-full" x-model="option" id="survey_type" name="survey_type"
-                        wire:model="survey.survey_type" wire:change="onSurveyTypeChanged($event.target.value)">
-                        <option value="post_event" {{ $survey->survey_type == 'post_event' ? 'selected' : '' }}>Post
-                            Event
-                            Survey</option>
-                        <option value="mental_health" {{ $survey->survey_type == 'mental_health' ? 'selected' : '' }}>
-                            Mental Health
-                        </option>
-                        <option value="post_workshop" {{ $survey->survey_type == 'post_workshop' ? 'selected' : '' }}>
-                            Post
-                            Workshop
-                            Survey</option>
-                        <option value="needs_analysis" {{ $survey->survey_type == 'needs_analysis' ? 'selected' : '' }}>
-                            Needs
-                            Analysis Survey</option>
-                        <option value="employee_engagement"
-                            selected="{{ $survey->survey_type == 'employee_engagement' }}">Employee Engagement Survey
-                        </option>
-                        <option value="market_research" selected="{{ $survey->survey_type == 'market_research' }}">
-                            Market Research Survey</option>
-                        <option value="opinion_poll" selected="{{ $survey->survey_type == 'opinion_poll' }}">Opinion
-                            Poll</option>
-                        <option value="demographic" selected="{{ $survey->survey_type == 'demographic' }}">Demographic
-                            Survey</option>
-                        <option value="product_feedback" selected="{{ $survey->survey_type == 'product_feedback' }}">
-                            Product Feedback Survey</option>
-                        <option value="event_evaluation" selected="{{ $survey->survey_type == 'event_evaluation' }}">
-                            Event Evaluation Survey</option>
-                        <option value="website_feedback" selected="{{ $survey->survey_type == 'website_feedback' }}">
-                            Website Feedback Survey</option>
-                        <option value="training_needs" selected="{{ $survey->survey_type == 'training_needs' }}">
-                            Training Needs Assessment</option>
-                        <option value="post_purchase" selected="{{ $survey->survey_type == 'post_purchase' }}">Post
-                            Purchase Survey</option>
-                        <option value="others" selected="{{ $survey->survey_type == 'others' }}">Others</option>
-                    </select>
-
-                    <div x-show="option == 'others'">
-                        <input id="manual_survey_type" class="form-input w-full my-2" type="text"
-                            placeholder="Training Needs Survey" wire:model.lazy="survey.manual_survey_type"
-                            wire:change="onManualSurveyTypeChanged($event.target.value)" />
-                        <label class="block text-sm font-medium mb-1" for="manual_sections">Section names</label>
-                        <input id="manual_sections" class="form-input w-full" type="text"
-                            wire:model.lazy="survey.manual_sections"
-                            wire:change="onManualSectionsChanged($event.target.value)"
-                            placeholder="Employee Demographics, Knowledge and Skills Capacity, ..." />
-                        <p id="helper-text-explanation" class="text-sm text-gray-500">Delimited by comma.</p>
-                    </div>
-                    <div class="mt-2">
-                        <label class="block text-sm font-medium mb-1" for="sub_specialization">Sub-specialization /
-                            Target Focus</label>
-                        <input id="sub_specialization" wire:model.lazy="survey.target_focus"
-                            wire:change="onTargetFocusChanged($event.target.value)" class="form-input w-full"
-                            type="text" placeholder="This is optional, but would help our AI to analyze more."
-                            wire:model.lazy="sub_specialization" />
+            @if ($survey->framework_id == null)
+                <x-survey-tab title="rationale" icon="fa-brain">
+                    <div>
+                        <label class="block text-sm font-medium mb-1" for="rationale_title">Title</label>
+                        <input id="rationale_title" class="form-input w-full" type="text" placeholder=""
+                            wire:model.lazy="survey.rationale" wire:change="onRationaleChanged($event.target.value)" />
                     </div>
 
-                    <div class="container mt-4 mx-0 w-full flex flex-col items-center">
-                        <button
-                            class="w-full bg-transparent hover:bg-blue text-blue-dark font-semibold hover:text-black py-2 px-4 border border-blue rounded"
-                            wire:click="analyzeSurvey" aria-controls="feedback-modal">
-
-                            <span class="hidden xs:block ml-2">
-                                Analyze & Generate
-                            </span>
-                        </button>
+                    <div class="mt-4">
+                        <label class="block text-sm font-medium mb-1" for="rationale_description">Description</label>
+                        <textarea id="rationale_description" class="form-input w-full" type="text" placeholder=""
+                            wire:model.lazy="survey.rationale_description" wire:change="onRationaleDescriptionChanged($event.target.value)"></textarea>
                     </div>
-                </div>
-            </x-survey-tab>
+
+                    <div x-data="{ option: '{{ $survey->survey_type }}' }">
+                        <label class="block text-sm font-medium mb-1" for="survey_type">Survey Type</label>
+                        <select class="form-select w-full" x-model="option" id="survey_type" name="survey_type"
+                            wire:model="survey.survey_type" wire:change="onSurveyTypeChanged($event.target.value)">
+                            <option value="post_event" {{ $survey->survey_type == 'post_event' ? 'selected' : '' }}>Post
+                                Event
+                                Survey</option>
+                            <option value="mental_health"
+                                {{ $survey->survey_type == 'mental_health' ? 'selected' : '' }}>
+                                Mental Health
+                            </option>
+                            <option value="post_workshop"
+                                {{ $survey->survey_type == 'post_workshop' ? 'selected' : '' }}>
+                                Post
+                                Workshop
+                                Survey</option>
+                            <option value="needs_analysis"
+                                {{ $survey->survey_type == 'needs_analysis' ? 'selected' : '' }}>
+                                Needs
+                                Analysis Survey</option>
+                            <option value="employee_engagement"
+                                selected="{{ $survey->survey_type == 'employee_engagement' }}">Employee Engagement
+                                Survey
+                            </option>
+                            <option value="market_research" selected="{{ $survey->survey_type == 'market_research' }}">
+                                Market Research Survey</option>
+                            <option value="opinion_poll" selected="{{ $survey->survey_type == 'opinion_poll' }}">Opinion
+                                Poll</option>
+                            <option value="demographic" selected="{{ $survey->survey_type == 'demographic' }}">
+                                Demographic
+                                Survey</option>
+                            <option value="product_feedback"
+                                selected="{{ $survey->survey_type == 'product_feedback' }}">
+                                Product Feedback Survey</option>
+                            <option value="event_evaluation"
+                                selected="{{ $survey->survey_type == 'event_evaluation' }}">
+                                Event Evaluation Survey</option>
+                            <option value="website_feedback"
+                                selected="{{ $survey->survey_type == 'website_feedback' }}">
+                                Website Feedback Survey</option>
+                            <option value="training_needs" selected="{{ $survey->survey_type == 'training_needs' }}">
+                                Training Needs Assessment</option>
+                            <option value="post_purchase" selected="{{ $survey->survey_type == 'post_purchase' }}">Post
+                                Purchase Survey</option>
+                            <option value="others" selected="{{ $survey->survey_type == 'others' }}">Others</option>
+                        </select>
+
+                        <div x-show="option == 'others'">
+                            <input id="manual_survey_type" class="form-input w-full my-2" type="text"
+                                placeholder="Training Needs Survey" wire:model.lazy="survey.manual_survey_type"
+                                wire:change="onManualSurveyTypeChanged($event.target.value)" />
+                            <label class="block text-sm font-medium mb-1" for="manual_sections">Section names</label>
+                            <input id="manual_sections" class="form-input w-full" type="text"
+                                wire:model.lazy="survey.manual_sections"
+                                wire:change="onManualSectionsChanged($event.target.value)"
+                                placeholder="Employee Demographics, Knowledge and Skills Capacity, ..." />
+                            <p id="helper-text-explanation" class="text-sm text-gray-500">Delimited by comma.</p>
+                        </div>
+                        <div class="mt-2">
+                            <label class="block text-sm font-medium mb-1" for="sub_specialization">Sub-specialization /
+                                Target Focus</label>
+                            <input id="sub_specialization" wire:model.lazy="survey.target_focus"
+                                wire:change="onTargetFocusChanged($event.target.value)" class="form-input w-full"
+                                type="text" placeholder="This is optional, but would help our AI to analyze more."
+                                wire:model.lazy="sub_specialization" />
+                        </div>
+
+                        <div class="container mt-4 mx-0 w-full flex flex-col items-center">
+                            <button
+                                class="w-full bg-transparent hover:bg-blue text-blue-dark font-semibold hover:text-black py-2 px-4 border border-blue rounded"
+                                wire:click="analyzeSurvey" aria-controls="feedback-modal">
+
+                                <span class="hidden xs:block ml-2">
+                                    Analyze & Generate
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </x-survey-tab>
+            @endif
             <x-survey-tab title="respondents" icon="fa-users">
                 <livewire:survey-manager.respondent.user :survey="$survey" />
             </x-survey-tab>
@@ -109,22 +119,26 @@
                 <livewire:form-schedule-component :survey="$survey" />
             </x-survey-tab>
             <x-survey-tab title="form" icon="fa-clipboard-question">
-                <button
-                    class="w-full mb-4 bg-transparent hover:bg-blue text-blue-dark font-semibold hover:text-black py-2 px-4 border border-blue rounded"
-                    wire:click="addSection">
-                    <span class="hidden xs:block ml-2">
-                        Add Section
-                    </span>
-                </button>
+                @if ($survey->framework_id == null)
+                    <button
+                        class="w-full mb-4 bg-transparent hover:bg-blue text-blue-dark font-semibold hover:text-black py-2 px-4 border border-blue rounded"
+                        wire:click="addSection">
+                        <span class="hidden xs:block ml-2">
+                            Add Section
+                        </span>
+                    </button>
+                @endif
                 <div
                     class="sortable section-list scoreboard bg-white overflow-hidden w-full mx-auto transition-colors ">
                     @foreach ($survey->sections as $index => $section)
                         <div class="w-full mx-auto transition-colors border section-group [&:not(:last-child)]:border-b-0"
                             wire:key="section-{{ $section->id }}" data-section-id="{{ $section->id }}">
                             <div class="flex items-center space-x-1 group py-2 pr-4 relative">
-                                <div class="cursor-move draggable p-2 -mr-2">
-                                    <i class="fa-solid fa-grip-lines h-4 w-4 text-gray-400"></i>
-                                </div>
+                                @if ($survey->framework_id == null)
+                                    <div class="cursor-move draggable p-2 -mr-2">
+                                        <i class="fa-solid fa-grip-lines h-4 w-4 text-gray-400"></i>
+                                    </div>
+                                @endif
 
                                 <div class="flex flex-col flex-grow truncate" x-data="{
                                     isEditing: false,
@@ -169,9 +183,11 @@
                                 @foreach ($section->questions as $questionIndex => $question)
                                     <div data-question-id="{{ $question->id }}"
                                         class="group__goals__item flex items-center space-x-1 group py-2 pr-4 relative w-full mx-auto transition-colors border-t">
-                                        <div class="cursor-move draggable p-2 -mr-2">
-                                            <i class="fa-solid fa-grip-lines h-4 w-4 text-gray-400"></i>
-                                        </div>
+                                        @if ($survey->framework_id == null)
+                                            <div class="cursor-move draggable p-2 -mr-2">
+                                                <i class="fa-solid fa-grip-lines h-4 w-4 text-gray-400"></i>
+                                            </div>
+                                        @endif
 
                                         <div class="flex flex-col flex-grow truncate" x-data="{
                                             isEditing: false,
@@ -537,68 +553,70 @@
     </div>
 </div>
 
-@section('footer-scripts')
-    <script type='text/javascript' defer='defer'>
-        document.addEventListener('livewire:load', function() {
-            window.addEventListener("DOMContentLoaded", (event) => {
-                document.querySelectorAll(".sortable").forEach(node => {
-                    new Sortable(node, {
-                        group: 'scoreboard',
-                        direction: 'vertical',
-                        animation: 250,
-                        scroll: true,
-                        bubbleScroll: true,
+@if ($survey->framework_id == null)
+    @section('footer-scripts')
+        <script type='text/javascript' defer='defer'>
+            document.addEventListener('livewire:load', function() {
+                window.addEventListener("DOMContentLoaded", (event) => {
+                    document.querySelectorAll(".sortable").forEach(node => {
+                        new Sortable(node, {
+                            group: 'scoreboard',
+                            direction: 'vertical',
+                            animation: 250,
+                            scroll: true,
+                            bubbleScroll: true,
 
-                        onMove: function(evt, originalEvent) {
-                            if (
-                                (evt.dragged.classList.contains("section-group") &&
-                                    evt.to.classList.contains("group__goals"))
-                            ) {
-                                return false;
-                            } else if (evt.dragged.classList.contains(
-                                    "group__goals__item") && evt
-                                .to
-                                .classList.contains("section-list")) {
-                                return false;
-                            }
-                        },
-                        onEnd: function(evt) {
-                            isDraggingSection = evt.item.classList.contains(
-                                'section-group');
+                            onMove: function(evt, originalEvent) {
+                                if (
+                                    (evt.dragged.classList.contains("section-group") &&
+                                        evt.to.classList.contains("group__goals"))
+                                ) {
+                                    return false;
+                                } else if (evt.dragged.classList.contains(
+                                        "group__goals__item") && evt
+                                    .to
+                                    .classList.contains("section-list")) {
+                                    return false;
+                                }
+                            },
+                            onEnd: function(evt) {
+                                isDraggingSection = evt.item.classList.contains(
+                                    'section-group');
 
-                            if (isDraggingSection) {
-                                @this.updateSectionOrder(
-                                    evt.item.dataset.sectionId,
-                                    evt
-                                    .oldIndex,
-                                    evt.newIndex
-                                )
-                            } else {
-                                // check if field is transferred from one section to another
-                                // then change section id
-                                questionId = evt.item.dataset.questionId;
-                                newSectionId = evt.to.dataset.sectionId
+                                if (isDraggingSection) {
+                                    @this.updateSectionOrder(
+                                        evt.item.dataset.sectionId,
+                                        evt
+                                        .oldIndex,
+                                        evt.newIndex
+                                    )
+                                } else {
+                                    // check if field is transferred from one section to another
+                                    // then change section id
+                                    questionId = evt.item.dataset.questionId;
+                                    newSectionId = evt.to.dataset.sectionId
 
-                                isChangingSection = newSectionId != evt.from
-                                    .dataset.sectionId
-                                if (isChangingSection) {
-                                    @this.updateQuestionSectionId(
+                                    isChangingSection = newSectionId != evt.from
+                                        .dataset.sectionId
+                                    if (isChangingSection) {
+                                        @this.updateQuestionSectionId(
+                                            questionId,
+                                            newSectionId
+                                        )
+                                    }
+
+                                    // update indices
+                                    @this.updateQuestionOrder(
                                         questionId,
-                                        newSectionId
+                                        evt.newIndex
                                     )
                                 }
 
-                                // update indices
-                                @this.updateQuestionOrder(
-                                    questionId,
-                                    evt.newIndex
-                                )
                             }
-
-                        }
+                        });
                     });
                 });
-            });
-        })
-    </script>
-@endsection
+            })
+        </script>
+    @endsection
+@endif
