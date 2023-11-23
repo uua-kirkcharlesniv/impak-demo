@@ -179,7 +179,7 @@
                 data: {
                     labels: labels,
                     datasets: [{
-                        label: 'Data',
+                        label: "{{ $question->content }}",
                         backgroundColor: backgroundColor,
                         data: dataset
                     }]
