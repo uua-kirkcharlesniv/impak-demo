@@ -166,11 +166,35 @@ class MoodDashboard extends Component
         });
 
         $parsedDistribution = [];
-        $parsedDistribution['Very happy'] = $groupedDistribution[5]->count();
-        $parsedDistribution['Happy'] = $groupedDistribution[4]->count();
-        $parsedDistribution['Neutral'] = $groupedDistribution[3]->count();
-        $parsedDistribution['Sad'] = $groupedDistribution[2]->count();
-        $parsedDistribution['Very sad'] = $groupedDistribution[1]->count();
+        if ($groupedDistribution->has(5)) {
+            $parsedDistribution['Very happy'] = $groupedDistribution[5]->count();
+        } else {
+            $parsedDistribution['Very happy'] = 0;
+        }
+
+        if ($groupedDistribution->has(4)) {
+            $parsedDistribution['Happy'] = $groupedDistribution[4]->count();
+        } else {
+            $parsedDistribution['Happy'] = 0;
+        }
+
+        if ($groupedDistribution->has(3)) {
+            $parsedDistribution['Neutral'] = $groupedDistribution[3]->count();
+        } else {
+            $parsedDistribution['Neutral'] = 0;
+        }
+
+        if ($groupedDistribution->has(2)) {
+            $parsedDistribution['Sad'] = $groupedDistribution[2]->count();
+        } else {
+            $parsedDistribution['Sad'] = 0;
+        }
+
+        if ($groupedDistribution->has(1)) {
+            $parsedDistribution['Very sad'] = $groupedDistribution[1]->count();
+        } else {
+            $parsedDistribution['Very sad'] = 0;
+        }
 
         $this->moodDistribution = $parsedDistribution;
 
@@ -192,6 +216,12 @@ class MoodDashboard extends Component
             }
         }
         $this->weeksData = $week;
+
+        $this->dispatchBrowserEvent('dataUpdated', [
+            'weeklyData' => $week,
+            'monthlyData' => $finalResult,
+            'distributionData' => $parsedDistribution,
+        ]);
     }
 
     public function detectIfMoodOrOptimismWasTaken()

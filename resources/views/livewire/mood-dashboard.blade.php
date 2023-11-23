@@ -1,8 +1,299 @@
-@php
-    $time = now();
-@endphp
+@once
+    @section('footer-scripts')
+        <script type="module">
+            let monthlyData = @js($fetchedData);
+            let monthlyLabels = Object.keys(monthlyData)
+            let monthlyDataset = Object.values(monthlyData)
 
-<div class="flex flex-col h-full">
+            let distributionData = @js($moodDistribution);
+            let distributionLabels = Object.keys(distributionData)
+            let distributionDataset = Object.values(distributionData)
+
+            let weeksData = @js($weeksData);
+            let weeksLabel = Object.keys(weeksData)
+            let weeksDataset = Object.values(weeksData)
+
+            let monthlyOptions = {
+                maintainAspectRatio: false,
+                layout: {
+                    padding: 20,
+                },
+                interaction: {
+                    intersect: false,
+                    mode: 'nearest',
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scale: {
+                    ticks: {
+                        precision: 0
+                    }
+                },
+                legend: {
+                    display: false
+                },
+                title: {
+                    display: false,
+                },
+                scales: {
+                    y: {
+                        border: {
+                            display: false,
+                        },
+                        grid: {
+                            display: false,
+                        },
+                        ticks: {
+                            maxTicksLimit: 10,
+                            display: false,
+                        },
+                        max: 100,
+                        min: 0,
+                    },
+                    x: {
+                        border: {
+                            display: true,
+                        },
+                        grid: {
+                            display: false,
+                        },
+                    },
+                },
+                responsive: true
+            };
+
+            let distributionOptions = {
+                cutout: '80%',
+                maintainAspectRatio: false,
+                layout: {
+                    padding: 20,
+                },
+                interaction: {
+                    intersect: false,
+                    mode: 'nearest',
+                },
+                animation: {
+                    duration: 200,
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    htmlLegend: {
+                        containerID: 'mood-legends',
+                    },
+                },
+                legend: {
+                    display: false
+                },
+                title: {
+                    display: false,
+                },
+                responsive: true
+            };
+
+            let weeksOptions = {
+                maintainAspectRatio: false,
+                layout: {
+                    padding: 20,
+                },
+                interaction: {
+                    intersect: false,
+                    mode: 'nearest',
+                },
+                animation: {
+                    duration: 200,
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                },
+                legend: {
+                    display: false
+                },
+                title: {
+                    display: false,
+                },
+                scales: {
+                    y: {
+                        border: {
+                            display: false,
+                        },
+                        grid: {
+                            display: false,
+                        },
+                        ticks: {
+                            maxTicksLimit: 10,
+                            display: false,
+                        },
+                        max: 100,
+                        min: 0,
+                    },
+                    x: {
+                        border: {
+                            display: true,
+                        },
+                        grid: {
+                            display: false,
+                        },
+                    },
+                },
+                responsive: true
+            };
+
+            var monthlyCanvas = document.getElementById("monthly-mood-chart");
+            var monthlyCtx = monthlyCanvas.getContext("2d");
+            var monthlyGradient = monthlyCtx.createLinearGradient(0, 0, 0, 400);
+            monthlyGradient.addColorStop(0, 'rgba(59, 130, 248, 0.5)');
+            monthlyGradient.addColorStop(1, 'rgba(59, 130, 248, 0.05)');
+
+            var weeklyCanvas = document.getElementById("week-chart");
+            var weeklyCtx = weeklyCanvas.getContext("2d");
+            var weeklyGradient = weeklyCtx.createLinearGradient(0, 0, 0, 600);
+            weeklyGradient.addColorStop(0, 'rgb(129 140 248)');
+            weeklyGradient.addColorStop(1, 'rgb(49 46 129)');
+
+            var distributionCanvas = document.getElementById("mood-distribution");
+            var distributionCtx = distributionCanvas.getContext("2d");
+            var distributionGradient = distributionCtx.createLinearGradient(0, 0, 0, 400);
+            distributionGradient.addColorStop(0, 'rgba(59, 130, 248, 0.5)');
+            distributionGradient.addColorStop(1, 'rgba(59, 130, 248, 0.05)');
+
+            let monthlyChart = new Chart(monthlyCanvas, {
+                type: 'line',
+                data: {
+                    labels: monthlyLabels,
+                    datasets: [{
+                        label: 'Mood Score',
+                        data: monthlyDataset,
+                        fill: true,
+                        backgroundColor: monthlyGradient,
+                        borderColor: 'rgb(99 102 241)',
+                        borderWidth: 2,
+                        pointRadius: 0,
+                        pointHoverRadius: 4,
+                        pointBackgroundColor: 'rgb(99 102 241)',
+                        clip: 20,
+                        lineTension: 0.4,
+                    }],
+                },
+                options: monthlyOptions,
+            });
+
+            let distributionChart = new Chart(distributionCanvas, {
+                type: 'doughnut',
+                data: {
+                    labels: distributionLabels,
+                    datasets: [{
+                        label: 'Mood Score',
+                        data: distributionDataset,
+                        fill: true,
+                        backgroundColor: [
+                            'rgb(49 46 129)',
+                            'rgb(67 56 202)',
+                            'rgb(99 102 241)',
+                            'rgb(165 180 252)',
+                            'rgb(199 210 254)',
+                        ],
+                    }],
+                },
+                options: distributionOptions,
+                plugins: [{
+                    id: 'htmlLegend',
+                    afterUpdate(c, args, options) {
+                        const legendContainer = document.getElementById(options.containerID);
+                        const ul = legendContainer.querySelector('ul');
+                        if (!ul) return;
+                        // Remove old legend items
+                        while (ul.firstChild) {
+                            ul.firstChild.remove();
+                        }
+                        // Reuse the built-in legendItems generator
+                        const items = c.options.plugins.legend.labels.generateLabels(c);
+                        items.forEach((item) => {
+                            const li = document.createElement('li');
+                            li.style.margin = 1;
+                            // Button element
+                            const button = document.createElement('button');
+                            button.classList.add('btn-xs');
+                            button.style.backgroundColor = 'white';
+                            button.style.borderWidth = '0.25px';
+                            button.style.borderColor = 'rgb(226 232 240)';
+                            button.style.color = 'rgb(100 116 139)';
+                            button.style.boxShadow =
+                                '0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -1px rgba(0, 0, 0, 0.02)';
+                            button.style.opacity = item.hidden ? '.3' : '';
+                            button.onclick = () => {
+                                c.toggleDataVisibility(item.index, !item.index);
+                                c.update();
+                            };
+                            // Color box
+                            const box = document.createElement('span');
+                            box.style.display = 'block';
+                            box.style.width = '1.5rem';
+                            box.style.height = '1rem';
+                            box.style.backgroundColor = item.fillStyle;
+                            box.style.borderRadius = '6px';
+                            box.style.marginRight = '10px';
+                            box.style.pointerEvents = 'none';
+                            // Label
+                            const label = document.createElement('span');
+                            label.style.display = 'flex';
+                            label.style.alignItems = 'center';
+                            const labelText = document.createTextNode(item.text);
+                            label.appendChild(labelText);
+                            li.appendChild(button);
+                            button.appendChild(box);
+                            button.appendChild(label);
+                            ul.appendChild(li);
+                        });
+                    },
+                }],
+            });
+
+            let weeklyChart = new Chart(weeklyCanvas, {
+                type: 'bar',
+                data: {
+                    labels: weeksLabel,
+                    datasets: [{
+                        label: 'Mood Score',
+                        data: weeksData,
+                        fill: true,
+                        backgroundColor: weeklyGradient,
+                        borderRadius: 50,
+                        barThickness: 20,
+                    }],
+                },
+                options: weeksOptions,
+            });
+
+            window.addEventListener('dataUpdated', event => {
+                try {
+                    let monthlyDataset = Object.values(event.detail.monthlyData)
+                    let weeklyDataset = Object.values(event.detail.weeklyData)
+                    let distributionDataset = Object.values(event.detail.distributionData)
+
+                    monthlyChart.data.datasets[0].data = monthlyDataset
+                    monthlyChart.update();
+
+                    distributionChart.data.datasets[0].data = distributionDataset
+                    distributionChart.update();
+
+                    weeklyChart.data.datasets[0].data = weeklyDataset
+                    weeklyChart.update();
+                } catch (e) {
+                    console.error(e);
+                }
+            })
+        </script>
+    @stop
+@endonce
+
+<div class="flex flex-col h-full" wire:ignore>
     <div class="flex grid lg:grid-cols-5 md:grid-cols-2 sm:grid-cols-1 gap-6">
         <div class="bg-white rounded-b-2xl p-4 border-t-8 border-indigo-200">
             <div class="flex flex-wrap">
@@ -78,92 +369,6 @@
                             <div class="w-full" style="height: 42.5vh">
                                 <canvas id="monthly-mood-chart"></canvas>
                             </div>
-                            <script type="module">
-                                let data = @js($fetchedData);
-                                let labels = Object.keys(data)
-                                let dataset = Object.values(data)
-
-                                let options = {
-                                    maintainAspectRatio: false,
-                                    layout: {
-                                        padding: 20,
-                                    },
-                                    interaction: {
-                                        intersect: false,
-                                        mode: 'nearest',
-                                    },
-                                    plugins: {
-                                        legend: {
-                                            display: false
-                                        }
-                                    },
-                                    scale: {
-                                        ticks: {
-                                            precision: 0
-                                        }
-                                    },
-                                    legend: {
-                                        display: false
-                                    },
-                                    title: {
-                                        display: false,
-                                    },
-                                    scales: {
-                                        y: {
-                                            border: {
-                                                display: false,
-                                            },
-                                            grid: {
-                                                display: false,
-                                            },
-                                            ticks: {
-                                                maxTicksLimit: 10,
-                                                display: false,
-                                            },
-                                            max: 100,
-                                            min: 0,
-                                        },
-                                        x: {
-                                            border: {
-                                                display: true,
-                                            },
-                                            grid: {
-                                                display: false,
-                                            },
-                                        },
-                                    },
-                                    responsive: true
-                                };
-
-                                var canvas = document.getElementById("monthly-mood-chart");
-                                var ctx = canvas.getContext("2d");
-                                var gradient = ctx.createLinearGradient(0, 0, 0, 400);
-                                gradient.addColorStop(0, 'rgba(59, 130, 248, 0.5)');
-                                gradient.addColorStop(1, 'rgba(59, 130, 248, 0.05)');
-
-                                console.log(data)
-
-                                new Chart(canvas, {
-                                    type: 'line',
-                                    data: {
-                                        labels: labels,
-                                        datasets: [{
-                                            label: 'Mood Score',
-                                            data: dataset,
-                                            fill: true,
-                                            backgroundColor: gradient,
-                                            borderColor: 'rgb(99 102 241)',
-                                            borderWidth: 2,
-                                            pointRadius: 0,
-                                            pointHoverRadius: 4,
-                                            pointBackgroundColor: 'rgb(99 102 241)',
-                                            clip: 20,
-                                            lineTension: 0.4,
-                                        }],
-                                    },
-                                    options: options,
-                                });
-                            </script>
                         </h1>
                     </div>
                 </div>
@@ -177,123 +382,8 @@
                         <ul class="flex flex-wrap justify-center gap-2"></ul>
                     </div>
                     <div class="w-full" style="height: 35vh">
-
                         <canvas id="mood-distribution"></canvas>
-
                     </div>
-
-                    <script type="module">
-                        let data = @js($moodDistribution);
-                        let labels = Object.keys(data)
-                        let dataset = Object.values(data)
-
-                        let options = {
-                            cutout: '80%',
-                            maintainAspectRatio: false,
-                            layout: {
-                                padding: 20,
-                            },
-                            interaction: {
-                                intersect: false,
-                                mode: 'nearest',
-                            },
-                            animation: {
-                                duration: 200,
-                            },
-                            plugins: {
-                                legend: {
-                                    display: false
-                                },
-                                htmlLegend: {
-                                    containerID: 'mood-legends',
-                                },
-                            },
-                            legend: {
-                                display: false
-                            },
-                            title: {
-                                display: false,
-                            },
-                            responsive: true
-                        };
-
-                        var canvas = document.getElementById("mood-distribution");
-                        var ctx = canvas.getContext("2d");
-                        var gradient = ctx.createLinearGradient(0, 0, 0, 400);
-                        gradient.addColorStop(0, 'rgba(59, 130, 248, 0.5)');
-                        gradient.addColorStop(1, 'rgba(59, 130, 248, 0.05)');
-
-                        new Chart(canvas, {
-                            type: 'doughnut',
-                            data: {
-                                labels: labels,
-                                datasets: [{
-                                    label: 'Mood Score',
-                                    data: dataset,
-                                    fill: true,
-                                    backgroundColor: [
-                                        'rgb(49 46 129)',
-                                        'rgb(67 56 202)',
-                                        'rgb(99 102 241)',
-                                        'rgb(165 180 252)',
-                                        'rgb(199 210 254)',
-                                    ],
-                                }],
-                            },
-                            options: options,
-                            plugins: [{
-                                id: 'htmlLegend',
-                                afterUpdate(c, args, options) {
-                                    const legendContainer = document.getElementById(options.containerID);
-                                    const ul = legendContainer.querySelector('ul');
-                                    if (!ul) return;
-                                    // Remove old legend items
-                                    while (ul.firstChild) {
-                                        ul.firstChild.remove();
-                                    }
-                                    // Reuse the built-in legendItems generator
-                                    const items = c.options.plugins.legend.labels.generateLabels(c);
-                                    items.forEach((item) => {
-                                        const li = document.createElement('li');
-                                        li.style.margin = 1;
-                                        // Button element
-                                        const button = document.createElement('button');
-                                        button.classList.add('btn-xs');
-                                        button.style.backgroundColor = 'white';
-                                        button.style.borderWidth = '0.25px';
-                                        button.style.borderColor = 'rgb(226 232 240)';
-                                        button.style.color = 'rgb(100 116 139)';
-                                        button.style.boxShadow =
-                                            '0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -1px rgba(0, 0, 0, 0.02)';
-                                        button.style.opacity = item.hidden ? '.3' : '';
-                                        button.onclick = () => {
-                                            c.toggleDataVisibility(item.index, !item.index);
-                                            c.update();
-                                        };
-                                        // Color box
-                                        const box = document.createElement('span');
-                                        box.style.display = 'block';
-                                        box.style.width = '1.5rem';
-                                        box.style.height = '1rem';
-                                        box.style.backgroundColor = item.fillStyle;
-                                        box.style.borderRadius = '6px';
-                                        box.style.marginRight = '10px';
-                                        box.style.pointerEvents = 'none';
-                                        // Label
-                                        const label = document.createElement('span');
-                                        label.style.display = 'flex';
-                                        label.style.alignItems = 'center';
-                                        const labelText = document.createTextNode(item.text);
-                                        label.appendChild(labelText);
-                                        li.appendChild(button);
-                                        button.appendChild(box);
-                                        button.appendChild(label);
-                                        ul.appendChild(li);
-                                    });
-                                },
-                            }],
-                        });
-                    </script>
                 </div>
             </div>
             <div class="bg-white rounded-xl col-span-1 p-4 row-span-1">
@@ -304,84 +394,6 @@
                     <div class="w-full" style="height: 17vh">
                         <canvas id="week-chart"></canvas>
                     </div>
-
-                    <script type="module">
-                        let data = @js($weeksData);
-                        let labels = Object.keys(data)
-                        let dataset = Object.values(data)
-
-                        let options = {
-                            maintainAspectRatio: false,
-                            layout: {
-                                padding: 20,
-                            },
-                            interaction: {
-                                intersect: false,
-                                mode: 'nearest',
-                            },
-                            animation: {
-                                duration: 200,
-                            },
-                            plugins: {
-                                legend: {
-                                    display: false
-                                },
-                            },
-                            legend: {
-                                display: false
-                            },
-                            title: {
-                                display: false,
-                            },
-                            scales: {
-                                y: {
-                                    border: {
-                                        display: false,
-                                    },
-                                    grid: {
-                                        display: false,
-                                    },
-                                    ticks: {
-                                        maxTicksLimit: 10,
-                                        display: false,
-                                    },
-                                    max: 100,
-                                    min: 0,
-                                },
-                                x: {
-                                    border: {
-                                        display: true,
-                                    },
-                                    grid: {
-                                        display: false,
-                                    },
-                                },
-                            },
-                            responsive: true
-                        };
-
-                        var canvas = document.getElementById("week-chart");
-                        var ctx = canvas.getContext("2d");
-                        var gradient = ctx.createLinearGradient(0, 0, 0, 600);
-                        gradient.addColorStop(0, 'rgb(129 140 248)');
-                        gradient.addColorStop(1, 'rgb(49 46 129)');
-
-                        new Chart(canvas, {
-                            type: 'bar',
-                            data: {
-                                labels: labels,
-                                datasets: [{
-                                    label: 'Mood Score',
-                                    data: dataset,
-                                    fill: true,
-                                    backgroundColor: gradient,
-                                    borderRadius: 50,
-                                    barThickness: 20,
-                                }],
-                            },
-                            options: options,
-                        });
-                    </script>
                 </div>
             </div>
             <div class="col-span-1 row-span-1">
@@ -520,6 +532,4 @@
             @endforeach
         </div>
     @endif --}}
-
-
 </div>

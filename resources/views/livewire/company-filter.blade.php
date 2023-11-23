@@ -59,7 +59,7 @@
             </div>
         </div>
         @if ($filterApplied != 'company')
-            <div class="w-80">
+            <div class="w-80 ml-1 mr-2">
                 <div class="relative inline-flex w-full" x-data="{ open: false, selected: 0 }">
                     <button
                         class="btn w-full justify-between min-w-44 bg-white border-slate-200 hover:border-slate-300 text-slate-500 hover:text-slate-600"
