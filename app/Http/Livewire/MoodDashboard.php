@@ -114,13 +114,6 @@ class MoodDashboard extends Component
             ->whereIn('user_id', $this->userIds)
             ->get();
 
-
-        if ($data->count() == 0) {
-            $this->average = '--';
-            $this->fetchedData = [];
-            return;
-        }
-
         $this->average = $this->invertAverage(round($data->avg('mood') * 20));
 
         $grouped = $data->groupBy(function ($model) use ($selection) {
