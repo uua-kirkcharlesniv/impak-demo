@@ -408,7 +408,9 @@
                     <div class="flex-1 bg-white rounded-lg px-6 py-4">
                         <h1 class="font-bold text-lg">Completion Rate</h1>
                         <div class="w-full h-6 bg-gray-200 rounded-full mt-4">
-                            <div class="h-6 bg-indigo-600 rounded-full" style="width: {{ $completionRate }}%"></div>
+                            <div class="h-6 bg-indigo-600 rounded-full text-white font-medium text-center"
+                                style="width: {{ $completionRate }}%">
+                                {{ $completionRate }}%</div>
                         </div>
                     </div>
                 </div>
