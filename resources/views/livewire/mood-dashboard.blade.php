@@ -299,8 +299,31 @@
             <div class="bg-white col-span-1 row-span-1">
                 <h1>hello</h1>
             </div>
-            <div class="bg-white col-span-1  row-span-1">
-                <h1>hello</h1>
+            <div class="col-span-1 row-span-1">
+                <div class="flex flex-col w-full h-full gap-4">
+                    <div class="flex-1 bg-white rounded-lg px-6 py-4">
+                        <h1 class="text-lg">
+                            <div class="flex flex-col">
+                                <i class="fa-solid fa-circle-info mb-2"></i>
+
+                                <div class="mx-2 mt-2">
+                                    <h1 class="font-medium text-lg">We have noticed that your members have poor mood
+                                        score this
+                                        period.</h1>
+                                    <p class="text-sm mt-4 text-indigo-600">View our personalized recommendations to
+                                        take
+                                        actions now.</p>
+                                </div>
+
+
+                            </div>
+
+                        </h1>
+                    </div>
+                    <div class="flex-1 bg-white rounded-lg px-6 py-4">
+                        <h1 class="font-bold text-lg">Completion Rate</h1>
+                    </div>
+                </div>
             </div>
             <div class="bg-white col-span-1 row-span-1">
                 <h1>hello</h1>
