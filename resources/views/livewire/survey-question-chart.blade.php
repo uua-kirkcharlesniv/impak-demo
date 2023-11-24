@@ -1,5 +1,5 @@
 @php
-    $time = now();
+    $time = time();
 @endphp
 
 <div>
@@ -64,129 +64,178 @@
                                     answered</span></span></button></li>
                 </ul>
             @endif
-            <div class="grow">
-                <canvas id="{{ $question->key }}-{{ $time }}" class="p-4 w-full"></canvas>
-            </div>
+
+            @if ($frameworkId == 5 && $question->type == 'range')
+                <div id="{{ $question->key }}-{{ $time }}-gauge" class="w-full"></div>
+            @else
+                <div class="grow">
+                    <canvas id="{{ $question->key }}-{{ $time }}" class="p-4 w-full"></canvas>
+                </div>
+            @endif
         </div>
 
-        <script>
-            let labels = @js($labels);
-            let dataset = @js($dataset);
-            let label = labels[0] ?? '';
-            var backgroundColor = [];
+        @if ($frameworkId == 5 && $question->type == 'range')
+            <script>
+                let element = document.querySelector('#{{ $question->key }}-{{ $time }}-gauge')
+                let elementWidth = element.clientWidth;
+                let labels = @js($labels);
 
-            let sectionIndex = "{{ $sectionIndex }}"
-            let questionIndex = "{{ $questionIndex }}"
+                let dataset = @js($dataset);
+                let responses = labels.reduce((acc, current, index) => {
+                    acc[current] = dataset[index];
+                    return acc;
+                }, {});
 
-            switch (labels.length) {
-                case 3:
-                    backgroundColor = ["rgba(239, 68, 68, 0.8)", "rgba(56, 189, 248, 0.8)", "rgba(16, 185, 129, 0.8)", ];
-                    break;
-                case 5:
-                    backgroundColor = ["rgb(129 140 248)", "rgb(99 102 241)", "rgb(79 70 229)",
-                        "rgb(67 56 202)",
-                        "#3644A2"
-                    ];
-                    break;
-                case 10:
-                    backgroundColor = [
-                        "rgba(153, 27, 27, 1)",
-                        "rgba(220, 38, 38, 1)",
-                        "rgba(248, 113, 113, 1)",
-                        "rgba(254, 202, 202, 1)",
-                        "rgba(34, 197, 94, 1)",
-                        "rgba(56, 189, 248, 1)",
-                        "rgba(2, 132, 199, 1)",
-                        "rgba(7, 89, 133, 1)",
-                        "rgba(79, 70, 229, 1)",
-                        "rgba(55, 48, 163, 1)",
-                    ];
-
-                    break;
-                default:
-                    for (let i = 0; i < labels.length; i++) {
-                        backgroundColor[i] = "rgb(129 140 248)";
+                var totalSum = 0;
+                var totalCount = 0;
+                // Iterate through each key-value pair in the responses
+                for (const value in responses) {
+                    if (responses.hasOwnProperty(value)) {
+                        // Add the product of value and its corresponding number of answers to the total sum
+                        totalSum += value * responses[value];
+                        // Add the number of answers to the total count
+                        totalCount += responses[value];
                     }
-                    break;
-            }
+                }
 
-            let options = {
-                layout: {
-                    padding: {
-                        top: 12,
-                        bottom: 16,
-                        left: 20,
-                        right: 20,
-                    },
-                },
+                // Calculate the average by dividing the total sum by the total count
+                const average = (totalSum / totalCount) * 10;
 
-                plugins: {
-                    legend: {
-                        display: false
-                    }
-                },
-                scale: {
-                    ticks: {
-                        precision: 0
-                    }
-                },
-                legend: {
-                    display: false
-                },
-                title: {
-                    display: false,
-                },
-                responsive: true
-            };
+                var value = Math.round(average);
+                // Properties of the gauge
+                let gaugeOptions = {
+                    hasNeedle: true,
+                    needleColor: 'gray',
+                    needleUpdateSpeed: 1000,
+                    arcColors: ['#4f46e5', '#e2e8f0'],
+                    arcDelimiters: [value],
+                    rangeLabel: ['0', '100'],
+                    centralLabel: '' + value,
+                }
 
-            var frameworkId = "{{ $frameworkId }}";
-            var questionType = "{{ $question->type }}";
-            if (questionType == 'long-answer' || questionType == 'short-answer') {
-                options['indexAxis'] = 'y';
-            }
+                // Drawing and updating the chart
+                GaugeChart.gaugeChart(element, elementWidth, gaugeOptions).updateNeedle(value)
+            </script>
+        @else
+            <script>
+                let labels = @js($labels);
+                let dataset = @js($dataset);
+                let label = labels[0] ?? '';
+                var backgroundColor = [];
 
-            var type = labels.length == 3 ? 'polarArea' : 'bar';
+                let sectionIndex = "{{ $sectionIndex }}"
+                let questionIndex = "{{ $questionIndex }}"
 
-            if (sectionIndex == 1 && questionIndex > 5) {
-                type = 'polarArea';
-                backgroundColor = [
-                    "rgba(185, 28, 28, 0.8)",
-                    "rgba(239, 68, 68, 0.8)",
-                    "rgba(34, 197, 94, 0.8)",
-                    "rgba(56, 189, 248, 0.8)",
-                    "rgba(67, 56, 202, 0.8)"
-                ];
-            }
+                switch (labels.length) {
+                    case 3:
+                        backgroundColor = ["rgba(239, 68, 68, 0.8)", "rgba(56, 189, 248, 0.8)", "rgba(16, 185, 129, 0.8)", ];
+                        break;
+                    case 5:
+                        backgroundColor = ["rgb(129 140 248)", "rgb(99 102 241)", "rgb(79 70 229)",
+                            "rgb(67 56 202)",
+                            "#3644A2"
+                        ];
+                        break;
+                    case 10:
+                        backgroundColor = [
+                            "rgba(153, 27, 27, 1)",
+                            "rgba(220, 38, 38, 1)",
+                            "rgba(248, 113, 113, 1)",
+                            "rgba(254, 202, 202, 1)",
+                            "rgba(34, 197, 94, 1)",
+                            "rgba(56, 189, 248, 1)",
+                            "rgba(2, 132, 199, 1)",
+                            "rgba(7, 89, 133, 1)",
+                            "rgba(79, 70, 229, 1)",
+                            "rgba(55, 48, 163, 1)",
+                        ];
 
-            if (type != 'polarArea' && type != 'pie') {
-                options = {
-                    ...options,
-                    scales: {
-                        y: {
-                            border: {
-                                display: false,
-                            },
-                            ticks: {
-                                maxTicksLimit: 5,
+                        break;
+                    default:
+                        for (let i = 0; i < labels.length; i++) {
+                            backgroundColor[i] = "rgb(129 140 248)";
+                        }
+                        break;
+                }
 
-                            },
+                let options = {
+                    layout: {
+                        padding: {
+                            top: 12,
+                            bottom: 16,
+                            left: 20,
+                            right: 20,
                         },
                     },
-                }
-            }
 
-            new Chart(document.getElementById("{{ $question->key }}-{{ $time }}"), {
-                type: type,
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: "{{ $question->content }}",
-                        backgroundColor: backgroundColor,
-                        data: dataset
-                    }]
-                },
-                options: options,
-            });
-        </script>
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scale: {
+                        ticks: {
+                            precision: 0
+                        }
+                    },
+                    legend: {
+                        display: false
+                    },
+                    title: {
+                        display: false,
+                    },
+                    responsive: true
+                };
+
+                var frameworkId = "{{ $frameworkId }}";
+                var questionType = "{{ $question->type }}";
+                if (questionType == 'long-answer' || questionType == 'short-answer') {
+                    options['indexAxis'] = 'y';
+                }
+
+                var type = labels.length == 3 ? 'polarArea' : 'bar';
+
+                if (sectionIndex == 1 && questionIndex > 5) {
+                    type = 'polarArea';
+                    backgroundColor = [
+                        "rgba(185, 28, 28, 0.8)",
+                        "rgba(239, 68, 68, 0.8)",
+                        "rgba(34, 197, 94, 0.8)",
+                        "rgba(56, 189, 248, 0.8)",
+                        "rgba(67, 56, 202, 0.8)"
+                    ];
+                }
+
+                if (type != 'polarArea' && type != 'pie') {
+                    options = {
+                        ...options,
+                        scales: {
+                            y: {
+                                border: {
+                                    display: false,
+                                },
+                                ticks: {
+                                    maxTicksLimit: 5,
+
+                                },
+                            },
+                        },
+                    }
+                }
+
+                new Chart(document.getElementById("{{ $question->key }}-{{ $time }}"), {
+                    type: type,
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: "{{ $question->content }}",
+                            backgroundColor: backgroundColor,
+                            data: dataset
+                        }]
+                    },
+                    options: options,
+                });
+            </script>
+        @endif
     @endif
 </div>

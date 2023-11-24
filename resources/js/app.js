@@ -18,12 +18,15 @@ import 'livewire-sortable';
 import Sortable, { Swap } from 'sortablejs';
 // import ApexCharts from 'apexcharts'
 
+import * as GaugeChart from 'https://unpkg.com/gauge-chart@next/dist/bundle.mjs'
+
 
 // Call Alpine
 window.Chart = Chart;
 window.Alpine = Alpine;
 window.party = party;
 window.Sortable = Sortable;
+window.GaugeChart = GaugeChart
 window.Sortable.mount(new Swap());
 Alpine.start();
 

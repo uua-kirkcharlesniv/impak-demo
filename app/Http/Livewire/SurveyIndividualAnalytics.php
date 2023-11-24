@@ -77,7 +77,7 @@ class SurveyIndividualAnalytics extends Component
                 4, 4, 4
             ],
             [
-                4, 8
+                6, 6,
             ],
             [
                 6, 6
