@@ -99,8 +99,8 @@
                         @auth
                         <ul class="flex grow justify-end flex-wrap items-center">
                             <li>
-                                <a class="font-medium text-white-600 hover:text-gray-200 px-4 py-3 flex items-center transition duration-150 ease-in-out"
-                        href="/sso-login">Dashboard</a>
+                                <a class="btn text-white bg-purple-600 hover:bg-purple-700 w-full mb-4 sm:w-auto sm:mb-0"
+                                href="/dashboard">Dashboard</a>
                             </li>
                         </ul>
                         

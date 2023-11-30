@@ -57,6 +57,6 @@ class AuthenticatedSessionController extends Controller
 
     public function centralDashboard()
     {
-        dd(auth()->user());
+        return view('home/dashboard');
     }
 }
