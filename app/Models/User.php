@@ -12,8 +12,10 @@ use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Laravel\Paddle\Billable;
+use Stancl\Tenancy\Contracts\Syncable;
+use Stancl\Tenancy\Database\Concerns\ResourceSyncing;
 
-class User extends Authenticatable
+class User extends Authenticatable implements Syncable
 {
     use HasApiTokens;
     use HasFactory;
@@ -23,6 +25,9 @@ class User extends Authenticatable
     use HasRoles;
     use Billable;
     use SoftDeletes;
+    use ResourceSyncing;
+
+    public $timestamps = true;
 
     /**
      * The attributes that are mass assignable.
@@ -66,6 +71,32 @@ class User extends Authenticatable
         'profile_photo_url',
         'name',
     ];
+
+    public function getGlobalIdentifierKey()
+    {
+        return $this->getAttribute($this->getGlobalIdentifierKeyName());
+    }
+
+    public function getGlobalIdentifierKeyName(): string
+    {
+        return 'global_id';
+    }
+
+    public function getCentralModelName(): string
+    {
+        return CentralUser::class;
+    }
+
+    public function getSyncedAttributeNames(): array
+    {
+        return [
+            'first_name',
+            'last_name',
+            'email',
+            'password',
+        ];
+    }
+
 
     public function groups()
     {

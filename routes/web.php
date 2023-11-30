@@ -57,3 +57,5 @@ Route::get('/sso-login', function () {
     return view('auth/sso-login');
 })->name('sso-login');
 Route::post('sso-login', [AuthenticatedSessionController::class, 'ssoLogin']);
+
+Route::get('/dashboard', [AuthenticatedSessionController::class, 'centralDashboard']);

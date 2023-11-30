@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Stancl\Tenancy\Contracts\SyncMaster;
 use Stancl\Tenancy\Database\Concerns\CentralConnection;
 use Stancl\Tenancy\Database\Concerns\ResourceSyncing;
+use Stancl\Tenancy\Database\Models\TenantPivot;
 
 class CentralUser extends Authenticatable implements SyncMaster
 {
@@ -47,7 +48,6 @@ class CentralUser extends Authenticatable implements SyncMaster
         return [
             'first_name',
             'last_name',
-            'phone',
             'email',
             'password',
         ];

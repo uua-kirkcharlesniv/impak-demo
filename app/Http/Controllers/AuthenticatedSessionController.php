@@ -54,4 +54,9 @@ class AuthenticatedSessionController extends Controller
             return redirect(tenant_route($tenant->domains()->first()->domain, 'login'));
         });
     }
+
+    public function centralDashboard()
+    {
+        dd(auth()->user());
+    }
 }

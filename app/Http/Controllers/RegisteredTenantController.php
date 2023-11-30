@@ -6,8 +6,9 @@ use App\Http\Requests\RegisterTenantRequest;
 use App\Models\CentralUser;
 use App\Models\Tenant;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
-
+use Illuminate\Support\Str;
 
 class RegisteredTenantController extends Controller
 {
@@ -24,7 +25,6 @@ class RegisteredTenantController extends Controller
         $request->validate([
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
-            'phone' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'password' => [
                 'required', 'max:255', Password::defaults(),
@@ -32,11 +32,15 @@ class RegisteredTenantController extends Controller
         ]);
 
         $user = CentralUser::create([
-            'global_id' => 'acme',
-            'name' => 'John Doe',
-            'email' => 'john@localhost',
-            'password' => 'secret',
-            'role' => 'superadmin', // unsynced
+            'global_id' => Str::orderedUuid(),
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
         ]);
+
+        auth()->login($user);
+
+        return redirect()->to('/dashboard');
     }
 }

@@ -23,15 +23,6 @@
                 </div>
             </div>
 
-
-            <div>
-                <x-jet-label for="phone">{{ __('Phone') }} <span class="text-rose-500">*</span></x-jet-label>
-                <x-jet-input id="phone" type="text" name="phone" :value="old('phone')" required
-                    autocomplete="phone" />
-            </div>
-
-
-
             <div>
                 <x-jet-label for="email">{{ __('Email Address') }} <span class="text-rose-500">*</span></x-jet-label>
                 <x-jet-input id="email" type="email" name="email" :value="old('email')" required />
