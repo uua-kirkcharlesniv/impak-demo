@@ -45,12 +45,12 @@ class FileUpload extends Component
 
             Log::debug('import completed');
 
-            $is_employee_onboarded = Auth::user()->is_employee_onboarded;
-            if ($is_employee_onboarded == false || $is_employee_onboarded == 0) {
-                Auth::user()->update([
-                    'is_employee_onboarded' => true
-                ]);
-            }
+            // $is_employee_onboarded = Auth::user()->is_employee_onboarded;
+            // if ($is_employee_onboarded == false || $is_employee_onboarded == 0) {
+            //     Auth::user()->update([
+            //         'is_employee_onboarded' => true
+            //     ]);
+            // }
         } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
             $failures = $e->failures();
             $errors = [];

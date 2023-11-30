@@ -20,7 +20,7 @@ class DashboardController extends Controller
     {
         $dataFeed = new DataFeed();
         $user = Auth::user();
-        $isEmployeeOnboarded = $user->is_employee_onboarded;
+        $isEmployeeOnboarded = true;
 
         return view('pages/dashboard/dashboard', compact('dataFeed', 'isEmployeeOnboarded'));
     }

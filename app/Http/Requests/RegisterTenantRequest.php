@@ -30,8 +30,6 @@ class RegisterTenantRequest extends FormRequest
             'organization_id' => 'required|numeric|unique:tenants',
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
-            'middle_name' => 'nullable|string|max:255',
-            'phone' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'password' => [
                 'required', 'max:255', Password::defaults(),
@@ -40,15 +38,14 @@ class RegisterTenantRequest extends FormRequest
     }
 
     public function prepareForValidation()
-    {   
+    {
         $domain = $this->company;
         $domain = strtolower($domain);
         $domain = str_replace(' ', '-', $domain);
-        
 
         $this->merge([
             'domain' => $domain . '.' . config('tenancy.central_domains')[0],
-            'organization_id' => str_pad(mt_rand(1,99999999),8,'0',STR_PAD_LEFT),
+            'organization_id' => str_pad(mt_rand(1, 99999999), 8, '0', STR_PAD_LEFT),
         ]);
     }
 }

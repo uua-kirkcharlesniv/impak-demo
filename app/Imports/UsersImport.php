@@ -31,7 +31,6 @@ class UsersImport implements ToModel, WithValidation, WithStartRow, WithEvents
     {
         $user =  User::create([
             'first_name' => $row[0],
-            'middle_name' => $row[1] ?? '',
             'last_name' => $row[2],
             'email' => $row[3],
             'password' => Hash::make('test1234'),

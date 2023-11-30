@@ -23,7 +23,6 @@ class CreateTenantAdmin implements ShouldQueue
      */
     public function __construct(public Tenant $tenant)
     {
-        
     }
 
     /**
@@ -34,7 +33,7 @@ class CreateTenantAdmin implements ShouldQueue
     public function handle()
     {
         $this->tenant->run(function ($tenant) {
-            $owner = User::create($tenant->only('first_name', 'last_name', 'middle_name', 'phone', 'email', 'password'));
+            $owner = User::create($tenant->only('first_name', 'last_name', 'email', 'password'));
             $owner->assignRole('owner');
         });
     }

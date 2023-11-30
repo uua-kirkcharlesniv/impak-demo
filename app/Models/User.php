@@ -32,22 +32,8 @@ class User extends Authenticatable
     protected $fillable = [
         'first_name',
         'last_name',
-        'middle_name',
-        'gender',
-        'date_of_hire',
-        'position',
-        'nationality',
-        'civil_status',
-        'highest_educational_attainment',
         'email',
         'password',
-        'is_employee_onboarded',
-        'phone',
-        'dob',
-        'city',
-        'country',
-        'contract_type',
-        'work_model'
     ];
 
     /**
