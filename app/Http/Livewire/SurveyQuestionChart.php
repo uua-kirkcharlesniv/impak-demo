@@ -35,6 +35,10 @@ class SurveyQuestionChart extends Component
 
         $data = Answer::select('value')->selectRaw('COUNT(*) as count')->where('question_id', $this->question->id)->groupBy('value')->get();
         $dataset = $data->pluck('count', 'value')->toArray();
+        if ($question->type == 'radio') {
+            $order = $question->options;
+            $dataset = array_reverse(array_merge(array_flip($order), $dataset));
+        }
 
         if ($question->type == 'short-answer' || $question->type == 'long-answer') {
             $this->answers = Answer::where('question_id', $this->question->id)->get()->toArray();
