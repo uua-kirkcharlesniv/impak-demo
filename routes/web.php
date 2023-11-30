@@ -29,7 +29,7 @@ use App\Http\Controllers\RegisteredTenantController;
 
 Route::get('/', function () {
     return view('home/index');
-})->name('index');    
+})->name('index');
 Route::get('/features', function () {
     return view('home/features');
 })->name('features');
@@ -45,10 +45,14 @@ Route::get('/contact', function () {
 Route::get('/help', function () {
     return view('home/help');
 })->name('help');
+// Route::get('/register', function () {
+//     return view('auth/register');
+// })->name('register');
 Route::get('/register', function () {
-    return view('auth/register');
+    return view('auth/new-register');
 })->name('register');
 Route::post('/register', [RegisteredTenantController::class, 'store']);
+Route::post('/create-account', [RegisteredTenantController::class, 'createCentralAccount'])->name('create-account');
 Route::get('/sso-login', function () {
     return view('auth/sso-login');
 })->name('sso-login');
