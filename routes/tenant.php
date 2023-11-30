@@ -21,6 +21,7 @@ use App\Http\Controllers\TenantApiController;
 use App\Http\Livewire\ProfileComponent;
 use App\Models\Survey;
 use Illuminate\Http\Request;
+use Stancl\Tenancy\Features\UserImpersonation;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +40,10 @@ Route::middleware([
     InitializeTenancyByDomain::class,
     PreventAccessFromCentralDomains::class,
 ])->group(function () {
+    Route::get('/impersonate/{token}', function ($token) {
+        return UserImpersonation::makeResponse($token);
+    })->name('impersonate');
+
     Route::get('/', function () {
         return 'This is your multi-tenant application. The id of the current tenant is ' . tenant('id');
     });
