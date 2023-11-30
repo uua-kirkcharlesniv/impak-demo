@@ -16,8 +16,10 @@ return [
      * Only relevant if you're using the domain or subdomain identification middleware.
      */
     'central_domains' => [
-        'impak.test',
+        env('MAIN_DOMAIN'),
     ],
+
+    'main_domain' => env('MAIN_DOMAIN'),
 
     /**
      * Tenancy bootstrappers are executed when tenancy is initialized.
