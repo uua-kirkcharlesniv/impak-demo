@@ -46,6 +46,7 @@ Route::middleware([
     })->name('impersonate');
 
     Route::get('accept/{token}', [InviteController::class, 'accept'])->name('accept-invite');
+    Route::post('accept-invite', [InviteController::class, 'processAccept'])->name('process-accept');
 
     Route::get('/', function () {
         return 'This is your multi-tenant application. The id of the current tenant is ' . tenant('id');
