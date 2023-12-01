@@ -60,4 +60,5 @@ Route::post('login', [AuthenticatedSessionController::class, 'ssoLogin']);
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [AuthenticatedSessionController::class, 'centralDashboard']);
+    Route::post('/create-company', [AuthenticatedSessionController::class, 'createCompany'])->name('create-company');
 });

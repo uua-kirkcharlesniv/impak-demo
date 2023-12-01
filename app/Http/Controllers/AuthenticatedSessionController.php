@@ -82,4 +82,33 @@ class AuthenticatedSessionController extends Controller
 
         return view('home/dashboard')->with(['tenants' => $availableTenants]);
     }
+
+    public function createCompany(Request $request)
+    {
+        $request->validate([
+            'company' =>'required|string|max:255',
+        ]);
+
+        $domain = $request->company;
+        $domain = strtolower($domain);
+        $domain = str_replace(' ', '-', $domain);
+
+        $organizationId = str_pad(mt_rand(1, 99999999), 8, '0', STR_PAD_LEFT);
+        
+        $user = Auth::user();
+
+        $tenant = Tenant::create([
+            'domain' => $domain,
+            'company' => $request->company,
+            'organization_id' => $organizationId,
+            'global_id' => $user->global_id,
+            'first_name' => $user->first_name,
+            'last_name' => $user->last_name,
+            'email' => $user->email,
+            'password' => $user->password
+        ]);
+        $tenant->createDomain(['domain' => $domain]);
+
+        return back();
+    }
 }

@@ -53,20 +53,25 @@
                         <p class="text-xl text-gray-400" data-aos="fade-up" data-aos-delay="200">Start your journey with us at Impak now.</p>
                     </div>
 
+                    @if($errors->any())
                     <div class="max-w-xl mx-auto mb-4 bg-red-400 p-4 rounded-sm font-medium">
                         <ul>
-                            <li>Hello</li>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
                         </ul>
                     </div>
+                    @endif
 
                     <!-- Contact form -->
-                    <form class="max-w-xl mx-auto">
+                    <form class="max-w-xl mx-auto" action="{{ route('create-company') }}" method="POST">
+                        @csrf
                         <div class="flex flex-wrap -mx-3 mb-4">
                             <div class="w-full px-3">
                                 <label class="block text-gray-300 text-sm font-medium mb-1" for="subject">Company Name <span
                                         class="text-red-600">*</span></label>
-                                <input id="subject" type="text" class="form-input w-full text-gray-300"
-                                    placeholder="acme.impak.app" required />
+                                <input id="company" name="company" type="text" class="form-input w-full text-gray-300"
+                                    placeholder="acme" required />
                             </div>
                         </div>
                         <div class="flex flex-wrap -mx-3 mt-6">
