@@ -36,18 +36,16 @@ class CreateTenantAdmin implements ShouldQueue
     {
         $globalId = Auth::user()->global_id;
         $this->tenant->run(function ($tenant) use ($globalId) {
-            try {
-                $owner = User::create([
-                    'global_id' => $globalId,
-                    'first_name' => $tenant->first_name,
-                    'last_name' => $tenant->last_name,
-                    'email' => $tenant->email,
-                    'password' => $tenant->password,
-                ]);
-                $owner->assignRole('owner');
-            } catch (\Throwable $th) {
-                //throw $th;
-            }
+            User::create([
+                'global_id' => $globalId,
+                'first_name' => $tenant->first_name,
+                'last_name' => $tenant->last_name,
+                'email' => $tenant->email,
+                'password' => $tenant->password,
+            ]);
+
+            $user = User::where('global_id', $globalId)->get()->first();
+            $user->assignRole('owner');
         });
     }
 }

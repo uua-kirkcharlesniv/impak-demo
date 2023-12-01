@@ -143,13 +143,6 @@ class AuthenticatedSessionController extends Controller
         ]);
         $tenant->createDomain(['domain' => $domain]);
 
-
-        try {
-            $centralUser->tenants()->attach($tenant);
-        } catch (\Throwable $th) {
-            //throw $th;
-        }
-
         return back();
     }
 }
