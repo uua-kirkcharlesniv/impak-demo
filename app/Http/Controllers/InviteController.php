@@ -38,6 +38,13 @@ class InviteController extends Controller
         }
 
         $globalId = Str::orderedUuid();
+
+        $existingUser = CentralUser::where('email', $invite->email)->first();
+
+        if ($existingUser) {
+            $globalId = $existingUser->global_id;
+        }
+
         $userData = [
             'global_id' => $globalId,
             'first_name' => $invite->first_name,
@@ -46,15 +53,23 @@ class InviteController extends Controller
             'password' => Hash::make($request->password),
         ];
 
-        $centralUserAccount = CentralUser::create($userData);
-        $localAccount = User::create($userData);
+        if (!$existingUser) {
+            CentralUser::create($userData);
+        }
 
         try {
-            $refetchedLocal = User::findOrFail($localAccount->id);
-            $refetchedLocal->assignRole('employee');
+            User::create($userData);
         } catch (\Throwable $th) {
             //throw $th;
         }
+
+        $refetchedLocal = User::where('global_id', $globalId)->first();
+        if ($refetchedLocal) {
+            auth()->login($refetchedLocal);
+            $refetchedLocal->assignRole('employee');
+        }
+
+        $invite->delete();
 
         return redirect()->route('login');
     }
