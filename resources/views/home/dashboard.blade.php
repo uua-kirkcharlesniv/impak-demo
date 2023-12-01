@@ -19,20 +19,23 @@
                                 Workspaces for {{ Auth::user()->email }}
                             </div>
                             <div class="p-4 flex flex-col gap-8">
-                                <div class="flex flex-row justify-between border-slate-400">
-                                    {{-- <div class="p-4 bg-red-500 w-16 h-16"></div> --}}
-                                    <div class="flex flex-row gap-4">
-                                        <img src="https://ui-avatars.com/api/?name=UUA" class="h-12 w-12 bg-red-500 rounded-lg">
-                                        <div>
+                                @foreach ($tenants as $tenant)
+                                    <div class="flex flex-row justify-between border-slate-400">
+                                        <div class="flex flex-row gap-4">
+                                            <img src="https://ui-avatars.com/api/?name={{ $tenant->company }}"
+                                                class="h-12 w-12 bg-red-500 rounded-lg">
                                             <div>
-                                                <h1 class="font-black text-black text-md">UpUpApp Technologies</h1>
+                                                <div>
+                                                    <h1 class="font-black text-black text-md">{{ $tenant->company }}</h1>
+                                                </div>
+                                                <span class="text-slate-400 text-sm1">36 members</span>
                                             </div>
-                                            <span class="text-slate-400 text-sm1">36 members</span>
                                         </div>
+
+                                        <a href="#" class="btn text-white bg-purple-600">Open</a>
                                     </div>
-                                   
-                                    <a href="#" class="btn text-white bg-purple-600">Open</a>
-                                </div>
+                                @endforeach
+
                             </div>
                         </div>
                     </div>
@@ -50,17 +53,18 @@
                     <!-- Page header -->
                     <div class="max-w-3xl mx-auto text-center pb-12 md:pb-16">
                         <h1 class="h1 mb-4" data-aos="fade-up">Create a workspace</h1>
-                        <p class="text-xl text-gray-400" data-aos="fade-up" data-aos-delay="200">Start your journey with us at Impak now.</p>
+                        <p class="text-xl text-gray-400" data-aos="fade-up" data-aos-delay="200">Start your journey with us
+                            at Impak now.</p>
                     </div>
 
-                    @if($errors->any())
-                    <div class="max-w-xl mx-auto mb-4 bg-red-400 p-4 rounded-sm font-medium">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
+                    @if ($errors->any())
+                        <div class="max-w-xl mx-auto mb-4 bg-red-400 p-4 rounded-sm font-medium">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
                     @endif
 
                     <!-- Contact form -->
@@ -68,8 +72,8 @@
                         @csrf
                         <div class="flex flex-wrap -mx-3 mb-4">
                             <div class="w-full px-3">
-                                <label class="block text-gray-300 text-sm font-medium mb-1" for="subject">Company Name <span
-                                        class="text-red-600">*</span></label>
+                                <label class="block text-gray-300 text-sm font-medium mb-1" for="subject">Company Name
+                                    <span class="text-red-600">*</span></label>
                                 <input id="company" name="company" type="text" class="form-input w-full text-gray-300"
                                     placeholder="acme" required />
                             </div>

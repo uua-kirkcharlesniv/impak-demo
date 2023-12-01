@@ -85,29 +85,43 @@ class AuthenticatedSessionController extends Controller
 
     public function createCompany(Request $request)
     {
+        $user = Auth::user();
+        $centralUser = CentralUser::find($user->id);
+
         $request->validate([
-            'company' =>'required|string|max:255',
+            'company' => 'required|string|max:255',
         ]);
 
         $domain = $request->company;
         $domain = strtolower($domain);
         $domain = str_replace(' ', '-', $domain);
 
+        $request['domain'] = $domain;
+        $this->validate($request, [
+            'domain' => 'required|string|max:48|unique:domains'
+        ]);
+
         $organizationId = str_pad(mt_rand(1, 99999999), 8, '0', STR_PAD_LEFT);
-        
-        $user = Auth::user();
+
 
         $tenant = Tenant::create([
             'domain' => $domain,
             'company' => $request->company,
             'organization_id' => $organizationId,
-            'global_id' => $user->global_id,
+            'global_id' => $centralUser->global_id,
             'first_name' => $user->first_name,
             'last_name' => $user->last_name,
             'email' => $user->email,
             'password' => $user->password
         ]);
         $tenant->createDomain(['domain' => $domain]);
+
+
+        try {
+            $centralUser->tenants()->attach($tenant);
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
 
         return back();
     }
