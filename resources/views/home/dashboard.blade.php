@@ -28,11 +28,12 @@
                                                 <div>
                                                     <h1 class="font-black text-black text-md">{{ $tenant->company }}</h1>
                                                 </div>
-                                                <span class="text-slate-400 text-sm1">36 members</span>
+                                                {{-- <span class="text-slate-400 text-sm1">36 members</span> --}}
                                             </div>
                                         </div>
 
-                                        <a href="#" class="btn text-white bg-purple-600">Open</a>
+                                        <a href="{{ url(route('redirect-user-to-tenant', ['globalUserId' => auth()->user()->global_id, 'tenant' => $tenant])) }}"
+                                            class="btn text-white bg-purple-600">Open</a>
                                     </div>
                                 @endforeach
 

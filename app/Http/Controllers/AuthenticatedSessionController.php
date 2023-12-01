@@ -7,7 +7,9 @@ use App\Models\CentralUser;
 use App\Models\Tenant;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
+use Exception;
 use Illuminate\Contracts\Session\Session;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -51,6 +53,23 @@ class AuthenticatedSessionController extends Controller
     protected function redirectUserToTenantOrShowTenantSelector()
     {
         return redirect('/dashboard');
+    }
+
+    public function redirectUserToTenant(User|string|int $user, Tenant|string|int $tenant)
+    {
+        if (!$tenant instanceof Tenant) {
+            $tenant = Tenant::find($tenant);
+
+            if (is_null($tenant)) {
+                throw new Exception('Tenant with the key passed in the "tenant" parameter does not exist');
+            }
+        }
+
+        $centralUser = CentralUser::find(Auth::user()->id);
+        $globalUserId = $centralUser->global_id;
+        $tenantUser = $tenant->run(fn () => User::firstWhere('global_id', $globalUserId));
+
+        return redirect($tenant->impersonationUrl($tenantUser->id));
     }
 
 
@@ -97,10 +116,17 @@ class AuthenticatedSessionController extends Controller
         $domain = str_replace(' ', '-', $domain);
         $domain = $domain . '.' . config('tenancy.central_domains')[0];
 
-        $request['domain'] = $domain;
-        $this->validate($request, [
+        $validator = Validator::make([
+            'domain' => $domain
+        ], [
             'domain' => 'required|string|max:48|unique:domains'
         ]);
+
+        if ($validator->fails()) {
+            return back()
+                ->withErrors($validator)
+                ->withInput();
+        }
 
         $organizationId = str_pad(mt_rand(1, 99999999), 8, '0', STR_PAD_LEFT);
 

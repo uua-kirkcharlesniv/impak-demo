@@ -37,7 +37,7 @@ class CreateEmployeeButton extends Component
 
     public function mount($minimalist = false)
     {
-        $this->cities = User::select('city')->groupBy('city')->get()->pluck('city')->toArray();
+        // $this->cities = User::select('city')->groupBy('city')->get()->pluck('city')->toArray();
         if (isset($minimalist) && $minimalist == true) {
             $this->minimalist = true;
         }

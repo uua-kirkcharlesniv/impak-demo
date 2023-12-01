@@ -12,17 +12,17 @@ use Stancl\Tenancy\Database\Concerns\HasDomains;
 
 class Tenant extends BaseTenant implements TenantWithDatabase
 {
-    use HasDatabase, HasDomains;
+   use HasDatabase, HasDomains;
 
-    public static function booted()
-    {
-       static::creating(function ($tenant) {
-          $tenant->password = Hash::make($tenant->password);
-       });
-    }
+   public static function booted()
+   {
+      static::creating(function ($tenant) {
+         $tenant->password = Hash::make($tenant->password);
+      });
+   }
 
-    public static function getCustomColumns(): array
-    {
+   public static function getCustomColumns(): array
+   {
       return [
          'id',
          'organization_id',
@@ -31,8 +31,8 @@ class Tenant extends BaseTenant implements TenantWithDatabase
 
    public function users()
    {
-       return $this->belongsToMany(CentralUser::class, 'tenant_users', 'tenant_id', 'global_user_id', 'id', 'global_id')
-           ->using(TenantPivot::class);
+      return $this->belongsToMany(CentralUser::class, 'tenant_users', 'tenant_id', 'global_user_id', 'id', 'global_id')
+         ->using(TenantPivot::class);
    }
 
    public function primary_domain(): HasOne
@@ -42,11 +42,7 @@ class Tenant extends BaseTenant implements TenantWithDatabase
 
    public function route(string $route, array $parameters = [], bool $absolute = true): string
    {
-      if (! $this->primary_domain) {
-         throw new Exception('Tenant does not have a primary domain.');
-      }
-
-      $domain = $this->primary_domain->domain;
+      $domain = $this->domain;
       $parts = explode('.', $domain);
 
       if (count($parts) === 1) {
@@ -60,7 +56,7 @@ class Tenant extends BaseTenant implements TenantWithDatabase
    {
       // Use a tenant route of your choice here
       // We'll use 'home' in this example
-      $token = tenancy()->impersonate($this, $userId, $this->route('home'), 'web')->token;
+      $token = tenancy()->impersonate($this, $userId, $this->route('login'), 'web')->token;
 
       return $this->route('impersonate', ['token' => $token]);
    }

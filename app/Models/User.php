@@ -39,6 +39,7 @@ class User extends Authenticatable implements Syncable
         'last_name',
         'email',
         'password',
+        'global_id',
     ];
 
     /**
@@ -85,6 +86,11 @@ class User extends Authenticatable implements Syncable
     public function getCentralModelName(): string
     {
         return CentralUser::class;
+    }
+
+    public function getIncrementing()
+    {
+        return false;
     }
 
     public function getSyncedAttributeNames(): array
