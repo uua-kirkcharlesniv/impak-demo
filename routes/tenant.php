@@ -15,6 +15,7 @@ use App\Http\Controllers\MemberController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\CampaignController;
+use App\Http\Controllers\InviteController;
 use App\Http\Controllers\MoodController;
 use App\Http\Controllers\OnboardController;
 use App\Http\Controllers\TenantApiController;
@@ -43,6 +44,8 @@ Route::middleware([
     Route::get('/impersonate/{token}', function ($token) {
         return UserImpersonation::makeResponse($token);
     })->name('impersonate');
+
+    Route::get('accept/{token}', [InviteController::class, 'accept'])->name('accept-invite');
 
     Route::get('/', function () {
         return 'This is your multi-tenant application. The id of the current tenant is ' . tenant('id');
