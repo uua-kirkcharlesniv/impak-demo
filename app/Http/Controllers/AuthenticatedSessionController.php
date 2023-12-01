@@ -95,6 +95,7 @@ class AuthenticatedSessionController extends Controller
         $domain = $request->company;
         $domain = strtolower($domain);
         $domain = str_replace(' ', '-', $domain);
+        $domain = $domain . '.' . config('tenancy.central_domains')[0];
 
         $request['domain'] = $domain;
         $this->validate($request, [
