@@ -6,12 +6,17 @@
         </div>
     @endif   
     <!-- Form -->
-    <form method="POST" action="{{ route('sso-login') }}">
+    <form method="POST" action="{{ route('login') }}">
         @csrf
         <div class="space-y-4">
             <div>
-                <x-jet-label for="organization_id" value="{{ __('Organization ID') }}" />
-                <x-jet-input id="organization_id" type="text" name="organization_id" :value="old('organization_id')" required autofocus />                
+                <x-jet-label for="email">{{ __('Email Address') }} <span class="text-rose-500">*</span></x-jet-label>
+                <x-jet-input id="email" type="email" name="email" :value="old('email')" required />
+            </div>
+
+            <div>
+                <x-jet-label for="password" value="{{ __('Password') }}" />
+                <x-jet-input id="password" type="password" name="password" required autocomplete="password" />
             </div>
         </div>
         <div class="flex items-center justify-between mt-6">        

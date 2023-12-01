@@ -53,9 +53,11 @@ Route::get('/register', function () {
 })->name('register');
 Route::post('/register', [RegisteredTenantController::class, 'store']);
 Route::post('/create-account', [RegisteredTenantController::class, 'createCentralAccount'])->name('create-account');
-Route::get('/sso-login', function () {
+Route::get('/login', function () {
     return view('auth/sso-login');
 })->name('sso-login');
-Route::post('sso-login', [AuthenticatedSessionController::class, 'ssoLogin']);
+Route::post('login', [AuthenticatedSessionController::class, 'ssoLogin']);
 
-Route::get('/dashboard', [AuthenticatedSessionController::class, 'centralDashboard']);
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', [AuthenticatedSessionController::class, 'centralDashboard']);
+});

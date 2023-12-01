@@ -3,14 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
+use App\Models\CentralUser;
 use App\Models\Tenant;
+use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
-
 
 class AuthenticatedSessionController extends Controller
 {
@@ -37,26 +38,48 @@ class AuthenticatedSessionController extends Controller
         return redirect('/');
     }
 
+    public function show(Request $request)
+    {
+        // Get currently authenticated user
+        if ($user = $request->user()) {
+            return $this->redirectUserToTenantOrShowTenantSelector($user);
+        }
+
+        return view('auth/sso-login');
+    }
+
+    protected function redirectUserToTenantOrShowTenantSelector()
+    {
+        return redirect('/dashboard');
+    }
+
+
     /**
      * Handle an incoming authentication request.
      */
-    public function ssoLogin(Request $request): RedirectResponse
+    public function ssoLogin(Request $request)
     {
-        $validated = $request->validate([
-            // 'email' => ['required', 'string', 'email'],
-            'organization_id' => 'required|exists:tenants,organization_id'
+        $request->validate([
+            'email' => 'required',
+            'password' => 'required'
         ]);
-        $tenant = Tenant::where('organization_id', $validated['organization_id'])->first();
-        // $tenant->requested_email = $validated['email'];
-        return $tenant->run(function ($tenant) {
-            // session()->put('email', $tenant->requested_email);
 
-            return redirect(tenant_route($tenant->domains()->first()->domain, 'login'));
-        });
+        if (Auth::attempt([
+            'email' => $request->email,
+            'password' => $request->password,
+        ])) {
+            return redirect('/dashboard');
+        }
+
+        return back()->withInput()->withErrors(['Invalid username or password entered.']);
     }
 
     public function centralDashboard()
     {
-        return view('home/dashboard');
+        $user = Auth::user();
+
+        $availableTenants = CentralUser::firstWhere('global_id', $user->global_id)->tenants;
+
+        return view('home/dashboard')->with(['tenants' => $availableTenants]);
     }
 }
