@@ -14,13 +14,6 @@ class Tenant extends BaseTenant implements TenantWithDatabase
 {
    use HasDatabase, HasDomains;
 
-   public static function booted()
-   {
-      static::creating(function ($tenant) {
-         $tenant->password = Hash::make($tenant->password);
-      });
-   }
-
    public static function getCustomColumns(): array
    {
       return [

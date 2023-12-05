@@ -72,7 +72,13 @@ class User extends Authenticatable implements Syncable
     protected $appends = [
         'profile_photo_url',
         'name',
+        'phone',
     ];
+
+    public function getPhoneAttribute()
+    {
+        return "";
+    }
 
     public function getGlobalIdentifierKey()
     {

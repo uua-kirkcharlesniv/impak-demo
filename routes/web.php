@@ -56,7 +56,7 @@ Route::post('/create-account', [RegisteredTenantController::class, 'createCentra
 Route::get('/login', function () {
     return view('auth/sso-login');
 })->name('sso-login');
-Route::post('login', [AuthenticatedSessionController::class, 'ssoLogin']);
+Route::post('processCentralLogin', [AuthenticatedSessionController::class, 'ssoLogin']);
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [AuthenticatedSessionController::class, 'centralDashboard']);

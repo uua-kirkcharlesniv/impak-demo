@@ -143,8 +143,7 @@ class MoodDashboard extends Component
                 $key = $date->format('m/d');
                 $keyParsed = $date->format(' d');
                 if (!array_key_exists($key, $compiledAverage)) {
-                    // $finalResult["" . $keyParsed . ""] = 0;
-                    $finalResult["{$keyParsed}"] = rand(50, 60);
+                    $finalResult["{$keyParsed}"] = 0;
                 } else {
                     $finalResult["{$keyParsed}"] = $compiledAverage[$key];
                 }
@@ -204,8 +203,7 @@ class MoodDashboard extends Component
             if ($grouped->has($key)) {
                 $week['Week ' . $key] = $this->invertAverage(round($grouped[$key]->avg('mood') * 20));
             } else {
-                // $week['Week ' . $key] = 0;
-                $week['Week ' . $key] = rand(60, 100);
+                $week['Week ' . $key] = 0;
             }
         }
         $this->weeksData = $week;
