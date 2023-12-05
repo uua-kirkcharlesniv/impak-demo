@@ -25,7 +25,7 @@ class RegisteredTenantController extends Controller
         $request->validate([
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
+            'email' => 'required|email|max:255|unique:users,email',
             'password' => [
                 'required', 'max:255', Password::defaults(),
             ],
