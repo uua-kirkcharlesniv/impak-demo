@@ -92,6 +92,7 @@
             <!-- Main content -->
             <div class="flex-auto space-y-5 mb-8 xl:mb-0">
 
+                @if(count($user->departments) > 0)
                 <!-- Departments -->
                 <div>
                     <h2 class="text-slate-800 font-semibold mb-2">Departments</h2>
@@ -134,7 +135,9 @@
                         @endforeach
                     </div>
                 </div>
+                @endif
 
+                @if(count($user->groups) > 0)
                 <!-- Departments -->
                 <div>
                     <h2 class="text-slate-800 font-semibold mb-2">Groups</h2>
@@ -176,9 +179,10 @@
                         @endforeach
                     </div>
                 </div>
+                @endif
 
                 <!-- Work History -->
-                <div>
+                {{-- <div>
                     <h2 class="text-slate-800 font-semibold mb-2">Points History</h2>
                     <div class="bg-white p-4 border border-slate-200 rounded-sm shadow-sm">
                         <ul class="space-y-3">
@@ -290,7 +294,7 @@
 
                         </ul>
                     </div>
-                </div>
+                </div> --}}
 
             </div>
 
@@ -325,22 +329,22 @@
                         @endif
                     </div>
                 </div>
-                <div class="text-sm">
+                {{-- <div class="text-sm">
                     <h3 class="font-medium text-slate-800">Location</h3>
                     <div>{{ $user->country }}, {{ $user->city }}</div>
-                </div>
+                </div> --}}
                 <div class="text-sm">
                     <h3 class="font-medium text-slate-800">Email</h3>
                     <div>{{ $user->email }}</div>
                 </div>
-                <div class="text-sm">
+                {{-- <div class="text-sm">
                     <h3 class="font-medium text-slate-800">Birthdate</h3>
                     <div>{{ \Carbon\Carbon::parse($user->dob)->toFormattedDateString() }}</div>
-                </div>
-                <div class="text-sm">
+                </div> --}}
+                {{-- <div class="text-sm">
                     <h3 class="font-medium text-slate-800">Joined {{ tenant()->company }} ✨</h3>
                     <div>{{ \Carbon\Carbon::parse($user->doh)->toFormattedDateString() }}</div>
-                </div>
+                </div> --}}
                 <div>
                     @if (isset($host))
                         @if (isset($user->pivot))

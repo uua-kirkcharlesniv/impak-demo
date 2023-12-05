@@ -109,10 +109,6 @@
                                             @endif
                                         </p>
                                     </div>
-                                    <div
-                                        class="inline-flex items-center font-semibold text-xs text-white text-gray-900 rounded-2xl py-2 px-2 bg-indigo-300">
-                                        <span class="text-green-600">⬆</span> 720
-                                    </div>
                                 </div>
                             </li>
                         @endforeach
