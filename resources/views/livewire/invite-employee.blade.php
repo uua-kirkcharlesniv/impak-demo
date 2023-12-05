@@ -22,8 +22,7 @@
         x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0"
         x-transition:leave="transition ease-in-out duration-200" x-transition:leave-start="opacity-100 translate-y-0"
         x-transition:leave-end="opacity-0 translate-y-4" x-cloak>
-        <div class="bg-white rounded shadow-lg overflow-auto max-w-2xl w-full max-h-full"
-            @click.outside="inviteModalOpen = false" @keydown.escape.window="inviteModalOpen = false">
+        <div class="bg-white rounded shadow-lg overflow-auto max-w-2xl w-full max-h-full">
             <!-- Modal header -->
             <div class="px-5 py-3 border-b border-slate-200">
                 <div class="flex justify-between items-center">
