@@ -42,7 +42,7 @@
 
                     <div class="space-y-3 mb-4">
                         @foreach ($invites as $index => $invite)
-                            <div class="flex gap-4">
+                            <div class="flex gap-4 items-center">
                                 <div class="flex-3">
                                     <label class="block text-sm font-medium mb-1" for="email">Email<span
                                             class="text-rose-500">*</span></label>
@@ -72,14 +72,10 @@
                                         <span class="text-red-500 my-2 text-sm">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                @if ($loop->last)
-                                    <a wire:ignore wire:click.prevent="addInvite"
-                                        class="font-black p-2 text-green-600 text-lg cursor-pointer">+</a>
-                                @endif
 
-                                @if (count($invites) > 1)
+                                @if (count($invites) > 1 && !($loop->first))
                                     <a wire:ignore wire:click.prevent="removeInvite({{ $index }})"
-                                        class="font-black p-2 text-red-600 text-lg cursor-pointer">-</a>
+                                        class="font-black p-2 text-red-600 text-lg cursor-pointer drop-shadow-lg rounded-lg"><i class="fa-solid fa-trash"></i></a>
                                 @endif
                             </div>
                         @endforeach
@@ -87,6 +83,8 @@
 
                     <div class=" py-4 border-t border-slate-200">
                         <div class="flex flex-wrap justify-end space-x-2">
+                            <a wire:ignore wire:click.prevent="addInvite"
+                                class="btn-sm bg-white shadow-md cursor-pointer hover:bg-slate-300 text-black">Add New</a>
                             <button type="submit" wire:submit="submit"
                                 class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white">Invite</button>
                         </div>
