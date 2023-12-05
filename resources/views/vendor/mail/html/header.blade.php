@@ -2,7 +2,7 @@
 <tr>
 <td class="header">
 <a href="{{ $url }}" style="display: inline-block;">
-<img src="file://{{ asset('images/logobrand.png') }}" class="logo" alt="Impak Logo" />
+<img src="{{ asset('images/logobrand.png') }}" data-skip-embed class="logo" alt="Impak Logo" />
 </a>
 </td>
 </tr>
