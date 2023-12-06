@@ -121,7 +121,7 @@ class ProfileComponent extends Component
             $this->users = $group->members;
 
             $alreadyMemberIds = $group->members->pluck('id')->toArray();
-            $availableMembers = User::whereNotIn('id', $alreadyMemberIds)->get();
+            $availableMembers = User::role('employee')->whereNotIn('id', $alreadyMemberIds)->get();
             $this->availableMembers = $availableMembers;
 
             if (count($this->users) <= 0) {
@@ -137,7 +137,7 @@ class ProfileComponent extends Component
             $this->users = $department->members;
 
             $alreadyMemberIds = $department->members->pluck('id')->toArray();
-            $availableMembers = User::whereNotIn('id', $alreadyMemberIds)->get();
+            $availableMembers = User::role('employee')->whereNotIn('id', $alreadyMemberIds)->get();
             $this->availableMembers = $availableMembers;
 
             if (count($this->users) <= 0) {
