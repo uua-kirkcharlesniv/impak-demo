@@ -11,7 +11,7 @@
                     <div class="max-w-3xl mx-auto text-center pb-12 md:pb-20">
                         <h2 class="h2 mt-8">👋 Welcome back!</h2>
                     </div>
-
+                    @if(count($tenants) > 0)
                     <!-- Items -->
                     <div class="max-w-3xl mx-auto -my-4 md:-my-6" data-aos-id-timeline>
                         <div class="rounded-lg bg-white border border-4 border-indigo-200">
@@ -40,6 +40,7 @@
                             </div>
                         </div>
                     </div>
+                    @endif
 
                 </div>
             </div>
@@ -49,7 +50,7 @@
 
         <section class="relative">
             <div class="max-w-6xl mx-auto px-4 sm:px-6 relative">
-                <div class="pt-16 md:pt-16 border-t border-gray-800">
+                <div class="@if(count($tenants) > 0) pt-16 md:pt-16 border-t border-gray-800 @endif" >
 
                     <!-- Page header -->
                     <div class="max-w-3xl mx-auto text-center pb-12 md:pb-16">
