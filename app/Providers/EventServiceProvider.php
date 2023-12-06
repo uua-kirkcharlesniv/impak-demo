@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Events\QuantDataPublished;
 use App\Events\SurveyPublished;
+use App\Listeners\GenerateInsightFromQuant;
 use App\Listeners\GenerateQuantifiableData;
 use App\Listeners\GenerateQuestionInsight;
 use Illuminate\Auth\Events\Registered;
@@ -23,8 +25,10 @@ class EventServiceProvider extends ServiceProvider
         ],
         SurveyPublished::class => [
             GenerateQuantifiableData::class,
-            GenerateQuestionInsight::class,
         ],
+        QuantDataPublished::class => [
+            GenerateInsightFromQuant::class,
+        ]
     ];
 
     /**
