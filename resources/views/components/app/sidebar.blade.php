@@ -411,7 +411,7 @@
                     </li>
 
                     <!-- Utility -->
-                    <li class="px-3 py-2 rounded-sm mb-0.5 last:mb-0 @if (in_array(Request::segment(1), ['utility'])) {{ 'bg-slate-900' }} @endif"
+                    {{-- <li class="px-3 py-2 rounded-sm mb-0.5 last:mb-0 @if (in_array(Request::segment(1), ['utility'])) {{ 'bg-slate-900' }} @endif"
                         x-data="{ open: {{ in_array(Request::segment(1), ['utility']) ? 1 : 0 }} }">
                         <a class="block text-slate-200 hover:text-white truncate transition duration-150 @if (in_array(Request::segment(1), ['utility'])) {{ 'hover:text-slate-200' }} @endif"
                             href="#0" @click.prevent="sidebarExpanded ? open = !open : sidebarExpanded = true">
@@ -444,6 +444,7 @@
                                 </div>
                             </div>
                         </a>
+                        
                         <div class="lg:hidden lg:sidebar-expanded:block 2xl:block">
                             <ul class="pl-9 mt-1 @if (!in_array(Request::segment(1), ['utility'])) {{ 'hidden' }} @endif"
                                 :class="open ? '!block' : 'hidden'">
@@ -454,13 +455,13 @@
                                             class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Changelog</span>
                                     </a>
                                 </li>
-                                {{-- <li class="mb-1 last:mb-0">
+                                <li class="mb-1 last:mb-0">
                                     <a class="block text-slate-400 hover:text-slate-200 transition duration-150 truncate @if (Route::is('roadmap')) {{ '!text-indigo-500' }} @endif"
                                         href="{{ route('roadmap') }}">
                                         <span
                                             class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Roadmap</span>
                                     </a>
-                                </li> --}}
+                                </li>
                                 <li class="mb-1 last:mb-0">
                                     <a class="block text-slate-400 hover:text-slate-200 transition duration-150 truncate @if (Route::is('faqs')) {{ '!text-indigo-500' }} @endif"
                                         href="{{ route('faqs') }}">
@@ -468,21 +469,21 @@
                                             class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">FAQs</span>
                                     </a>
                                 </li>
-                                {{-- <li class="mb-1 last:mb-0">
+                                <li class="mb-1 last:mb-0">
                                     <a class="block text-slate-400 hover:text-slate-200 transition duration-150 truncate @if (Route::is('empty-state')) {{ '!text-indigo-500' }} @endif"
                                         href="{{ route('empty-state') }}">
                                         <span
                                             class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Empty
                                             State</span>
                                     </a>
-                                </li> --}}
-                                {{-- <li class="mb-1 last:mb-0">
+                                </li>
+                                <li class="mb-1 last:mb-0">
                                     <a class="block text-slate-400 hover:text-slate-200 transition duration-150 truncate @if (Route::is('404')) {{ '!text-indigo-500' }} @endif"
                                         href="{{ route('404') }}">
                                         <span
                                             class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">404</span>
                                     </a>
-                                </li> --}}
+                                </li>
                                 <li class="mb-1 last:mb-0">
                                     <a class="block text-slate-400 hover:text-slate-200 transition duration-150 truncate @if (Route::is('knowledge-base')) {{ '!text-indigo-500' }} @endif"
                                         href="{{ route('knowledge-base') }}">
@@ -493,7 +494,7 @@
                                 </li>
                             </ul>
                         </div>
-                    </li>
+                    </li> --}}
 
                 </ul>
             </div>

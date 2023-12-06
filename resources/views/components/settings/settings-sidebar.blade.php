@@ -2,7 +2,7 @@
     class="flex flex-nowrap overflow-x-scroll no-scrollbar md:block md:overflow-auto px-3 py-6 border-b md:border-b-0 md:border-r border-slate-200 min-w-60 md:space-y-3">
     <!-- Group 1 -->
     <div>
-        <div class="text-xs font-semibold text-slate-400 uppercase mb-3">Business settings</div>
+        <div class="text-xs font-semibold text-slate-400 uppercase mb-3">Account Settings</div>
         <ul class="flex flex-nowrap md:block mr-3 md:mr-0">
             <li class="mr-0.5 md:mr-0 md:mb-0.5">
                 <a class="flex items-center px-2.5 py-2 rounded whitespace-nowrap @if (Route::is('account')) {{ 'bg-indigo-50' }} @endif"
@@ -17,7 +17,7 @@
                         Account</span>
                 </a>
             </li>
-            <li class="mr-0.5 md:mr-0 md:mb-0.5">
+            {{-- <li class="mr-0.5 md:mr-0 md:mb-0.5">
                 <a class="flex items-center px-2.5 py-2 rounded whitespace-nowrap @if (Route::is('notifications')) {{ 'bg-indigo-50' }} @endif"
                     href="{{ route('notifications') }}">
                     <svg class="w-4 h-4 shrink-0 fill-current text-slate-400 mr-2 @if (Route::is('notifications')) {{ 'text-indigo-400' }} @endif"
@@ -29,8 +29,8 @@
                         class="text-sm font-medium @if (Route::is('notifications')) {{ 'text-indigo-500' }}@else{{ 'text-slate-600 hover:text-slate-700' }} @endif">My
                         Notifications</span>
                 </a>
-            </li>
-            @if (Auth::user()->hasPermissionTo('manage-company'))
+            </li> --}}
+            {{-- @if (Auth::user()->hasPermissionTo('manage-company'))
                 <li class="mr-0.5 md:mr-0 md:mb-0.5">
                     <a class="flex items-center px-2.5 py-2 rounded whitespace-nowrap @if (Route::is('apps')) {{ 'bg-indigo-50' }} @endif"
                         href="{{ route('apps') }}">
@@ -69,7 +69,7 @@
                             & Invoices</span>
                     </a>
                 </li>
-            @endif
+            @endif --}}
 
         </ul>
     </div>
