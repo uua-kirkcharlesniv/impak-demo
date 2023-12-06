@@ -16,9 +16,11 @@ class InviteEmployee extends Component
     use LivewireAlert;
 
     public $invites;
+    public $showButton;
 
-    public function mount()
+    public function mount($showButton = true)
     {
+        $this->showButton = $showButton;
         $this->invites[] = ['email' => '', 'first_name' => '', 'last_name' => ''];
     }
 

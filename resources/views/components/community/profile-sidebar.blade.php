@@ -29,13 +29,13 @@
                             </div>
                         </div>
                         <!-- Add button -->
-                        {{-- <button
-                            class="p-1.5 shrink-0 rounded border border-slate-200 hover:border-slate-300 shadow-sm ml-2">
+                        <button
+                            class="p-1.5 shrink-0 rounded border border-slate-200 hover:border-slate-300 shadow-sm ml-2"  @click.prevent="inviteModalOpen = true">
                             <svg class="w-4 h-4 fill-current text-indigo-500" viewBox="0 0 16 16">
                                 <path
                                     d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1Z" />
                             </svg>
-                        </button> --}}
+                        </button>
                     </div>
                 </div>
             </div>

@@ -1,4 +1,5 @@
 <div>
+    @if($showButton == true)
     <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white" @click.prevent="inviteModalOpen = true"
         aria-controls="feedback-modal">
         <svg class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
@@ -9,6 +10,7 @@
             Invite
         </span>
     </button>
+    @endif
 
     <div class="fixed inset-0 bg-slate-900 bg-opacity-30 z-50 transition-opacity" x-show="inviteModalOpen"
         x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0"
