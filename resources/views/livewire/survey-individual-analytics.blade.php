@@ -97,15 +97,6 @@
                         <livewire:survey-question-chart :sectionIndex="$sectionIndex" :questionIndex="$questionIndex" :question="$question"
                             wire:key="{{ $survey->id }}.{{ $section->id }}.{{ $question->id }}.{{ now() }}"
                             :frameworkId="$survey->framework_id" />
-                        @if($question->quant()->exists())
-                        <footer class="border-l-8 border-indigo-600 bg-indigo-400 p-4 text-white">                                
-                            @if($question->quant->desc != null)
-                            <span>{{ $question->quant->desc }}</span>
-                            <br><br><br>
-                            @endif
-                            <span class="font-light">Mean: {{ $question->quant->mean }} | Median: {{ $question->quant->median }} | Mode: {{ $question->quant->mode }} | Std. Deviation: {{ $question->quant->zscore }}</span>                        
-                        </footer>
-                        @endif
                     </div>
                 @endforeach
             </div>
