@@ -22,7 +22,7 @@ class RedirectOnboard
             return $next($request);
         } else {
             if ($user->hasRole('owner')) {
-                return redirect()->route('onboarding-01');
+                // return redirect()->route('onboarding-01');
             }
 
             return $next($request);
