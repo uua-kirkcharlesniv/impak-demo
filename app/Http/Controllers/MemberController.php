@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Department;
 use App\Models\Group;
+use App\Models\Invite;
 use Illuminate\Http\Request;
 use App\Models\Member;
 use App\Models\User;
@@ -11,6 +12,13 @@ use Illuminate\Support\Facades\Auth;
 
 class MemberController extends Controller
 {
+    public function invitedPage(Request $request)
+    {
+        $invited = Invite::all();
+
+        return view('pages/community/users-tabs', compact('invited'));
+    }
+
     public function indexTabs()
     {
         $members = User::role('employee')->paginate(9);

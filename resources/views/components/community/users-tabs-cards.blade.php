@@ -3,7 +3,7 @@
         <!-- Card top -->
         <div class="grow p-5">
             <!-- Menu button -->
-            <div class="relative">
+            {{-- <div class="relative">
                 <div class="absolute top-0 right-0 inline-flex" x-data="{ open: false }">
                     <button class="text-slate-400 hover:text-slate-500 rounded-full"
                         :class="{ 'bg-slate-100 text-slate-500': open }" aria-haspopup="true"
@@ -24,14 +24,6 @@
                         x-transition:leave-end="opacity-0" x-cloak>
                         <ul>
                             <li>
-                                <a class="font-medium text-sm text-slate-600 hover:text-slate-800 flex py-1 px-3"
-                                    href="#0" @click="open = false" @focus="open = true" @focusout="open = false">
-                                    @if ($index == 0) Demote
-                                    @else
-                                        Promote @endif
-                                </a>
-                            </li>
-                            <li>
                                 <a class="font-medium text-sm text-rose-500 hover:text-rose-600 flex py-1 px-3"
                                     href="#0" @click="open = false" @focus="open = true"
                                     @focusout="open = false">Remove</a>
@@ -39,7 +31,7 @@
                         </ul>
                     </div>
                 </div>
-            </div>
+            </div> --}}
             <!-- Image + name -->
             <header>
                 <div class="flex justify-center mb-2">
@@ -48,13 +40,13 @@
                             <span class="p-2">{{ $member->location ?? "🇵🇭" }}</span>
 
                         </div>
-                        <img class="rounded-full" src="https://ui-avatars.com/api/?name={{ $member->name }}" width="64"
-                            height="64" alt="{{ $member->name }}" />
+                        <img class="rounded-full" src="https://ui-avatars.com/api/?name={{ $member->first_name }} {{ $member->last_name }}" width="64"
+                            height="64" alt="{{ $member->first_name }} {{ $member->last_name }}" />
                     </a>
                 </div>
                 <div class="text-center">
                     <a class="inline-flex text-slate-800 hover:text-slate-900" href="#0">
-                        <h2 class="text-xl leading-snug justify-center font-semibold">{{ $member->name }}</h2>
+                        <h2 class="text-xl leading-snug justify-center font-semibold">{{ $member->first_name }} {{ $member->last_name }}</h2>
                     </a>
                 </div>
                 <div class="flex justify-center items-center"><span
@@ -62,29 +54,6 @@
                        {{ $member->email }}
                     </span></div>
             </header>
-            <!-- Bio -->
-            <div class="text-center mt-2">
-                <div class="text-sm">{{ $member->content }}</div>
-            </div>
-        </div>
-        <!-- Card footer -->
-        <div class="border-t border-slate-200">
-            <a class="block text-center text-sm text-indigo-500 hover:text-indigo-600 font-medium px-3 py-4"
-                @if (in_array(Request::segment(1), ['employee'])) href="{{ route('employee.profile') }}"
-                    @else
-                        @if (in_array(Request::segment(2), ['groups']))
-                        href="{{ route('community.groups.profile', 1) }}"
-                        @else
-                        href="{{ route('community.departments.profile', 1) }}" ✨ @endif
-                @endif
-
-                >
-                <div class="flex items-center justify-center">
-                    <i class="fa-sharp fa-regular fa-eye"></i>
-                    &nbsp;
-                    <span>View</span>
-                </div>
-            </a>
         </div>
     </div>
 </div>

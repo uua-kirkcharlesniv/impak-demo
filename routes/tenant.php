@@ -76,6 +76,7 @@ Route::middleware([
 
         Route::name('employee.')->prefix('employee')->group(function () {
             Route::get('/', ProfileComponent::class)->name('list');
+            Route::get('/invited', [MemberController::class, 'invitedPage'])->name('invited');
         });
 
         Route::name('community.')->prefix('community')->group(function () {
@@ -167,9 +168,6 @@ Route::middleware([
         Route::get('/ecommerce/pay', function () {
             return view('pages/ecommerce/pay');
         })->name('pay');
-
-        Route::get('/community/users-tabs', [MemberController::class, 'indexTabs'])->name('users-tabs');
-        Route::get('/community/users-tiles', [MemberController::class, 'indexTiles'])->name('users-tiles');
 
         Route::get('/community/forum', function () {
             return view('pages/community/forum');
