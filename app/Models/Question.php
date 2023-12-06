@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Question extends \MattDaneshvar\Survey\Models\Question
 {
@@ -40,6 +41,11 @@ class Question extends \MattDaneshvar\Survey\Models\Question
     public function getIsRequiredAttribute()
     {
         return in_array('required', $this->rules);
+    }
+
+    public function quant(): HasOne
+    {
+        return $this->hasOne(QuestionQuant::class);
     }
 
     public function getMaxAttribute()

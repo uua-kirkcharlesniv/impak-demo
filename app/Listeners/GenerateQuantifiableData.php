@@ -132,6 +132,7 @@ class GenerateQuantifiableData
                 'mean' => $mean,
                 'median' => $median,
                 'mode' => $mode,
+                'zscore' => $stddev,
                 'dataset' => $data, 
             ]);
         }
