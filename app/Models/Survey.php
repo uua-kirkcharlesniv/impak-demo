@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Events\SurveyPublished;
 use Brick\Math\Exception\DivisionByZeroException;
 use Carbon\Carbon;
 use DivisionByZeroError;
@@ -25,6 +26,10 @@ class Survey extends \MattDaneshvar\Survey\Models\Survey
     ];
 
     protected $appends = ['is_open', 'is_targeted', 'target_user_ids', 'respondents_count', 'unique_users_entry_count', 'completion_percent', 'photo', 'last_entry_date', 'open_at'];
+
+    protected $dispatchesEvents = [
+        'updated' => SurveyPublished::class,
+    ];
 
     public function getCompletionPercentAttribute()
     {

@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Events\SurveyPublished;
+use App\Listeners\GenerateQuantifiableData;
+use App\Listeners\GenerateQuestionInsight;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -18,6 +21,10 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+        SurveyPublished::class => [
+            GenerateQuantifiableData::class,
+            GenerateQuestionInsight::class,
+        ],
     ];
 
     /**
@@ -27,7 +34,6 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
     }
 
     /**

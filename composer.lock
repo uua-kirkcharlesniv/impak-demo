@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cb915364e78d70303fdc9380de2d94ac",
+    "content-hash": "c5c9f24a32cacb82dd59448fd61b20b5",
     "packages": [
         {
             "name": "asantibanez/livewire-charts",
@@ -2364,6 +2364,68 @@
                 }
             ],
             "time": "2020-06-13T08:05:20+00:00"
+        },
+        {
+            "name": "jpkleemans/attribute-events",
+            "version": "1.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jpkleemans/attribute-events.git",
+                "reference": "25210a6e6965331038dd3579bb8f08ffc98e47d9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jpkleemans/attribute-events/zipball/25210a6e6965331038dd3579bb8f08ffc98e47d9",
+                "reference": "25210a6e6965331038dd3579bb8f08ffc98e47d9",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.3|^8.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.6",
+                "illuminate/database": "^9.1",
+                "illuminate/events": "^9.1",
+                "phpunit/phpunit": "^9.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Kleemans\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jan-Paul Kleemans",
+                    "email": "jpkleemans@gmail.com"
+                }
+            ],
+            "description": "🔥 Fire events on attribute changes of your Eloquent model",
+            "homepage": "https://attribute.events/",
+            "keywords": [
+                "attributes",
+                "ddd",
+                "domain events",
+                "eloquent",
+                "events",
+                "laravel",
+                "model events"
+            ],
+            "support": {
+                "issues": "https://github.com/jpkleemans/attribute-events/issues",
+                "source": "https://github.com/jpkleemans/attribute-events/tree/1.4.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/jpkleemans",
+                    "type": "github"
+                }
+            ],
+            "time": "2022-08-31T09:23:22+00:00"
         },
         {
             "name": "laminas/laminas-code",

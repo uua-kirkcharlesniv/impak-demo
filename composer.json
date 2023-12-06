@@ -17,6 +17,7 @@
         "eduardokum/laravel-mail-auto-embed": "^2.10",
         "guzzlehttp/guzzle": "^7.2",
         "jantinnerezo/livewire-alert": "^2.2",
+        "jpkleemans/attribute-events": "^1.4",
         "laravel/cashier-paddle": "^1.9",
         "laravel/framework": "^9.19",
         "laravel/jetstream": "^2.9",
