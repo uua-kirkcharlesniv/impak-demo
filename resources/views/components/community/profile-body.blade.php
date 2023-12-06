@@ -55,12 +55,12 @@
                             @elseif (!isset($host) && Auth::user()->id == $user->id)
                             @else
                                 <button
-                                    class="p-1.5 shrink-0 rounded border border-slate-200 hover:border-slate-300 shadow-sm"
+                                    class="p-1.5 shrink-0 rounded border border-slate-200 hover:border-slate-300 shadow-sm  text-xl text-red-700"
                                     wire:click="deleteDoAction('{{ Request::segment(2) }}')">
                                     @if (Auth::user()->id == $user->id)
-                                        <i class="fa-solid text-xl text-red-700 fa-right-from-bracket"></i>
+                                        <i class="fa-solid fa-right-from-bracket"></i>
                                     @else
-                                        <i class="fa-regular text-xl text-red-700 fa-trash"></i>
+                                        <i class="fa-solid fa-trash"></i>
                                     @endif
                                 </button>
                             @endif
