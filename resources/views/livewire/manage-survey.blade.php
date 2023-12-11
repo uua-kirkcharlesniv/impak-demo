@@ -1,8 +1,11 @@
+@php
+    $index = 1;
+@endphp
 <div class="overflow-hidden" x-data="{ modalOpen: false }">
     <div class="h-[calc(100vh-74px)] flex">
         <!-- Fixed sidebar -->
         <div class="w-1/3 bg-white overflow-y-auto mr-2">
-            <x-survey-tab isFirst="true" title="setup" icon="fa-screwdriver-wrench">
+            <x-survey-tab isFirst="true" title="{{ $index }}. setup" icon="fa-screwdriver-wrench">
                 <div>
                     <label class="block text-sm font-medium mb-1" for="name">Your survey name</label>
                     <input id="name" class="form-input w-full" type="text" placeholder=""
@@ -19,7 +22,10 @@
                 </div>
             </x-survey-tab>
             @if ($survey->framework_id == null)
-                <x-survey-tab title="rationale" icon="fa-brain">
+                @php
+                    $index += 1;
+                @endphp
+                <x-survey-tab title="{{ $index }}. rationale" icon="fa-brain">
                     <div>
                         <label class="block text-sm font-medium mb-1" for="rationale_title">Title</label>
                         <input id="rationale_title" class="form-input w-full" type="text" placeholder=""
@@ -112,13 +118,22 @@
                     </div>
                 </x-survey-tab>
             @endif
-            <x-survey-tab title="respondents" icon="fa-users">
+            @php
+                $index += 1;
+            @endphp
+            <x-survey-tab title="{{ $index }}. respondents" icon="fa-users">
                 <livewire:survey-manager.respondent.user :survey="$survey" />
             </x-survey-tab>
-            <x-survey-tab title="schedule" icon="fa-calendar-days">
+            @php
+                $index += 1;
+            @endphp
+            <x-survey-tab title="{{ $index }}. schedule" icon="fa-calendar-days">
                 <livewire:form-schedule-component :survey="$survey" />
             </x-survey-tab>
-            <x-survey-tab title="form" icon="fa-clipboard-question">
+            @php
+                $index += 1;
+            @endphp
+            <x-survey-tab title="{{ $index }}. form" icon="fa-clipboard-question">
                 @if ($survey->framework_id == null)
                     <button
                         class="w-full mb-4 bg-transparent hover:bg-blue text-blue-dark font-semibold hover:text-black py-2 px-4 border border-blue rounded"
