@@ -17,14 +17,15 @@
 
         <!-- Email -->
         <section>
-            <form action="" method="POST">
+            <form action="{{ route('updateEmailWeb') }}" method="POST">
                 @csrf
                 <h3 class="text-xl leading-snug text-slate-800 font-bold mb-1">Email</h3>
                 <div class="text-sm">Your account registered email address</div>
                 <div class="flex flex-wrap mt-5">
                     <div class="mr-2">
                         <label class="sr-only" for="email">Business email</label>
-                        <input id="email" class="form-input" type="email" value="{{ Auth::user()->email }}" />
+                        <input id="email" name="email" class="form-input" type="email"
+                            value="{{ Auth::user()->email }}" />
                     </div>
                     <button
                         class="btn border-slate-200 hover:border-slate-300 shadow-sm text-indigo-500">Change</button>

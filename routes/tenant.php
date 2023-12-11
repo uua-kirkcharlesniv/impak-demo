@@ -319,6 +319,7 @@ Route::middleware([
     });
 
     Route::post('update-password-web', [TenantApiController::class, 'updatePasswordWeb'])->name('updatePasswordWeb');
+    Route::post('update-email-web', [TenantApiController::class, 'updateEmailWeb'])->name('updateEmailWeb');
 });
 
 Route::middleware([

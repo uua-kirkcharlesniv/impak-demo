@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CentralUser;
 use App\Models\Department;
 use App\Models\Group;
 use App\Models\Survey;
@@ -157,7 +158,7 @@ class TenantApiController extends Controller
 
         if (Hash::check($request->input('new_password'), Auth::user()->password)) {
             return back()->withErrors([
-                'message' => 'Your new password must not be the same as your old password.'
+                'new_password' => 'Your new password must not be the same as your old password.'
             ], 'updatePassword');
         }
 
@@ -167,6 +168,34 @@ class TenantApiController extends Controller
         ]);
 
         return back()->with('updatePasswordMessage', 'Successfully changed password!');
+    }
+
+    public function updateEmailWeb(Request $request)
+    {
+        if (Auth::user()->email == $request->input('email')) {
+            return back()->withErrors([
+                'email' => 'You are already currently using this email.',
+            ], 'updateEmail');
+        }
+
+        $request->validateWithBag('updateEmail', [
+            'email' => 'required|unique:users,email,' . Auth::user()->id,
+        ]);
+
+        $emailExistsInCentral = CentralUser::where('email', '=', $request->input('email'))->exists();
+
+        if ($emailExistsInCentral) {
+            return back()->withErrors([
+                'email' => 'Email address is already taken.',
+            ], 'updateEmail');
+        }
+
+        $user = Auth::user();
+        $user->update([
+            'email' => $request->input('email')
+        ]);
+
+        return back()->with('updateEmailMessage', 'Successfully changed email!');
     }
 
     public function changePassword(Request $request): JsonResponse
