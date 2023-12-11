@@ -141,6 +141,34 @@ class TenantApiController extends Controller
         }
     }
 
+    public function updatePasswordWeb(Request $request)
+    {
+        $request->validateWithBag('updatePassword', [
+            'old_password' => 'required',
+            'new_password' => 'required|min:6',
+            'confirm_password' => 'required|same:new_password'
+        ]);
+
+        if (!Hash::check($request->input('old_password'), Auth::user()->password)) {
+            return back()->withErrors([
+                'old_password' => 'Invalid old password entered.'
+            ], 'updatePassword');
+        }
+
+        if (Hash::check($request->input('new_password'), Auth::user()->password)) {
+            return back()->withErrors([
+                'message' => 'Your new password must not be the same as your old password.'
+            ], 'updatePassword');
+        }
+
+        $user = Auth::user();
+        $user->update([
+            'password' => Hash::make($request->input('new_password'))
+        ]);
+
+        return back()->with('updatePasswordMessage', 'Successfully changed password!');
+    }
+
     public function changePassword(Request $request): JsonResponse
     {
         $request->validate([

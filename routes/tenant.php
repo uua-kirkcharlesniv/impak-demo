@@ -317,6 +317,8 @@ Route::middleware([
             return view('pages/utility/404');
         });
     });
+
+    Route::post('update-password-web', [TenantApiController::class, 'updatePasswordWeb'])->name('updatePasswordWeb');
 });
 
 Route::middleware([
