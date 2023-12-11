@@ -21,28 +21,12 @@
             </button>
             <!-- Logo -->
             <a class="block" href="{{ route('dashboard') }}">
-                <svg width="32" height="32" viewBox="0 0 32 32">
-                    <defs>
-                        <linearGradient x1="28.538%" y1="20.229%" x2="100%" y2="108.156%" id="logo-a">
-                            <stop stop-color="#A5B4FC" stop-opacity="0" offset="0%" />
-                            <stop stop-color="#A5B4FC" offset="100%" />
-                        </linearGradient>
-                        <linearGradient x1="88.638%" y1="29.267%" x2="22.42%" y2="100%" id="logo-b">
-                            <stop stop-color="#38BDF8" stop-opacity="0" offset="0%" />
-                            <stop stop-color="#38BDF8" offset="100%" />
-                        </linearGradient>
-                    </defs>
-                    <rect fill="#6366F1" width="32" height="32" rx="16" />
-                    <path
-                        d="M18.277.16C26.035 1.267 32 7.938 32 16c0 8.837-7.163 16-16 16a15.937 15.937 0 01-10.426-3.863L18.277.161z"
-                        fill="#4F46E5" />
-                    <path
-                        d="M7.404 2.503l18.339 26.19A15.93 15.93 0 0116 32C7.163 32 0 24.837 0 16 0 10.327 2.952 5.344 7.404 2.503z"
-                        fill="url(#logo-a)" />
-                    <path
-                        d="M2.223 24.14L29.777 7.86A15.926 15.926 0 0132 16c0 8.837-7.163 16-16 16-5.864 0-10.991-3.154-13.777-7.86z"
-                        fill="url(#logo-b)" />
-                </svg>
+                <div class="flex flex-row">
+                    <img src="https://www.google.com/s2/favicons?sz=256&domain_url=https://{{ explode('@', Auth::user()->email)[1] }}"
+                        class="w-16 h-16" />
+                    <span class="ml-2 font-bold text-white text-xl">{{ strtoupper(tenant()->company) }} Company</span>
+                </div>
+
             </a>
         </div>
 
@@ -125,18 +109,18 @@
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center">
                                     <svg xmlns="http://www.w3.org/2000/svg"
-                                    class="shrink-0 h-6 w-6 icon icon-tabler icon-tabler-user-circle" width="44"
-                                    height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50"
-                                    fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                    <circle cx="12" cy="12" r="9" />
-                                    <circle cx="12" cy="10" r="3"
-                                        class="fill-current @if (in_array(Request::segment(1), ['employee'])) {{ 'text-indigo-500' }}@else{{ 'text-slate-600' }} @endif" />
-                                    <path d="M6.168 18.849a4 4 0 0 1 3.832 -2.849h4a4 4 0 0 1 3.834 2.855"
-                                        class="fill-current @if (in_array(Request::segment(1), ['employee'])) {{ 'text-indigo-500' }}@else{{ 'text-slate-600' }} @endif" />
-                                </svg>
-                                <span
-                                    class="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Employees</span>
+                                        class="shrink-0 h-6 w-6 icon icon-tabler icon-tabler-user-circle" width="44"
+                                        height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50"
+                                        fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                        <circle cx="12" cy="12" r="9" />
+                                        <circle cx="12" cy="10" r="3"
+                                            class="fill-current @if (in_array(Request::segment(1), ['employee'])) {{ 'text-indigo-500' }}@else{{ 'text-slate-600' }} @endif" />
+                                        <path d="M6.168 18.849a4 4 0 0 1 3.832 -2.849h4a4 4 0 0 1 3.834 2.855"
+                                            class="fill-current @if (in_array(Request::segment(1), ['employee'])) {{ 'text-indigo-500' }}@else{{ 'text-slate-600' }} @endif" />
+                                    </svg>
+                                    <span
+                                        class="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Employees</span>
                                 </div>
                                 <!-- Icon -->
                                 <div
@@ -159,14 +143,14 @@
                                     </a>
                                 </li>
                                 @if (Auth::user()->hasPermissionTo('manage-employees'))
-                                <li class="mb-1 last:mb-0">
-                                    <a class="block text-slate-400 hover:text-slate-200 transition duration-150 truncate @if (Route::is('employee.invited')) {{ '!text-indigo-500' }} @endif"
-                                        href="{{ route('employee.invited') }}">
-                                        <span
-                                            class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Invites</span>
-                                    </a>
-                                </li>
-                               @endif
+                                    <li class="mb-1 last:mb-0">
+                                        <a class="block text-slate-400 hover:text-slate-200 transition duration-150 truncate @if (Route::is('employee.invited')) {{ '!text-indigo-500' }} @endif"
+                                            href="{{ route('employee.invited') }}">
+                                            <span
+                                                class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Invites</span>
+                                        </a>
+                                    </li>
+                                @endif
                             </ul>
                         </div>
                     </li>
