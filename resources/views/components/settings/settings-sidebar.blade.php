@@ -74,7 +74,7 @@
         </ul>
     </div>
     <!-- Group 2 -->
-    <div>
+    {{-- <div>
         <div class="text-xs font-semibold text-slate-400 uppercase mb-3">Experience</div>
         <ul class="flex flex-nowrap md:block mr-3 md:mr-0">
             <li class="mr-0.5 md:mr-0 md:mb-0.5">
@@ -91,5 +91,5 @@
                 </a>
             </li>
         </ul>
-    </div>
+    </div> --}}
 </div>
