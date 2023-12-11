@@ -47,6 +47,8 @@ class ManageSurvey extends Component
         return [
             "echo:" . tenant('id') . ".surveys.{$this->survey->id},SurveyGenerated" => 'refreshSurveyData',
             'modalClosed' => 'deattachSelectedQuestion',
+            'updateSurveyStatusToPublished',
+            'updateSurveyStatusToClosed',
         ];
     }
 
@@ -361,9 +363,71 @@ class ManageSurvey extends Component
 
     public function updateStatus($data)
     {
+        $text = "";
+        $content = "";
+        $functionName = "";
+        if ($data == "published") {
+            $text = "Are you sure you want to publish the survey?";
+            $content = "Doing so, it will allow respondents to view and answer your survey.";
+            $functionName = "updateSurveyStatusToPublished";
+        } else if ($data == "closed") {
+            $text = "Are you sure you want to close the survey?";
+            $content = "Doing so, it will prevent respondents from answering, and will start the AI analysis.";
+            $functionName = "updateSurveyStatusToClosed";
+        }
+
+        $data = $this->alert('question', $text, [
+            'text' => $content,
+            'toast' => false,
+            'position' => 'center',
+            'showConfirmButton' => true,
+            'confirmButtonText' => 'Yes',
+            'showCancelButton' => true,
+            'cancelButtonText' => 'Cancel',
+            'onConfirmed' => $functionName,
+            'allowOutsideClick' => false,
+            'timer' => null,
+        ]);
+    }
+
+    public function updateSurveyStatusToPublished()
+    {
+        $this->updateSurveyStatus('published');
+    }
+
+    public function updateSurveyStatusToClosed()
+    {
+        $this->updateSurveyStatus('closed');
+    }
+
+    public function updateSurveyStatus($data)
+    {
         $this->survey->update(['publish_status' => $data]);
 
         $this->survey = $this->survey->refresh();
+
+        if ($data == "closed") {
+            $this->alert(
+                'success',
+                "Congratulations!",
+                [
+                    "text" => "You just used one of our science-backed frameworks in Impak.app.
+                    \n\n\n\n
+                    By utilizing our science-backed framework, you've maximized the impact of your research by focusing on generating valuable and truly useful data.
+                    This data-driven approach promises to yield actionable insights that will empower you to make informed decisions and achieve your goals.
+                    \n\n\n\n
+                    We're excited to see the impactful outcomes your research will deliver!
+                    Check your Dashboard > Surveys  to track real-time responses from your team.
+                    ",
+                    'toast' => false,
+                    'position' => 'center',
+                    'timer' => null,
+                    'showConfirmButton' => true,
+                    'confirmButtonText' => 'Okay',
+                    'allowOutsideClick' => false,
+                ]
+            );
+        }
     }
 
     public function analyzeSurvey()

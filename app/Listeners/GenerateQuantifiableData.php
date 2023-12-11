@@ -30,13 +30,13 @@ class GenerateQuantifiableData
     public function handle(SurveyPublished $event)
     {
         $survey = $event->survey;
-        if($survey->publish_status != "closed") {
+        if ($survey->publish_status != "closed") {
             return false;
         }
 
         foreach ($survey->questions as $question) {
             $questionId = $question->id;
-            
+
             $data = Answer::select('value')->selectRaw('COUNT(*) as count')->where('question_id', $questionId)->groupBy('value')->get();
             $dataset = $data->pluck('count', 'value')->toArray();
 
@@ -48,10 +48,10 @@ class GenerateQuantifiableData
             $mode = -1;
             $stddev = 0;
 
-            if($question->type == 'range') {
+            if ($question->type == 'range') {
                 foreach (range(1, 10) as $option) {
                     array_push($labels, $option);
-    
+
                     if (array_key_exists($option, $dataset)) {
                         array_push($compiled, $dataset[$option]);
                     } else {
@@ -86,7 +86,7 @@ class GenerateQuantifiableData
                 $stddev = sqrt($variance / count($data));
 
                 $data = $dataset;
-            } elseif($question->type == 'radio') {
+            } elseif ($question->type == 'radio') {
                 $order = $question->options;
                 $dataset = array_reverse(array_merge(array_flip($order), $dataset));
                 $data = $dataset;
@@ -104,7 +104,7 @@ class GenerateQuantifiableData
                 } else {
                     $median = $data[$keys[$middle]];
                 }
-                
+
                 // Mode
                 $counts = array_count_values($data);
                 arsort($counts);
@@ -118,13 +118,13 @@ class GenerateQuantifiableData
             }
 
             Log::info(json_encode([
-                    'type' => $question->type,
-                    'mean' => $mean,
-                    'median' => $median,
-                    'mode' => $mode,
-                    'stddev' => $stddev,
-                    'data' => $data,
-                ]));
+                'type' => $question->type,
+                'mean' => $mean,
+                'median' => $median,
+                'mode' => $mode,
+                'stddev' => $stddev,
+                'data' => $data,
+            ]));
 
             QuestionQuant::updateOrCreate([
                 'question_id' => $questionId
@@ -133,7 +133,7 @@ class GenerateQuantifiableData
                 'median' => $median,
                 'mode' => $mode,
                 'zscore' => $stddev,
-                'dataset' => $data, 
+                'dataset' => json_encode($data),
             ]);
         }
     }
