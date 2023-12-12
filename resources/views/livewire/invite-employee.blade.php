@@ -1,15 +1,15 @@
 <div>
-    @if($showButton == true)
-    <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white" @click.prevent="inviteModalOpen = true"
-        aria-controls="feedback-modal">
-        <svg class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
-            <path
-                d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
-        </svg>
-        <span class="hidden xs:block ml-2">
-            Invite
-        </span>
-    </button>
+    @if ($showButton == true && Auth::user()->hasPermissionTo('manage-employees'))
+        <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white" @click.prevent="inviteModalOpen = true"
+            aria-controls="feedback-modal">
+            <svg class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
+                <path
+                    d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
+            </svg>
+            <span class="hidden xs:block ml-2">
+                Invite
+            </span>
+        </button>
     @endif
 
     <div class="fixed inset-0 bg-slate-900 bg-opacity-30 z-50 transition-opacity" x-show="inviteModalOpen"
@@ -75,9 +75,10 @@
                                     @enderror
                                 </div>
 
-                                @if (count($invites) > 1 && !($loop->first))
+                                @if (count($invites) > 1 && !$loop->first)
                                     <a wire:ignore wire:click.prevent="removeInvite({{ $index }})"
-                                        class="font-black p-2 text-red-600 text-lg cursor-pointer drop-shadow-lg rounded-lg"><i class="fa-solid fa-trash"></i></a>
+                                        class="font-black p-2 text-red-600 text-lg cursor-pointer drop-shadow-lg rounded-lg"><i
+                                            class="fa-solid fa-trash"></i></a>
                                 @endif
                             </div>
                         @endforeach
@@ -86,7 +87,8 @@
                     <div class=" py-4 border-t border-slate-200">
                         <div class="flex flex-wrap justify-end space-x-2">
                             <a wire:ignore wire:click.prevent="addInvite"
-                                class="btn-sm bg-white shadow-md cursor-pointer hover:bg-slate-300 text-black">Add New</a>
+                                class="btn-sm bg-white shadow-md cursor-pointer hover:bg-slate-300 text-black">Add
+                                New</a>
                             <button type="submit" wire:submit="submit"
                                 class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white">Invite</button>
                         </div>
