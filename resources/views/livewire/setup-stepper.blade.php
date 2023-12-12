@@ -247,5 +247,121 @@
                 </div>
             </div>
         </div>
+    @elseif(Auth::user()->hasRole('employee'))
+        <div x-data="{ modalOpen: true }">
+            <!-- Modal backdrop -->
+            <div class="fixed inset-0 bg-slate-900 bg-opacity-30 z-50 transition-opacity" x-show="modalOpen"
+                x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0"
+                x-transition:enter-end="opacity-100" x-transition:leave="transition ease-out duration-100"
+                x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" aria-hidden="true" x-cloak>
+            </div>
+            <!-- Modal dialog -->
+            <div id="setup-modal"
+                class="fixed inset-0 z-50 overflow-hidden flex items-center my-4 justify-center px-4 sm:px-6"
+                role="dialog" aria-modal="true" x-show="modalOpen"
+                x-transition:enter="transition ease-in-out duration-200"
+                x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0"
+                x-transition:leave="transition ease-in-out duration-200"
+                x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 translate-y-4"
+                x-cloak>
+                <div class="bg-white rounded shadow-lg overflow-auto max-w-xl w-full max-h-full"
+                    @click.outside="modalOpen = false" @keydown.escape.window="modalOpen = false">
+                    <!-- Modal header -->
+                    <div class="px-5 py-3">
+                        <div class="flex justify-between items-center">
+                            <div class="font-semibold text-xl text-slate-800">Welcome to Impak!</div>
+                            <button class="text-slate-400  hover:text-slate-500" @click="modalOpen = false">
+                                <div class="sr-only">Close</div>
+                                <svg class="w-4 h-4 fill-current">
+                                    <path
+                                        d="M7.95 6.536l4.242-4.243a1 1 0 111.415 1.414L9.364 7.95l4.243 4.242a1 1 0 11-1.415 1.415L7.95 9.364l-4.243 4.243a1 1 0 01-1.414-1.415L6.536 7.95 2.293 3.707a1 1 0 011.414-1.414L7.95 6.536z" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Modal content -->
+                    <div class="px-8 py-6 text-center w-full">
+                        <span class="pb-4">As a member of <b>{{ tenant()->company }}</b>, You
+                            can access Impak on
+                            mobile through this link or by scanning this QR Code below</span>
+                        <br><br>
+                        <a href="https://onelink.to/7qv47p" target="_blank">
+                            <img src="{{ asset('images/onelink.png') }}" alt="QR Code" class="h-48 m-auto">
+                        </a>
+                        <span>Your company code is: <b>{{ explode('.', tenant()->domain)[0] }}</b>.impak.app</span>
+                        <br><br>
+                        <span>
+                            In the app, you can stay updated on your company and provide your responses in real-time.
+                            <br><br>
+                            Other things you can do in our app are: <br><br>
+                        </span>
+                        <ol class=" text-gray-500 border-l border-gray-200">
+                            <li class="mb-4 ml-6 flex items-center">
+                                <span
+                                    class="absolute flex items-center justify-center w-8 h-8 rounded-full ring-4 ring-white"
+                                    style="margin-left: -40px; background-color: #F1F5F9; color: #64748B; font-weight: 600;">
+                                    1
+                                </span>
+                                <a href="https://onelink.to/7qv47p" target="_blank" class="w-full">
+                                    <div class="w-full p-4 text-gray-900 bg-white border rounded-lg"
+                                        style="border-color: #E2E8F0" role="alert">
+                                        <div class="flex items-center">
+                                            <h3 class="font-medium">Use our built-in mood tracker</h3>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="mb-4 ml-6 flex items-center">
+                                <span
+                                    class="absolute flex items-center justify-center w-8 h-8 rounded-full ring-4 ring-white"
+                                    style="margin-left: -40px; background-color: #F1F5F9; color: #64748B; font-weight: 600;">
+                                    2
+                                </span>
+                                <a href="https://onelink.to/7qv47p" target="_blank" class="w-full">
+                                    <div class="w-full p-4 text-gray-900 bg-white border rounded-lg"
+                                        style="border-color: #E2E8F0" role="alert">
+                                        <div class="flex items-center">
+                                            <h3 class="font-medium">Use our Journaling system</h3>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="mb-4 ml-6 flex items-center">
+                                <span
+                                    class="absolute flex items-center justify-center w-8 h-8 rounded-full ring-4 ring-white"
+                                    style="margin-left: -40px; background-color: #F1F5F9; color: #64748B; font-weight: 600;">
+                                    3
+                                </span>
+                                <a href="https://onelink.to/7qv47p" target="_blank" class="w-full">
+                                    <div class="w-full p-4 text-gray-900 bg-white border rounded-lg"
+                                        style="border-color: #E2E8F0" role="alert">
+                                        <div class="flex items-center">
+                                            <h3 class="font-medium">Analyze your weekly or monthly mood</h3>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="ml-6 flex items-center">
+                                <span
+                                    class="absolute flex items-center justify-center w-8 h-8 rounded-full ring-4 ring-white"
+                                    style="margin-left: -40px; background-color: #F1F5F9; color: #64748B; font-weight: 600;">
+                                    4
+                                </span>
+                                <a href="https://onelink.to/7qv47p" target="_blank" class="w-full">
+                                    <div class="w-full p-4 text-gray-900 bg-white border rounded-lg" role="alert"
+                                        style="border-color: #E2E8F0">
+                                        <div class="flex items-center">
+                                            <h3 class="font-medium">Generate suggestions from Kendra, Impak's
+                                                AI.</h3>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                        </ol>
+
+                    </div>
+                </div>
+            </div>
+        </div>
     @endif
 </div>
