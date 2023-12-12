@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\EmployeeOnboarded;
 use App\Models\CentralUser;
 use App\Models\Invite;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 class InviteController extends Controller
@@ -70,6 +72,8 @@ class InviteController extends Controller
         }
 
         $invite->delete();
+
+        Mail::to($invite->email)->queue(new EmployeeOnboarded($invite->first_name, tenant()));
 
         return redirect()->route('login');
     }

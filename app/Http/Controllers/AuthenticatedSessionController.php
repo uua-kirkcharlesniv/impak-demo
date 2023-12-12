@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
+use App\Mail\AdminOnboarded;
 use App\Models\CentralUser;
 use App\Models\Tenant;
 use App\Models\User;
@@ -13,6 +14,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\ValidationException;
 
 class AuthenticatedSessionController extends Controller
@@ -142,6 +144,8 @@ class AuthenticatedSessionController extends Controller
             'password' => $user->password
         ]);
         $tenant->createDomain(['domain' => $domain]);
+
+        Mail::to($user->email)->queue(new AdminOnboarded($domain, strtoupper($request->company)));
 
         return back();
     }

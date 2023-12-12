@@ -3,10 +3,13 @@
 namespace App\Http\Livewire;
 
 use App\Jobs\ProcessGenerateSurvey;
+use App\Mail\SurveyCompletedMail;
 use App\Models\Question;
 use App\Models\Section;
 use App\Models\Survey;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
@@ -427,6 +430,8 @@ class ManageSurvey extends Component
                     'allowOutsideClick' => false,
                 ]
             );
+
+            Mail::to(Auth::user()->email)->queue(new SurveyCompletedMail(route('analytics')));
         }
     }
 
