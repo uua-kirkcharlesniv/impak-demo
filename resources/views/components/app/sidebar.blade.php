@@ -22,7 +22,7 @@
             <!-- Logo -->
             <a class="block" href="{{ route('dashboard') }}">
                 <div class="flex flex-row">
-                    <img src="https://www.google.com/s2/favicons?sz=256&domain_url=https://{{ explode('@', Auth::user()->email)[1] }}"
+                    <img src="https://www.google.com/s2/favicons?sz=256&domain_url=https://{{ explode('@', tenant()->email)[1] }}"
                         class="w-16 h-16" />
                     <span class="ml-2 font-bold text-white text-xl">{{ strtoupper(tenant()->company) }} Company</span>
                 </div>
