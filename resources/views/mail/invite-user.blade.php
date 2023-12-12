@@ -6,8 +6,8 @@ Accept invite
 </x-mail::button>
 <span>
 This invite will expire in 7 days. If you do not recognize this, you may safely ignore it. If you have any
-additional questrions or concerns, please <a href="http://impak.test/contact"
-style="color: rgb(79 70 229)">contact us</a> or you may visit our <a href="https://impak.test/help"
+additional questrions or concerns, please <a href="http://impak.app/contact"
+style="color: rgb(79 70 229)">contact us</a> or you may visit our <a href="https://impak.app/help"
 style="color: rgb(79 70 229)">Help Center</a>.
 </span>
 </x-mail::message>
