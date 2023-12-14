@@ -21,10 +21,13 @@
             </button>
             <!-- Logo -->
             <a class="block" href="{{ route('dashboard') }}">
-                <div class="flex flex-row">
+                <div class="flex flex-row align-items-center justify-center justify-items-center content-center items-center">
                     <img src="https://www.google.com/s2/favicons?sz=256&domain_url=https://{{ explode('@', tenant()->email)[1] }}"
                         class="w-16 h-16" />
-                    <span class="ml-2 font-bold text-white text-xl">{{ strtoupper(tenant()->company) }} Company</span>
+                    <span class="ml-2 text-white text-xs text-center">
+                        Your company code:<br>
+                        <span class="font-bold text-lg">{{ explode('.',tenant()->domain)[0] }}</span>
+                    </span>
                 </div>
 
             </a>
