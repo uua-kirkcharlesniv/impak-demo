@@ -13,6 +13,7 @@ use App\Http\Controllers\JobController;
 use App\Http\Controllers\CampaignController;
 use App\Http\Controllers\OnboardController;
 use App\Http\Controllers\RegisteredTenantController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,9 +27,13 @@ use App\Http\Controllers\RegisteredTenantController;
 */
 
 // Route::redirect('/', 'login');
-
 Route::get('/', function () {
-    return view('home/index');
+    if (Auth::check()) {
+        return redirect()->route('centralDashboard');
+    } else {
+        return redirect()->route('sso-login');
+    }
+    // return view('home/index');
 })->name('index');
 Route::get('/features', function () {
     return view('home/features');
