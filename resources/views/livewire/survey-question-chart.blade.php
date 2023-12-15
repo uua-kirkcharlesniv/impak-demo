@@ -220,6 +220,16 @@
                                 },
                             },
                         },
+                        x: {
+                            ticks: {
+                                autoSkip: false,
+                                maxRotation: 0,
+                                minRotation: 0,
+                                font: {
+                                    size: 9.5,
+                                }
+                            }
+                        }
                     }
                 }
 
@@ -239,13 +249,14 @@
         @endif
     @endif
 
-    @if($question->quant()->exists())
-    <footer class="border-l-8 border-indigo-600 bg-indigo-400 p-4 text-white">                                
-        @if($question->quant->desc != null)
-        <span>{{ $question->quant->desc }}</span>
-        <br><br><br>
-        @endif
-        <span class="font-light">Mean: {{ $question->quant->mean }} | Median: {{ $question->quant->median }} | Mode: {{ $question->quant->mode }} | Std. Deviation: {{ $question->quant->zscore }}</span>                        
-    </footer>
+    @if ($question->quant()->exists())
+        <footer class="border-l-8 border-indigo-600 bg-indigo-400 p-4 text-white">
+            @if ($question->quant->desc != null)
+                <span>{{ $question->quant->desc }}</span>
+                <br><br><br>
+            @endif
+            <span class="font-light">Mean: {{ $question->quant->mean }} | Median: {{ $question->quant->median }} |
+                Mode: {{ $question->quant->mode }} | Std. Deviation: {{ $question->quant->zscore }}</span>
+        </footer>
     @endif
 </div>
