@@ -177,7 +177,7 @@ class TemplateSeeder extends Seeder
                             "rules" => ["required"],
                             "sort_order" => 3,
                         ],
-                        "Rate your level of knowledge on the subject matter before attending the program? Select and pin from 1 (no knowledge to 10 (with high level of knowledge and understanding)" => [
+                        "Rate your level of knowledge on the subject matter before attending the program?" => [
                             "type" => "range",
                             'options' => [
                                 'Not likely',
@@ -186,7 +186,7 @@ class TemplateSeeder extends Seeder
                             'rules' => ['min:1', 'max:10'],
                             "sort_order" => 4,
                         ],
-                        "Rate your level of knowledge on the subject matter after attending the program? Select and pin from 1 (no knowledge to 10 (with high level of knowledge and understanding)" => [
+                        "Rate your level of knowledge on the subject matter after attending the program?" => [
                             "type" => "range",
                             'options' => [
                                 'Not likely',
