@@ -68,7 +68,7 @@
     </div>
 
 
-    <div class="mt-4">
+    {{-- <div class="mt-4">
         <label class="block text-sm font-medium mb-1" for="normal">Set the form recurring on every:
         </label>
         <div class="grid grid-cols-3">
@@ -122,5 +122,5 @@
                 </label>
             </div>
         </div>
-    </div>
+    </div> --}}
 </div>

@@ -90,6 +90,10 @@ class CampaignController extends Controller
             'rationale_description' => $template->rationale_description,
             'survey_type' => $template->survey_type,
             'framework_id' => $template->id,
+            'start_date' => Carbon::now()->startOfDay()->format('Y-m-d H:i:s'),
+            'end_date' => Carbon::now()->addMonth()->endOfDay()->format('Y-m-d H:i:s'),
+            'start_time' => '00:00',
+            'end_time' => '23:59',
         ]);
 
         foreach ($template->data as $key => $data) {
