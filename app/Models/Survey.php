@@ -142,6 +142,8 @@ class Survey extends \MattDaneshvar\Survey\Models\Survey
             return false;
         }
 
+        return true;
+
         $currentDate = Carbon::now()->format('Y-m-d');
         $currentTime = Carbon::now()->format('H:i');
         $currentDayOfWeek = Carbon::now()->dayOfWeek; // Carbon returns 0 for Sunday, 1 for Monday, and so on.
