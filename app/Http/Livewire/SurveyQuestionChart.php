@@ -35,9 +35,22 @@ class SurveyQuestionChart extends Component
 
         $data = Answer::select('value')->selectRaw('COUNT(*) as count')->where('question_id', $this->question->id)->groupBy('value')->get();
         $dataset = $data->pluck('count', 'value')->toArray();
+
         if ($question->type == 'radio') {
-            $order = $question->options;
-            $dataset = array_reverse(array_merge(array_flip($order), $dataset));
+            $order = array_flip($question->options);
+            $dataArray = $dataset;
+
+            foreach ($order as $key => $value) {
+                if (!array_key_exists($key, $dataArray)) {
+                    $dataArray[$key] = 0;
+                }
+            }
+
+            uksort($dataArray, function ($a, $b) use ($order) {
+                return ($order[$a] <=> $order[$b]);
+            });
+
+            $dataset = $dataArray;
         }
 
         if ($question->type == 'short-answer' || $question->type == 'long-answer') {
@@ -116,6 +129,7 @@ class SurveyQuestionChart extends Component
 
         $this->labels = $labels;
         $this->dataset = $compiled;
+        // dd($labels, $compiled);
     }
 
     public function render()

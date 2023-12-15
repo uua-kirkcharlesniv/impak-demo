@@ -87,8 +87,21 @@ class GenerateQuantifiableData
 
                 $data = $dataset;
             } elseif ($question->type == 'radio') {
-                $order = $question->options;
-                $dataset = array_reverse(array_merge(array_flip($order), $dataset));
+                $order = array_flip($question->options);
+                $dataArray = $dataset;
+
+                foreach ($order as $key => $value) {
+                    if (!array_key_exists($key, $dataArray)) {
+                        $dataArray[$key] = 0;
+                    }
+                }
+
+                uksort($dataArray, function ($a, $b) use ($order) {
+                    return ($order[$a] <=> $order[$b]);
+                });
+
+                $dataset = $dataArray;
+
                 $data = $dataset;
 
                 // Mean
