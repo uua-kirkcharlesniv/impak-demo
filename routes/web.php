@@ -64,7 +64,7 @@ Route::get('/login', function () {
 Route::post('processCentralLogin', [AuthenticatedSessionController::class, 'ssoLogin'])->name('processCentralLogin');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard', [AuthenticatedSessionController::class, 'centralDashboard']);
+    Route::get('/dashboard', [AuthenticatedSessionController::class, 'centralDashboard'])->name('centralDashboard');
     Route::post('/create-company', [AuthenticatedSessionController::class, 'createCompany'])->name('create-company');
     Route::get('/redirect-user/{globalUserId}/to-tenant/{tenant}', [AuthenticatedSessionController::class, 'redirectUserToTenant'])->name('redirect-user-to-tenant');
 });
