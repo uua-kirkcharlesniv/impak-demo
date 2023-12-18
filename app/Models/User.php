@@ -41,6 +41,8 @@ class User extends Authenticatable implements Syncable
         'email',
         'password',
         'global_id',
+        'profile_photo_url',
+        'profile_photo_path',
     ];
 
     /**
@@ -107,6 +109,7 @@ class User extends Authenticatable implements Syncable
             'last_name',
             'email',
             'password',
+            'profile_photo_path',
         ];
     }
 

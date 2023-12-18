@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Laravel\Jetstream\HasProfilePhoto;
 use Stancl\Tenancy\Contracts\SyncMaster;
 use Stancl\Tenancy\Database\Concerns\CentralConnection;
 use Stancl\Tenancy\Database\Concerns\ResourceSyncing;
@@ -11,7 +12,7 @@ use Stancl\Tenancy\Database\Models\TenantPivot;
 
 class CentralUser extends Authenticatable implements SyncMaster
 {
-    use ResourceSyncing, CentralConnection;
+    use ResourceSyncing, CentralConnection, HasProfilePhoto;
 
     protected $guarded = [];
     public $timestamps = true;
@@ -50,6 +51,7 @@ class CentralUser extends Authenticatable implements SyncMaster
             'last_name',
             'email',
             'password',
+            'profile_photo_path',
         ];
     }
 }

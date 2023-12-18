@@ -5,15 +5,7 @@
         <h2 class="text-2xl text-slate-800 font-bold mb-5">My Account</h2>
 
         <!-- Picture -->
-        {{-- <section>
-            <div class="flex items-center">
-                <div class="mr-4">
-                    <img class="w-20 h-20 rounded-full" src="{{ asset('images/user-avatar-80.png') }}" width="80"
-                        height="80" alt="User upload" />
-                </div>
-                <button class="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white">Change</button>
-            </div>
-        </section> --}}
+        @livewire('profile.update-profile-information-form')
 
         <!-- Email -->
         <section>

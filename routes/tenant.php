@@ -62,6 +62,10 @@ Route::middleware([
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');
 
+    Route::get('/user/profile', function () {
+        return redirect()->route('account');
+    })->name('profile.show');
+
     Route::get('/', function () {
         return redirect('/dashboard');
     })->name('tenant-login');
