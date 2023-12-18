@@ -17,8 +17,7 @@
                 @foreach ($users as $user)
                     <div class="flex items-center space-x-4 mb-2">
                         <div class="flex-shrink-0">
-                            <img class="w-8 h-8 rounded-full"
-                                src="https://ui-avatars.com/api/?name={{ $user->name }}&amp;color=7F9CF5&amp;background=EBF4FF">
+                            <img class="w-8 h-8 rounded-full" src="{{ $user->profile_photo_url }}">
                         </div>
                         <div class="flex-1 min-w-0">
                             <p class="text-sm font-medium text-gray-900 truncate">
@@ -64,8 +63,8 @@
                                     @foreach ($group->members as $userMember)
                                         <a class="block" href="#">
                                             <img class="rounded-full border-2 border-white box-content"
-                                                src="https://ui-avatars.com/api/?name={{ $userMember->name }}"
-                                                width="28" height="28" />
+                                                src="{{ $userMember->profile_photo_url }}" width="28"
+                                                height="28" />
                                         </a>
                                     @endforeach
                                 </div>
@@ -106,8 +105,8 @@
                                     @foreach ($department->members as $userMember)
                                         <a class="block" href="#">
                                             <img class="rounded-full border-2 border-white box-content"
-                                                src="https://ui-avatars.com/api/?name={{ $userMember->name }}"
-                                                width="28" height="28" />
+                                                src="{{ $userMember->profile_photo_url }}" width="28"
+                                                height="28" />
                                         </a>
                                     @endforeach
                                 </div>

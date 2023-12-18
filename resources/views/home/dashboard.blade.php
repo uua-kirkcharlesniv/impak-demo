@@ -11,35 +11,36 @@
                     <div class="max-w-3xl mx-auto text-center pb-12 md:pb-20">
                         <h2 class="h2 mt-8">👋 Welcome back!</h2>
                     </div>
-                    @if(count($tenants) > 0)
-                    <!-- Items -->
-                    <div class="max-w-3xl mx-auto -my-4 md:-my-6" data-aos-id-timeline>
-                        <div class="rounded-lg bg-white border border-4 border-indigo-200">
-                            <div class="px-6 py-8 bg-purple-500 text-white text-lg font-bold">
-                                Workspaces for {{ Auth::user()->email }}
-                            </div>
-                            <div class="p-4 flex flex-col gap-8">
-                                @foreach ($tenants as $tenant)
-                                    <div class="flex flex-row justify-between border-slate-400">
-                                        <div class="flex flex-row gap-4">
-                                            <img src="https://ui-avatars.com/api/?name={{ $tenant->company }}"
-                                                class="h-12 w-12 bg-red-500 rounded-lg">
-                                            <div>
+                    @if (count($tenants) > 0)
+                        <!-- Items -->
+                        <div class="max-w-3xl mx-auto -my-4 md:-my-6" data-aos-id-timeline>
+                            <div class="rounded-lg bg-white border border-4 border-indigo-200">
+                                <div class="px-6 py-8 bg-purple-500 text-white text-lg font-bold">
+                                    Workspaces for {{ Auth::user()->email }}
+                                </div>
+                                <div class="p-4 flex flex-col gap-8">
+                                    @foreach ($tenants as $tenant)
+                                        <div class="flex flex-row justify-between border-slate-400">
+                                            <div class="flex flex-row gap-4">
+                                                <img src="{{ $tenant->profile_photo_url }}"
+                                                    class="h-12 w-12 bg-red-500 rounded-lg">
                                                 <div>
-                                                    <h1 class="font-black text-black text-md">{{ $tenant->company }}</h1>
+                                                    <div>
+                                                        <h1 class="font-black text-black text-md">{{ $tenant->company }}
+                                                        </h1>
+                                                    </div>
+                                                    {{-- <span class="text-slate-400 text-sm1">36 members</span> --}}
                                                 </div>
-                                                {{-- <span class="text-slate-400 text-sm1">36 members</span> --}}
                                             </div>
+
+                                            <a href="{{ url(route('redirect-user-to-tenant', ['globalUserId' => auth()->user()->global_id, 'tenant' => $tenant])) }}"
+                                                class="btn text-white bg-purple-600">Open</a>
                                         </div>
+                                    @endforeach
 
-                                        <a href="{{ url(route('redirect-user-to-tenant', ['globalUserId' => auth()->user()->global_id, 'tenant' => $tenant])) }}"
-                                            class="btn text-white bg-purple-600">Open</a>
-                                    </div>
-                                @endforeach
-
+                                </div>
                             </div>
                         </div>
-                    </div>
                     @endif
 
                 </div>
@@ -50,7 +51,7 @@
 
         <section class="relative">
             <div class="max-w-6xl mx-auto px-4 sm:px-6 relative">
-                <div class="@if(count($tenants) > 0) pt-16 md:pt-16 border-t border-gray-800 @endif" >
+                <div class="@if (count($tenants) > 0) pt-16 md:pt-16 border-t border-gray-800 @endif">
 
                     <!-- Page header -->
                     <div class="max-w-3xl mx-auto text-center pb-12 md:pb-16">

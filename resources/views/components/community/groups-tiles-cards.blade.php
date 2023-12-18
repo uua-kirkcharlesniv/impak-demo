@@ -8,8 +8,8 @@
                 <header>
                     <div class="flex mb-2">
                         <a class="relative inline-flex items-start mr-5" href="#0">
-                            <img class="rounded-full" src="https://ui-avatars.com/api/?name={{ $member->name }}"
-                                width="64" height="64" alt="{{ $member->name }}" />
+                            <img class="rounded-full" src="{{ $member->profile_photo_url }}" width="64" height="64"
+                                alt="{{ $member->name }}" />
                         </a>
                         <div class="mt-1 pr-1">
                             <a class="inline-flex text-slate-800 hover:text-slate-900" href="#0">
@@ -19,8 +19,8 @@
                                 @foreach ($member->members as $userMember)
                                     <a class="block" href="#">
                                         <img class="rounded-full border-2 border-white box-content"
-                                            src="https://ui-avatars.com/api/?name={{ $userMember->name }}"
-                                            width="28" height="28" alt="{{ $member->name }}" />
+                                            src="{{ $userMember->profile_photo_url }}" width="28" height="28"
+                                            alt="{{ $member->name }}" />
                                     </a>
                                 @endforeach
                             </div>
