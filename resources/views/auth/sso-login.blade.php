@@ -20,6 +20,13 @@
             </div>
         </div>
         <div class="flex items-center justify-between mt-6">
+            @if (Route::has('password.request'))
+                <div class="mr-1">
+                    <a class="text-sm underline hover:no-underline" href="{{ route('password.request') }}">
+                        {{ __('Forgot Password?') }}
+                    </a>
+                </div>
+            @endif
             <x-jet-button class="ml-3">
                 {{ __('Sign in') }}
             </x-jet-button>

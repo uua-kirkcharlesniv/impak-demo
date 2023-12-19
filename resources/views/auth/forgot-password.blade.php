@@ -10,7 +10,7 @@
         @csrf
         <div>
             <x-jet-label for="email">{{ __('Email Address') }} <span class="text-rose-500">*</span></x-jet-label>
-            <x-jet-input id="email" type="email" name="email" :value="old('email')" required autofocus />                
+            <x-jet-input id="email" type="email" name="email" :value="old('email')" required autofocus />
         </div>
         <div class="flex justify-end mt-6">
             <x-jet-button>
@@ -18,5 +18,5 @@
             </x-jet-button>
         </div>
     </form>
-    <x-jet-validation-errors class="mt-4" /> 
+    <x-jet-validation-errors class="mt-4" />
 </x-authentication-layout>
