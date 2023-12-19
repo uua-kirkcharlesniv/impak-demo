@@ -97,7 +97,7 @@ class GenerateQuantifiableData
                 }
 
                 uksort($dataArray, function ($a, $b) use ($order) {
-                    return ($order[$a] <=> $order[$b]);
+                    return ($order[$b] <=> $order[$a]);
                 });
 
                 $dataset = $dataArray;
