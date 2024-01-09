@@ -10,6 +10,19 @@
                     <!-- Section header -->
                     <div class="max-w-3xl mx-auto text-center pb-12 md:pb-20">
                         <h2 class="h2 mt-8">👋 Welcome back!</h2>
+                        <p class="text-xl text-gray-400" data-aos="fade-down" data-aos-delay="100">Not
+                            {{ Auth::user()->name }}?
+                        <form method="POST" action="{{ route('logoutCentral') }}">
+                            @csrf
+                            <div class="ml-1">
+                                <button type="submit"
+                                    class="text-xl text-indigo-500 hover:text-indigo-600 underline hover:no-underline">
+                                    {{ __('Log Out') }}
+                                </button>
+                            </div>
+                        </form>
+                        </p>
+
                     </div>
                     @if (count($tenants) > 0)
                         <!-- Items -->

@@ -58,21 +58,22 @@ Route::get('/help', function () {
     return view('home/help');
 })->name('help');
 
-// Route::get('/register', function () {
-//     return view('auth/register');
-// })->name('register');
-Route::get('/register', function () {
-    return view('auth/new-register');
-})->name('register');
-Route::post('/register', [RegisteredTenantController::class, 'store']);
-Route::post('/create-account', [RegisteredTenantController::class, 'createCentralAccount'])->name('create-account');
-Route::get('/login', function () {
-    return view('auth/sso-login');
-})->name('sso-login');
-Route::post('processCentralLogin', [AuthenticatedSessionController::class, 'ssoLogin'])->name('processCentralLogin');
+Route::middleware(['guest'])->group(function () {
+    Route::get('/register', function () {
+        return view('auth/new-register');
+    })->name('register');
+    Route::post('/register', [RegisteredTenantController::class, 'store']);
+    Route::post('/create-account', [RegisteredTenantController::class, 'createCentralAccount'])->name('create-account');
+    Route::get('/login', function () {
+        return view('auth/sso-login');
+    })->name('sso-login');
+    Route::post('processCentralLogin', [AuthenticatedSessionController::class, 'ssoLogin'])->name('processCentralLogin');
+});
+
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [AuthenticatedSessionController::class, 'centralDashboard'])->name('centralDashboard');
+    Route::post('/logout', [AuthenticatedSessionController::class, 'logoutCentral'])->name('logoutCentral');
     Route::post('/create-company', [AuthenticatedSessionController::class, 'createCompany'])->name('create-company');
     Route::get('/redirect-user/{globalUserId}/to-tenant/{tenant}', [AuthenticatedSessionController::class, 'redirectUserToTenant'])->name('redirect-user-to-tenant');
 });
