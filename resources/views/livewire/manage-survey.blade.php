@@ -340,7 +340,7 @@
                     </button>
                 </div>
             @elseif($survey->publish_status == 'published')
-                <div class="p-4 border-b sticky top-0 z-10 bg-white">
+                <div class="p-4 sticky top-0 z-10 bg-white">
                     <button wire:click="updateStatus('closed')"
                         class="w-full py-2 px-4
                         bg-green-600 hover:bg-green-700 focus:ring-green-500 focus:ring-offset-green-200
@@ -358,7 +358,20 @@
                 </div>
             @endif
 
-
+            @if($survey->publish_status == 'published' || $survey->publishStatus == null)
+            <div class="p-4 border-b sticky top-0 z-10 bg-white">
+                    <a href="{{ route('analytics', ['survey_id' => $survey->id]) }}"
+                        class="w-full py-2 px-4
+                        bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200
+                        text-white transition ease-in duration-200 text-center text-base font-medium focus:outline-none focus:ring-2
+            focus:ring-offset-2 rounded-lg flex items-center hover:no-underline">
+                        <span class="no-underline mx-auto">
+                            <i class="fa-regular fa-chart-bar h-4 w-4 text-white inline mr-1 -mt-1"></i>
+                            </svg> View Analytics </span>
+                        <!---->
+                     </a>
+                </div>
+            @endif
         </div>
 
         <div class="flex-1 flex" style="overflow: hidden">

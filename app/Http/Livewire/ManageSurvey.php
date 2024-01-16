@@ -408,6 +408,7 @@ class ManageSurvey extends Component
         $this->survey->update(['publish_status' => $data]);
 
         $this->survey = $this->survey->refresh();
+        dd($data, $this->survey->publish_status);
 
         if ($data == "closed") {
             $this->alert(
