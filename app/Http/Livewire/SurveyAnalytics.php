@@ -11,10 +11,23 @@ class SurveyAnalytics extends Component
     public $surveys = [];
     public $selectedSurvey;
     public ?Survey $survey;
+    public $urlSurveyIndex;
 
     public function mount()
     {
-        $this->surveys = Survey::all();
+        $urlSurveyId = request()->query('survey_id', null);
+        $allSurveys = Survey::all();
+        $this->surveys = $allSurveys;
+
+        if($urlSurveyId) {
+            $surveyIndex = $allSurveys->search(function ($survey) use ($urlSurveyId) {
+                return $survey->id == $urlSurveyId;
+            });
+            
+            if ($surveyIndex !== false) {
+                $this->urlSurveyIndex = $surveyIndex;
+            }
+        }
     }
 
     public function updatedSelectedSurvey($value)

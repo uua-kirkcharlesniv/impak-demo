@@ -73,7 +73,7 @@
             </div>
 
             <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
-                <select wire:model="selectedSurvey" class="form-select w-full">
+                <select wire:model="selectedSurvey" id="surveySelector" class="form-select w-full">
                     <option value="">Select a survey</option>
                     @foreach ($surveys as $index => $mySurvey)
                         <option value="{{ $index }}">{{ $mySurvey->name }}</option>
@@ -110,3 +110,17 @@
         @endif
     </div>
 </div>
+
+@section('footer-scripts')
+<script>
+      window.onload = function() {
+        var selectElement = document.getElementById('surveySelector');
+        var newIndex = @js($urlSurveyIndex);
+        if (Number.isInteger(newIndex) && newIndex >= 0 && newIndex < selectElement.options.length)
+        {
+            selectElement.value = newIndex;
+            selectElement.dispatchEvent(new Event('change'));
+        }
+    };
+</script>
+@endsection
