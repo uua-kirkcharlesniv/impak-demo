@@ -398,7 +398,7 @@ class TemplateSeeder extends Seeder
                     'accept-guest-entries' => false,
                 ],
                 'rationale' => 'A mood tracker framework is a system for tracking your mood over time. It aims to help you identify patterns in your mood and factors that affect your emotions.',
-                'rationale_description' => trim("Mood tracking is a valuable tool that can be used to improve employee well-being, productivity, and engagement. Organizations that are interested in improving the mental health and performance of their employees should consider implementing mood-tracking programs.
+                'rationale_description' => trim("Mood tracking is a valuable tool that can be used to improve employee well-being, productivity, and engagement. Organizations that are interested in improving the mental wellness and performance of their employees should consider implementing mood-tracking programs.
                 Mood is a temporary state of mind that can be affected by a variety of factors, such as your work environment, your personal life, and your overall health.
                 Participants will be asked to answer a 10-item mood tracker questionnaire. It aims to check the current mood of the employees. The responses will help the organization create employee engagement activities to help reduce stress in the workplace."),
                 "survey_type" => "mental_health",
@@ -530,7 +530,7 @@ class TemplateSeeder extends Seeder
                     'accept-guest-entries' => false,
                 ],
                 'rationale' => 'The Optimism Test is a valuable tool for understanding and measuring the current state of optimism in employees.',
-                'rationale_description' => trim("It can be used to identify people who are at risk for depression and other mental health problems, to help people to learn optimism and to evaluate the effectiveness of interventions designed to increase optimism. The survey can also be used to research the relationship between explanatory style and other variables, such as health, happiness, and success."),
+                'rationale_description' => trim("It can be used to identify people who are at risk for depression and other mental wellness problems, to help people to learn optimism and to evaluate the effectiveness of interventions designed to increase optimism. The survey can also be used to research the relationship between explanatory style and other variables, such as health, happiness, and success."),
                 "survey_type" => "mental_health",
                 "data" => [
                     "Questionnaire" => [
