@@ -360,7 +360,7 @@
             <div class="bg-white rounded-xl col-span-2 p-4 row-span-2">
                 <div class="flex justify-between mb-4">
                     <h1 class="font-bold text-xl">Monthly mood chart</h1>
-                    <h1 class="font-medium">Month of November</h1>
+                    <h1 class="font-medium">Month of {{ date('F') }}</h1>
                 </div>
                 <div class="w-full mt-6">
                     <div class="flex flex-row gap-8">
