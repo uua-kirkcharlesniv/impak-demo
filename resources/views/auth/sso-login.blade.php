@@ -16,7 +16,7 @@
 
             <div>
                 <x-jet-label for="password" value="{{ __('Password') }}" />
-                <x-password-input />
+                <x-password-input id="password" name="password" required autocomplete="password" />
             </div>
         </div>
         <div class="flex items-center justify-between mt-6">
