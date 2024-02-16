@@ -28,8 +28,12 @@
             </div>
 
         </div>
-
+        @if (Auth::user()->hasPermissionTo('manage-employees'))
         <livewire:mood-dashboard />
+        @else
+
+        @endif
+
     </div>
 
 
