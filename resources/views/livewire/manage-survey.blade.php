@@ -282,6 +282,7 @@ $index = 1;
                         </svg> Publish </span>
                     <!---->
                 </button>
+                <p class="text-xs text-center text-slate-500 mt-4">By clicking this, your respondents will be able to view and answer your survey. This will also disable editing the questions. </p>
             </div>
             @elseif($survey->publish_status == 'published')
             <div class="p-4 sticky top-0 z-10 bg-white">
@@ -294,10 +295,11 @@ $index = 1;
                         </svg> Mark as Completed </span>
                     <!---->
                 </button>
+                <p class="text-xs text-center text-slate-500 mt-4">Marking your survey as completed will mark it as completed, and will start generating AI results.</p>
             </div>
             @endif
 
-            @if($survey->publish_status == 'published' || $survey->publishStatus == null)
+            @if($survey->publish_status == 'published' || $survey->publish_status == 'closed')
             <div class="p-4 border-b sticky top-0 z-10 bg-white">
                 <a href="{{ route('analytics', ['survey_id' => $survey->id]) }}" class="w-full py-2 px-4
                         bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200
