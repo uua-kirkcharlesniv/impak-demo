@@ -3,7 +3,7 @@
         <div class="sm:flex sm:justify-between sm:items-center mb-8">
             <div class="mb-4 sm:mb-0">
                 <h1 class="text-2xl md:text-3xl text-slate-800 font-bold">Survey Analytics ✨</h1>
-                @if (isset($survey))
+                {{-- @if (isset($survey))
                 <div class="w-80">
                     <h2 class="text-md text-slate-800 font-medium mb-1 mt-4">AI-Powered Analytics</h2>
                     <div class="relative inline-flex w-full" x-data="{ open: false, selected: 0 }">
@@ -40,7 +40,7 @@
                     </div>
                     <!-- End -->
                 </div>
-                @endif
+                @endif --}}
             </div>
             @if (isset($survey))
             <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
