@@ -14,7 +14,7 @@ class MemberController extends Controller
 {
     public function invitedPage(Request $request)
     {
-        $invited = Invite::all();
+        $invited = Invite::orderBy('status', 'DESC')->get();
 
         return view('pages/community/users-tabs', compact('invited'));
     }
