@@ -1,7 +1,7 @@
 @once
-    @section('footer-scripts')
-        <script type="module">
-            let monthlyData = @js($fetchedData);
+@section('footer-scripts')
+<script type="module">
+    let monthlyData = @js($fetchedData);
             let monthlyLabels = Object.keys(monthlyData)
             let monthlyDataset = Object.values(monthlyData)
 
@@ -290,7 +290,7 @@
                 }
             })
         </script>
-    @stop
+@stop
 @endonce
 
 <div class="flex flex-col h-full" wire:ignore>
@@ -394,7 +394,7 @@
                     </div>
                 </div>
             </div>
-            <div class="bg-white rounded-xl col-span-1 p-4 row-span-1">
+            <div class="bg-white rounded-xl col-span-3 p-4 row-span-1">
                 <div class="mb-4">
                     <h1 class="font-bold text-xl">Mood Score throughout the week</h1>
                 </div>
@@ -404,7 +404,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-span-1 row-span-1">
+            {{-- <div class="col-span-1 row-span-1">
                 <div class="flex flex-col w-full h-full gap-4">
                     <div class="flex-1 bg-white rounded-lg px-6 py-4">
                         <h1 class="text-lg">
@@ -428,116 +428,113 @@
                     <div class="flex-1 bg-white rounded-lg px-6 py-4">
                         <h1 class="font-bold text-lg">Completion Rate</h1>
                         <div class="w-full h-6 bg-gray-200 rounded-full mt-4">
-                            <div class="h-6 bg-indigo-600 rounded-full text-white font-medium text-center"
-                                style="width: {{ $completionRate }}%">
-                                {{ $completionRate }}%</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="rounded-2xl bg-white text-white col-span-1 row-span-1 p-4 h-full w-full"
-                style="background-color: #6E57E6">
-                <div class="flex flex-col h-full">
-                    <div class="flex mb-6">Your average mood this period</div>
-                    <div class="flex-1 m-auto h-full">
-                        @svg('neutral', 'm-auto w-32 h-32')
-                        <h1 class="mt-4 font-black text-center text-2xl">Neutral</h1>
-                        <h1 class="mt-4 font-extralight text-center text-sm">Let us know how can we help you more!</h1>
-                    </div>
-                </div>
-            </div>
-
+                            <div class="h-6 bg-indigo-600 rounded-full text-white font-medium text-center" style="width: {{ $completionRate }}%">
+            {{ $completionRate }}%
         </div>
     </div>
+</div>
+</div>
+</div> --}}
+{{-- <div class="rounded-2xl bg-white text-white col-span-1 row-span-1 p-4 h-full w-full" style="background-color: #6E57E6">
+    <div class="flex flex-col h-full">
+        <div class="flex mb-6">Your average mood this period</div>
+        <div class="flex-1 m-auto h-full">
+            @svg('neutral', 'm-auto w-32 h-32')
+            <h1 class="mt-4 font-black text-center text-2xl">Neutral</h1>
+            <h1 class="mt-4 font-extralight text-center text-sm">Let us know how can we help you more!</h1>
+        </div>
+    </div>
+</div> --}}
+
+</div>
+</div>
 
 
-    {{-- <div class="flex flex-col col-span-full bg-white shadow-lg rounded-sm border border-slate-200">
+{{-- <div class="flex flex-col col-span-full bg-white shadow-lg rounded-sm border border-slate-200">
         <div class="px-5 py-6">
             <div class="md:flex md:justify-between md:items-center">
                 <div class="flex items-center mb-4 md:mb-0">
                     <div>
                         <div class="mb-2">Hey <strong
                                 class="font-medium text-slate-800">{{ tenant()->company }}</strong> 👋, the average mood
-                            levels for
-                            the {{ $filter }} is at:</div>
-                        <div class="text-3xl font-bold text-emerald-500">{{ $average }}%</div>
-                    </div>
-                </div>
-            </div>
+levels for
+the {{ $filter }} is at:
+</div>
+<div class="text-3xl font-bold text-emerald-500">{{ $average }}%</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="flex flex-col col-span-full row-span-6 bg-white shadow-lg rounded-sm border border-slate-200" wire:key="{{ $filter }}.{{ $selectedId }}.{{ $time }}.{{ now() }}">
+    <header class="px-5 py-4 flex items-center">
+        <h2 class="font-semibold text-slate-800">Mood Tracker
+            ({{ \Carbon\Carbon::now()->startOfMonth()->format('M d') }} –
+            {{ \Carbon\Carbon::now()->endOfMonth()->format('M d') }})</h2>
+    </header>
+
+    <div>
+        <div class="grow">
+            <canvas id="{{ $filter }}-{{ $selectedId }}-{{ $time }}" class="p-4 w-full"></canvas>
         </div>
     </div>
 
-    <div class="flex flex-col col-span-full row-span-6 bg-white shadow-lg rounded-sm border border-slate-200"
-        wire:key="{{ $filter }}.{{ $selectedId }}.{{ $time }}.{{ now() }}">
+    <script>
+        var chkReadyState = setInterval(function() {
+            if (document.readyState == "complete") {
+                try {
+                    new Chart(document.getElementById(
+                        "{{ $filter }}-{{ $selectedId }}-{{ $time }}"), {
+                        type: 'bar'
+                        , data: {
+                            labels: labels
+                            , datasets: [{
+                                label: 'Mood'
+                                , backgroundColor: backgroundColor
+                                , data: dataset
+                            , }]
+                        , }
+                        , options: options
+                    , });
+                } catch (error) {
+                    // no-op
+                }
+            }
+        }, 100);
+
+    </script>
+</div>
+
+@if ($recommendationTitle && count($recommendations) > 0)
+<div class="flex flex-col mt-4 col-span-full bg-white shadow-lg rounded-sm border border-slate-200">
+    <div class="px-5 py-6">
+        <div class="md:flex md:justify-between md:items-center">
+            <div class="flex items-center mb-4 md:mb-0">
+
+                <div>
+                    <div class="mb-2">Your employee has a <strong class="font-medium text-slate-800">{{ $recommendationTitle }}</strong> based on
+                        their latest
+                        mental health survey.</div>
+                    <br>
+                    <div class="text-3xl font-bold text-indigo-500">View our recommendations below.</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="grid grid-cols-12 gap-2 mt-2">
+    @foreach ($recommendations as $title => $recommendation)
+    <div class="flex flex-col col-span-full xl:col-span-4 row-span-4 bg-white shadow-lg rounded-sm border border-slate-200">
         <header class="px-5 py-4 flex items-center">
-            <h2 class="font-semibold text-slate-800">Mood Tracker
-                ({{ \Carbon\Carbon::now()->startOfMonth()->format('M d') }} –
-                {{ \Carbon\Carbon::now()->endOfMonth()->format('M d') }})</h2>
+            <h2 class="font-bold text-slate-800 text-2xl">{{ $title }}</h2>
         </header>
 
-        <div>
-            <div class="grow">
-                <canvas id="{{ $filter }}-{{ $selectedId }}-{{ $time }}" class="p-4 w-full"></canvas>
-            </div>
-        </div>
-
-        <script>
-           
-            var chkReadyState = setInterval(function() {
-                if (document.readyState == "complete") {
-                    try {
-                        new Chart(document.getElementById(
-                            "{{ $filter }}-{{ $selectedId }}-{{ $time }}"), {
-                            type: 'bar',
-                            data: {
-                                labels: labels,
-                                datasets: [{
-                                    label: 'Mood',
-                                    backgroundColor: backgroundColor,
-                                    data: dataset,
-                                }],
-                            },
-                            options: options,
-                        });
-                    } catch (error) {
-                        // no-op
-                    }
-                }
-            }, 100);
-        </script>
+        <p class="p-4 ">{{ $recommendation }}</p>
     </div>
-
-    @if ($recommendationTitle && count($recommendations) > 0)
-        <div class="flex flex-col mt-4 col-span-full bg-white shadow-lg rounded-sm border border-slate-200">
-            <div class="px-5 py-6">
-                <div class="md:flex md:justify-between md:items-center">
-                    <div class="flex items-center mb-4 md:mb-0">
-
-                        <div>
-                            <div class="mb-2">Your employee has a <strong
-                                    class="font-medium text-slate-800">{{ $recommendationTitle }}</strong> based on
-                                their latest
-                                mental health survey.</div>
-                            <br>
-                            <div class="text-3xl font-bold text-indigo-500">View our recommendations below.</div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-        <div class="grid grid-cols-12 gap-2 mt-2">
-            @foreach ($recommendations as $title => $recommendation)
-                <div
-                    class="flex flex-col col-span-full xl:col-span-4 row-span-4 bg-white shadow-lg rounded-sm border border-slate-200">
-                    <header class="px-5 py-4 flex items-center">
-                        <h2 class="font-bold text-slate-800 text-2xl">{{ $title }}</h2>
-                    </header>
-
-                    <p class="p-4 ">{{ $recommendation }}</p>
-                </div>
-            @endforeach
-        </div>
-    @endif --}}
+    @endforeach
+</div>
+@endif --}}
 </div>
