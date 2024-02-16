@@ -147,6 +147,7 @@ $index = 1;
                                 </div>
                             </div>
 
+                            @if(!($survey->publish_status == 'closed' || $survey->publish_status == 'published'))
                             <button @click.prevent="modalOpen = true" wire:click="toggleSectionSelection({{ $section->id }})" class="hover:bg-nt-blue-lighter rounded transition-colors cursor-pointer p-2">
                                 <i class="fa-regular fa-add w-4 h-4 fill-current text-indigo-600"></i>
                             </button>
@@ -154,6 +155,7 @@ $index = 1;
                             <button wire:click="deleteSection('{{ $section->id }}')" class="hover:bg-nt-blue-lighter rounded transition-colors cursor-pointer p-2">
                                 <i class="fa-regular fa-trash-can w-4 h-4 fill-current text-red-600"></i>
                             </button>
+                            @endif
                         </div>
                         <div class="group__goals sortable ml-10" data-section-id="{{ $section->id }}">
                             @foreach ($section->questions as $questionIndex => $question)
@@ -185,7 +187,7 @@ $index = 1;
                                         </div>
                                     </div>
                                 </div>
-
+                                @if(!($survey->publish_status == 'closed' || $survey->publish_status == 'published'))
                                 <button wire:click="editQuestion({{ $question->id }})" class="hover:bg-nt-blue-lighter rounded transition-colors cursor-pointer p-2">
                                     <i class="fa-regular fa-gear w-4 h-4 fill-current text-blue-600"></i>
                                 </button>
@@ -193,6 +195,7 @@ $index = 1;
                                 <button wire:click="deleteQuestion('{{ $question->id }}')" class="hover:bg-nt-blue-lighter rounded transition-colors cursor-pointer p-2">
                                     <i class="fa-regular fa-trash-can w-4 h-4 fill-current text-red-600"></i>
                                 </button>
+                                @endif
                             </div>
                             @endforeach
                         </div>
