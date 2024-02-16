@@ -1,17 +1,14 @@
 <div wire:ignore>
-    <div class="grid grid-cols-2 gap-4">
+    <div class="grid grid-cols-1 gap-4">
         <div>
             <label class="block text-sm font-medium mb-1" for="normal">Open the form on</label>
             <div>
                 <!-- Start -->
                 <div class="relative w-full">
-                    <input wire:change="onStartDateChanged($event.target.value)" wire:model="survey.start_date"
-                        class="w-full datepicker form-input pl-9 text-slate-500 hover:text-slate-600 font-medium focus:border-slate-300 w-160"
-                        placeholder="Select date" />
+                    <input wire:change="onStartDateChanged($event.target.value)" wire:model="survey.start_date" class="w-full datepicker form-input pl-9 text-slate-500 hover:text-slate-600 font-medium focus:border-slate-300 w-160" placeholder="Select date" />
                     <div class="absolute inset-0 right-auto flex items-center pointer-events-none">
                         <svg class="w-4 h-4 fill-current text-slate-500 ml-3" viewBox="0 0 16 16">
-                            <path
-                                d="M15 2h-2V0h-2v2H9V0H7v2H5V0H3v2H1a1 1 0 00-1 1v12a1 1 0 001 1h14a1 1 0 001-1V3a1 1 0 00-1-1zm-1 12H2V6h12v8z" />
+                            <path d="M15 2h-2V0h-2v2H9V0H7v2H5V0H3v2H1a1 1 0 00-1 1v12a1 1 0 001 1h14a1 1 0 001-1V3a1 1 0 00-1-1zm-1 12H2V6h12v8z" />
                         </svg>
                     </div>
                 </div>
@@ -24,13 +21,10 @@
             <div>
                 <!-- Start -->
                 <div class="relative w-full" wire:ignore>
-                    <input wire:change="onEndDateChanged($event.target.value)" wire:model="survey.end_date"
-                        class="w-full datepicker form-input pl-9 text-slate-500 hover:text-slate-600 font-medium focus:border-slate-300 w-160"
-                        placeholder="Select date" />
+                    <input wire:change="onEndDateChanged($event.target.value)" wire:model="survey.end_date" class="w-full datepicker form-input pl-9 text-slate-500 hover:text-slate-600 font-medium focus:border-slate-300 w-160" placeholder="Select date" />
                     <div class="absolute inset-0 right-auto flex items-center pointer-events-none">
                         <svg class="w-4 h-4 fill-current text-slate-500 ml-3" viewBox="0 0 16 16">
-                            <path
-                                d="M15 2h-2V0h-2v2H9V0H7v2H5V0H3v2H1a1 1 0 00-1 1v12a1 1 0 001 1h14a1 1 0 001-1V3a1 1 0 00-1-1zm-1 12H2V6h12v8z" />
+                            <path d="M15 2h-2V0h-2v2H9V0H7v2H5V0H3v2H1a1 1 0 00-1 1v12a1 1 0 001 1h14a1 1 0 001-1V3a1 1 0 00-1-1zm-1 12H2V6h12v8z" />
                         </svg>
                     </div>
                 </div>
@@ -40,7 +34,7 @@
         </div>
     </div>
 
-    <div class="mt-4">
+    {{-- <div class="mt-4">
         <div class="grid grid-cols-2 gap-4">
             <div>
                 <label class="block text-sm font-medium mb-1" for="normal">Start time</label>
@@ -65,7 +59,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
 
     {{-- <div class="mt-4">
