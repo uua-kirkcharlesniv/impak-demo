@@ -21,6 +21,10 @@ class InviteController extends Controller
             abort(404);
         }
 
+        if($invite->status != 'pending') {
+            return redirect()->route('login');
+        }
+
         return view('pages/accept-invite')->with([
             'token' => $token
         ]);
@@ -71,10 +75,22 @@ class InviteController extends Controller
             $refetchedLocal->assignRole('employee');
         }
 
-        $invite->delete();
+        $invite->status = 'accepted';
+        $invite->save();
 
         Mail::to($invite->email)->queue(new EmployeeOnboarded($invite->first_name, tenant()));
 
         return redirect()->route('login');
+    }
+
+    public function deleteInvite($id)
+    {
+        $invite = Invite::find($id);
+
+        if ($invite) {
+            $invite->delete();
+        }
+
+        return redirect()->route('employee.invited');
     }
 }
