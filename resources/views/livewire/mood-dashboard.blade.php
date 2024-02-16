@@ -321,7 +321,7 @@
             <a href="{{ route('community.departments.list') }}">
                 <div class="flex flex-wrap">
                     <div class="w-3/5">
-                        <h1 class="text-black text-sm font-bold">Number of deparments</h1>
+                        <h1 class="text-black text-sm font-bold">Number of departments</h1>
                     </div>
                     <div class="w-2/5 place-items-center m-auto">
                         <h1 class="text-center font-black text-2xl text-indigo-600">{{ $departmentCount }}</h1>
