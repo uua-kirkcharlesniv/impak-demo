@@ -29,7 +29,7 @@ class User extends Component
     public function render()
     {
         return view('livewire.survey-manager.respondent.user', [
-            'users' =>  ModelsUser::role('employee')->orderBy('first_name')->paginate(2, ['*'], 'usersPaginator'),
+            'users' =>  ModelsUser::orderBy('first_name')->paginate(2, ['*'], 'usersPaginator'),
             'groups' =>  Group::orderBy('name')->paginate(2, ['*'], 'groupsPaginator'),
             'departments' =>  Department::orderBy('name')->paginate(2, ['*'], 'departmentPaginator'),
         ]);
