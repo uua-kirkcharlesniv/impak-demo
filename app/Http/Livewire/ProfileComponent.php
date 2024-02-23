@@ -31,9 +31,9 @@ class ProfileComponent extends Component
             $user = $this->users->where('id', $this->selectedId)->first();
         }
 
-        if (!isset($user)) {
-            abort(500);
-        }
+        // if (!isset($user)) {
+        //     abort(500);
+        // }
 
         return $user;
     }
@@ -121,12 +121,12 @@ class ProfileComponent extends Component
             $this->users = $group->members;
 
             $alreadyMemberIds = $group->members->pluck('id')->toArray();
-            $availableMembers = User::role('employee')->whereNotIn('id', $alreadyMemberIds)->get();
+            $availableMembers = User::whereNotIn('id', $alreadyMemberIds)->get();
             $this->availableMembers = $availableMembers;
 
-            if (count($this->users) <= 0) {
-                return redirect()->route('community.groups.list');
-            }
+            // if (count($this->users) <= 0) {
+            //     return redirect()->route('community.groups.list');
+            // }
         } else if (in_array($this->initialRequest[1], ['departments'])) {
             $this->type = 'departments';
 
@@ -137,26 +137,27 @@ class ProfileComponent extends Component
             $this->users = $department->members;
 
             $alreadyMemberIds = $department->members->pluck('id')->toArray();
-            $availableMembers = User::role('employee')->whereNotIn('id', $alreadyMemberIds)->get();
+            $availableMembers = User::whereNotIn('id', $alreadyMemberIds)->get();
             $this->availableMembers = $availableMembers;
 
-            if (count($this->users) <= 0) {
-                return redirect()->route('community.departments.list');
-            }
-        } else {
-            abort(500);
-        }
+            // if (count($this->users) <= 0) {
+            //     return redirect()->route('community.departments.list');
+            // }
+        } 
+        // else {
+        //     abort(500);
+        // }
 
         if (count($this->users) > 0) {
             $this->selectUser($this->users[0]['id']);
-        } else {
-            return redirect()->to('/dashboard');
-        }
+        } 
+        // else {
+        //     return redirect()->to('/dashboard');
+        // }
     }
 
     public function mount($id = null)
     {
-
         $this->initialRequest = Request::segments();
         $this->loadData($id);
     }

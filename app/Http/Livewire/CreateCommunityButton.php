@@ -38,7 +38,7 @@ class CreateCommunityButton extends Component
 
     public function render()
     {
-        $users = User::role('employee')->get();
+        $users = User::all();
         if ($this->selectedUserId != null) {
             $filteredUsers = $users->filter(function ($user) {
                 return $user->id != $this->selectedUserId;
@@ -57,7 +57,7 @@ class CreateCommunityButton extends Component
     {
         return [
             'name' => 'required|min:3',
-            'selectedUserId' => ['required', 'exists:users,id'],
+            'selectedUserId' => ['nullable', 'exists:users,id'],
             'membersIds' => 'nullable|array',
             'membersIds.*' => 'exists:users,id'
         ];
@@ -66,11 +66,16 @@ class CreateCommunityButton extends Component
     public function submit()
     {
         $this->validate();
-
-        $leaders = [$this->selectedUserId];
+        
+        if ($this->selectedUserId == null) {
+            $leaders = [];
+        } else {
+            $leaders = [$this->selectedUserId];
+        }
+        
         $members = $this->membersIds;
         $masterlist = [];
-
+        
 
         if ($this->isDepartment) {
             $model = Department::create([
@@ -89,8 +94,10 @@ class CreateCommunityButton extends Component
         foreach ($members as $member) {
             $masterlist[$member] = ['is_leader' => false];
         }
-
-        $model->members()->attach($masterlist);
+        
+        if(count($masterlist) > 0) {
+            $model->members()->attach($masterlist);
+        }
 
         // $this->alert('success', $this->isDepartment ? 'Department added!' : 'Group added!');
 
