@@ -29,8 +29,20 @@ class MemberController extends Controller
     {
         if (in_array($request->segment(2), ['groups'])) {
             $members = Group::paginate(9);
+            if(Auth::user()->hasRole('employee')) {
+                /// Scope to only show groups that the user is a member of
+                $members = Group::whereHas('members', function($query) {
+                    $query->where('user_id', Auth::user()->id);
+                })->paginate(9);
+            }
         } else {
             $members = Department::paginate(9);
+            if(Auth::user()->hasRole('employee')) {
+                /// Scope to only show groups that the user is a member of
+                $members = Department::whereHas('members', function($query) {
+                    $query->where('user_id', Auth::user()->id);
+                })->paginate(9);
+            }
         }
 
         return view('pages/community/groups-tiles', compact('members'));
