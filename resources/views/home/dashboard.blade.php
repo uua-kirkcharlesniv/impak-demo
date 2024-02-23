@@ -34,7 +34,7 @@
                             @foreach ($tenants as $tenant)
                             <div class="flex flex-row justify-between border-slate-400">
                                 <div class="flex flex-row gap-4">
-                                    <img src="{{ $tenant->profile_photo_url }}" class="h-12 w-12 bg-red-500 rounded-lg">
+                                    <img src="https://ui-avatars.com/api/?name={{ $tenant->company }}" class="h-12 w-12 bg-gray-200 rounded-lg">
                                     <div>
                                         <div>
                                             <h1 class="font-black text-black text-md">{{ $tenant->company }}
