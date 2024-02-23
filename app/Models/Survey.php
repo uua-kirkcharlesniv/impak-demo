@@ -199,6 +199,21 @@ class Survey extends \MattDaneshvar\Survey\Models\Survey
 
     public function getPhotoAttribute()
     {
+        switch($this->framework_id) {
+            case 1:
+                return 'https://unsplash.com/photos/5aiRb5f464A/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8NHx8d29ya3Nob3B8ZW58MHx8fHwxNzA4NjU3MDAxfDA&force=true&w=640';
+                break;
+            case 2:
+                return 'https://unsplash.com/photos/F2KRf_QfCqw/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8M3x8ZXZlbnR8ZW58MHx8fHwxNjkyNjMwNTcyfDA&force=true&w=640';
+                break;
+            case 3:
+                return 'https://unsplash.com/photos/LUYD2b7MNrg/download?ixid=M3wxMjA3fDB8MXxhbGx8fHx8fHx8fHwxNzA4NjY2NzIyfA&force=true&w=640';
+                break;
+            case 5:
+                return 'https://unsplash.com/photos/Hb6uWq0i4MI/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8MTF8fGV2ZW50fGVufDB8fHx8MTcwODY1NDE0NHww&force=true&w=640';
+                break;
+        }
+
         switch ($this->survey_type) {
             case 'post_event':
                 return 'https://unsplash.com/photos/F2KRf_QfCqw/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8M3x8ZXZlbnR8ZW58MHx8fHwxNjkyNjMwNTcyfDA&force=true&w=640';
