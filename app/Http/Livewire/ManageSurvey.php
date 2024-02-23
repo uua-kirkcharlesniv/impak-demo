@@ -57,6 +57,11 @@ class ManageSurvey extends Component
         ];
     }
 
+    public function updated($propertyName)
+    {
+        $this->dispatchBrowserEvent('survey-updated');
+    }
+
     public function refreshSurveyData()
     {
         $this->alert('success', 'Survey has been successfully generated!');

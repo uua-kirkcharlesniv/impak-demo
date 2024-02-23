@@ -5,6 +5,12 @@ $index = 1;
     <div class="h-[calc(100vh-74px)] flex">
         <!-- Fixed sidebar -->
         <div class="w-1/3 bg-white overflow-y-auto mr-2">
+            <p class="pl-4 pt-4 pb-2 text-sm text-slate-400">Last updated {{ $survey->updated_at->diffForHumans() }}</p>
+
+            <p class="text-md pt-2 pl-4 pr-4 pb-4 text-slate-600" x-data="{ show: false }" x-show="show" x-init="setTimeout(() => show = false, 10000)" x-on:survey-updated.window="show = true" x-transition:enter="transition ease-out duration-300 transform" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="transition ease-in duration-300 transform" x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 translate-y-4">
+                Changes autosaved
+            </p>
+
             <x-survey-tab isFirst="true" title="{{ $index }}. setup" icon="fa-screwdriver-wrench">
                 <div>
                     <label class="block text-sm font-medium mb-1" for="name">Your survey name</label>
