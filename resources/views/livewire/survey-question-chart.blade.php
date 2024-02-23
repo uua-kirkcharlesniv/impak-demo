@@ -35,7 +35,7 @@
                                         x-text="showFullText ? '{{ $answer['value'] }}' : '{{ \Illuminate\Support\Str::limit($answer['value'], 25, $end = '...') }}'"></span>
                                 </div>
                                 <div class="shrink-0 self-end ml-2">
-                                    <a class="font-medium text-indigo-500 hover:text-indigo-600"
+                                    <a class="font-medium text-indigo-500 hover:text-indigo-600" x-show="!showFullText"
                                         x-on:click="showFullText = true" href="#0">View<span
                                             class="hidden sm:inline"> -&gt;</span></a>
                                 </div>
