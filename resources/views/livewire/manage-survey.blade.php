@@ -135,7 +135,7 @@ $index = 1;
                                         textInput.select();
                                     }
                                 }" x-cloak>
-                                <div tabindex="0" class="relative max-w-full flex items-center hover:bg-gray-100 rounded px-2 cursor-pointer" style="height: auto;" x-on:click="isEditing = true">
+                                <div tabindex="0" class="relative max-w-full flex items-center hover:bg-gray-100 rounded px-2 cursor-pointer" style="height: auto;" @if(!($survey->publish_status == 'closed' || $survey->publish_status == 'published')) x-on:click="isEditing = true" @endif>
                                     <div x-show=!isEditing>
                                         <div class="cursor-pointer max-w-full truncate w-full">
                                             {{ $section->name }}
@@ -174,7 +174,7 @@ $index = 1;
                                                 textInput.select();
                                             }
                                         }" x-cloak>
-                                    <div tabindex="0" class="relative max-w-full flex items-center hover:bg-gray-100 rounded px-2 cursor-pointer" style="height: auto;" x-on:click="isEditing = true">
+                                    <div tabindex="0" class="relative max-w-full flex items-center hover:bg-gray-100 rounded px-2 cursor-pointer" style="height: auto;" @if(!($survey->publish_status == 'closed' || $survey->publish_status == 'published')) x-on:click="isEditing = true" @endif>
                                         <div x-show=!isEditing>
                                             <div class="cursor-pointer max-w-full truncate w-full">
                                                 {{ $question->content }}
