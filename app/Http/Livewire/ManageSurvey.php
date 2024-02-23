@@ -368,12 +368,19 @@ class ManageSurvey extends Component
 
     public function updateStatus($data)
     {
+        $currentSurveyName = $this->survey->name;
+        /// Show error if survey name is empty
+        if(empty($currentSurveyName)) {
+            $this->alert('warning', 'Survey name cannot be empty.');
+            return;
+        }
+
         $text = "";
         $content = "";
         $functionName = "";
         if ($data == "published") {
             $text = "Are you sure you want to publish the survey?";
-            $content = "Doing so, it will allow respondents to view and answer your survey.";
+            $content = "Doing so, your respondents will be able to view and answer your survey. This will also disable editing the questions.";
             $functionName = "updateSurveyStatusToPublished";
         } else if ($data == "closed") {
             $text = "Are you sure you want to close the survey?";

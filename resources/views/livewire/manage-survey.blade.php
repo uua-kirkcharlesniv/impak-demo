@@ -11,9 +11,9 @@ $index = 1;
                     <input id="name" class="form-input w-full" type="text" placeholder="" wire:model.lazy="survey.name" wire:change="onSurveyNameChanged($event.target.value)" />
                 </div>
 
-                <div>
+                <div class="mt-4">
                     <label class="block text-sm font-medium mb-1" for="countAllowedSubmissions">Maximum number of
-                        submissions</label>
+                        submissions per respondent</label>
                     <input id="countAllowedSubmissions" class="form-input w-full" type="number" min="0" max="999" wire:model.lazy="survey.settings.limit-per-participant" wire:change="onMaxSubmissionsChanged($event.target.value)" placeholder="Leave blank to set to 1" />
                 </div>
             </x-survey-tab>

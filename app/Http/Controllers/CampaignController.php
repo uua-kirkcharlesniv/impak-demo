@@ -84,10 +84,10 @@ class CampaignController extends Controller
         });
 
         $survey = Survey::create([
-            'name' => $template->title,
+            'name' => '',
             'settings' => $template->settings,
             'rationale' => $template->rationale,
-            'rationale_description' => $template->rationale_description,
+            'rationale_description' => '',
             'survey_type' => $template->survey_type,
             'framework_id' => $template->id,
             'start_date' => Carbon::now()->startOfDay()->format('Y-m-d H:i:s'),
