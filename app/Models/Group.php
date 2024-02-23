@@ -41,6 +41,11 @@ class Group extends Model
         return $leaders . ' ' . $ordinary;
     }
 
+    public function getProfilePhotoUrlAttribute()
+    {
+        return "https://ui-avatars.com/api/?name=". $this->name ."&color=7F9CF5&background=EBF4FF";
+    }
+
     public function getIsLoggedInUserGroupLeaderAttribute()
     {
         if (Auth::user() == null) {
