@@ -81,7 +81,11 @@
                     <div>
 
                         <span class="inline-block {{ $bgColor }}  {{ $textColor }} rounded-full px-3 py-1 text-sm font-semibold mr-2 mb-2">
+                            @if($campaign->survey_type == 'mental_health')
+                            Mental Wellness
+                            @else
                             {{ ucwords(strtolower(str_replace('_', ' ', $campaign->survey_type))) }}
+                            @endif
                         </span>
                     </div>
                     <p class="mb-3 font-normal text-gray-700 text-ellipsis">
