@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Jobs\ProcessGenerateSurvey;
+use App\Mail\NewSurveyMail;
 use App\Mail\SurveyCompletedMail;
 use App\Models\Question;
 use App\Models\Section;
@@ -12,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
+use App\Models\User;
 
 class ManageSurvey extends Component
 {
@@ -408,6 +410,19 @@ class ManageSurvey extends Component
         $this->survey->update(['publish_status' => $data]);
 
         $this->survey = $this->survey->refresh();
+
+        if($data == "published") {
+            /// Get all target user ids
+            $targetUserIds = $this->survey->target_user_ids;
+
+            /// Get all emails of the target user ids
+            $respondents = User::whereIn('id', $targetUserIds)->pluck('email')->toArray();
+
+            foreach ($respondents as $respondent) {
+                Mail::to($respondent)
+                    ->queue(new NewSurveyMail(route('survey.view', $this->survey->id), $this->survey->name));   
+            }
+        }
 
         if ($data == "closed") {
             $this->alert(
