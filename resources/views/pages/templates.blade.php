@@ -31,7 +31,7 @@
             case 'post_workshop':
             $bgColor = 'bg-sky-400';
             $textColor = 'text-black';
-            $photo = 'https://plus.unsplash.com/premium_photo-1661713210744-f5be3c3491fe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80';
+            $photo = 'https://unsplash.com/photos/5aiRb5f464A/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8NHx8d29ya3Nob3B8ZW58MHx8fHwxNzA4NjU3MDAxfDA&force=true&w=640';
 
             break;
             case 'mental_health':
@@ -65,7 +65,7 @@
             break;
             case 5:
             $photo = 'https://unsplash.com/photos/Hb6uWq0i4MI/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8MTF8fGV2ZW50fGVufDB8fHx8MTcwODY1NDE0NHww&force=true&w=640';
-
+            break;
 
             }
             @endphp
